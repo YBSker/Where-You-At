@@ -30,6 +30,6 @@ public class Server {
             });
         })
         .exception(ItemNotFoundException.class, (e, ctx) -> { ctx.status(404); })
-        .start(System.getenv("PORT") == null ? 7000 : Integer.parseInt(System.getenv("PORT")));
+        .start(System.getenv("PORT") == null ? 7001 : Integer.parseInt(System.getenv("PORT")));
     }
 }
