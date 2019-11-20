@@ -2,10 +2,10 @@ package wya.models;
 
 public class Location {
     private int identifier;
-    private double longitude;
-    private double latitude;
+    private float longitude;
+    private float latitude;
 
-    public Location(int identifier, double longitude, double latitude) {
+    public Location(int identifier, float longitude, float latitude) {
         this.identifier = identifier;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -19,19 +19,19 @@ public class Location {
         this.identifier = identifier;
     }
 
-    public double getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 }

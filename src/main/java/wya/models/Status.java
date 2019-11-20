@@ -2,13 +2,24 @@ package wya.models;
 
 public class Status {
     private int identifier;
-    private String text;
-    private Reaction[] reacts;
+    private int status;
+    private String textStatus;
 
-    public Status(int identifier, String text, Reaction[] reacts) {
+    /** THIS FUNCTION CAN SET ID AND "STATUS". TEXT IS THE TEXT CORRESPONDING TO A CERTAIN STATUS!. */
+    public Status(int identifier, int status) {
         this.identifier = identifier;
-        this.text = text;
-        this.reacts = reacts;
+        this.status = status;
+        /** 0 - Unavailable
+         *  1 - Busy
+         *  2 - Available
+         */
+        if (status == 0) {
+            this.textStatus = "Unavailable";
+        } else if (status == 1) {
+            this.textStatus = "Busy";
+        } else {
+            this.textStatus = "Available";
+        }
     }
 
     public int getIdentifier() {
@@ -19,19 +30,16 @@ public class Status {
         this.identifier = identifier;
     }
 
-    public String getText() {
-        return text;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public int getStatus() {
+        return status;
     }
 
-    public Reaction[] getReacts() {
-        return reacts;
+    public String getTextStatus() {
+        return textStatus;
     }
 
-    public void setReacts(Reaction[] reacts) {
-        this.reacts = reacts;
-    }
 }

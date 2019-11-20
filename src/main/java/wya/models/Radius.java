@@ -7,12 +7,16 @@ public class Radius {
     private String regionTypeName;
     private String[] regionCovered;
 
-    public Radius(int identifier, int radius, Location location, String regionTypeName, String[] regionCovered) {
+    //FOR NOW THIS WILL JUST HAVE WHAT REGIONS WE ARE ABLE TO SHOW UP ON
+    //PLAY WITH GOOGLE MAPS TO COMPLETE...
+    public Radius(int identifier) {
         this.identifier = identifier;
-        this.radius = radius;
-        this.location = location;
-        this.regionTypeName = regionTypeName;
-        this.regionCovered = regionCovered;
+        //Default radius to 0
+        this.radius = 0;
+//        this.location = location;
+//        this.regionTypeName = regionTypeName;
+//        //In order to get
+//        this.regionCovered = regionCovered;
     }
 
     public Radius() {}

@@ -1,19 +1,19 @@
 package wya.models;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Availability {
     private int identifier;
-    private Availability availability;
-    private AvailabilityIndicator indicator;
-    private String time;
+    // Is this
+    private ArrayList<Date> times;
 
     public Availability() {
+
     }
 
-    public Availability(int identifier, Availability availability, AvailabilityIndicator indicator, String time) {
+    public Availability(int identifier) {
         this.identifier = identifier;
-        this.availability = availability;
-        this.indicator = indicator;
-        this.time = time;
     }
 
     public int getIdentifier() {
@@ -24,27 +24,19 @@ public class Availability {
         this.identifier = identifier;
     }
 
-    public Availability getAvailability() {
-        return availability;
+//    public AvailabilityIndicator getIndicator() {
+//        return indicator;
+//    }
+
+//    public void setIndicator(AvailabilityIndicator indicator) {
+//        this.indicator = indicator;
+//    }
+
+    public ArrayList<Date> getTime() {
+        return times;
     }
 
-    public void setAvailability(Availability availability) {
-        this.availability = availability;
-    }
-
-    public AvailabilityIndicator getIndicator() {
-        return indicator;
-    }
-
-    public void setIndicator(AvailabilityIndicator indicator) {
-        this.indicator = indicator;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime(ArrayList<Date> times) {
+        this.times = times;
     }
 }

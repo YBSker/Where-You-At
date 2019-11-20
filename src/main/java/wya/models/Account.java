@@ -1,41 +1,25 @@
 package wya.models;
 
 public class Account {
-    private int identifier;
-    private String fullName;
     private String username;
+    private String password;
     private String email;
     private String profilePicture;
-    private Person person;
+    private int person_id;
     private Radius radius;
     private Person[] friends;
-    private int facebook;
 
-    public Account(int identifier, String fullName, String username, String email, Person person, Radius radius, int facebook) {
-        this.identifier = identifier;
-        this.fullName = fullName;
+    public Account(String username, String password, String email, int person, String profilePicture, Radius radius) {
         this.username = username;
+        this.password = password;
         this.email = email;
-        this.person = person;
+        this.profilePicture = profilePicture;
+        this.person_id = person;
         this.radius = radius;
-        this.facebook = facebook;
     }
 
-    public int getIdentifier() {
-        return identifier;
-    }
+    public Account() {}
 
-    public void setIdentifier(int identifier) {
-        this.identifier = identifier;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     public String getUsername() {
         return username;
@@ -61,12 +45,12 @@ public class Account {
         this.profilePicture = profilePicture;
     }
 
-    public Person getPerson() {
-        return person;
+    public int getPerson_id() {
+        return person_id;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPerson_id(int person) {
+        this.person_id = person;
     }
 
     public Radius getRadius() {
@@ -85,11 +69,11 @@ public class Account {
         this.friends = friends;
     }
 
-    public int getFacebook() {
-        return facebook;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFacebook(int facebook) {
-        this.facebook = facebook;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

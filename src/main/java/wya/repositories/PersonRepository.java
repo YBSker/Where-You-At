@@ -1,20 +1,25 @@
 package wya.repositories;
 
 import wya.models.Availability;
-import wya.models.Location;
 import wya.models.Person;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class PersonRepository {
+    /**
+     * Connection to db via JDBC.
+     */
     private Connection connection;
 
+    /**
+     * Constructor for Person Repository.
+     *
+     * @param connection DB connection.
+     * @throws SQLException Statement failed to execute.
+     */
     public PersonRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
@@ -22,6 +27,12 @@ public class PersonRepository {
         statement.close();
     }
 
+    /**
+     * Get all entries in person.
+     *
+     * @return Arraylist of entries in person
+     * @throws SQLException Statement failed to execute.
+     */
     public List<Person> getAll() throws SQLException {
         var people = new ArrayList<Person>();
         var statement = connection.createStatement();
@@ -34,6 +45,14 @@ public class PersonRepository {
         return people;
     }
 
+    /**
+     * Get entry with identifier from person.
+     *
+     * @param identifier The PK to find in person
+     * @return Person object containing the fields from the entry with identifier.
+     * @throws SQLException Statement failed to execute.
+     * @throws PersonNotFoundException PK not found in person.
+     */
     public Person getOne(int identifier) throws SQLException, PersonNotFoundException {
         var statement = connection.prepareStatement("SELECT * FROM person WHERE identifier = ?");
         statement.setInt(1, identifier);
@@ -50,14 +69,29 @@ public class PersonRepository {
         }
     }
 
-    public void create(Person person) throws SQLException {
-        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, availability) VALUES (?,?,?,?,?,?,?)");
+    /**
+     * Create a new personal profile for the user.
+     *
+     * @param person Person object that has fullName, lastSeen, live, status, longitude, latitude, availability fields.
+     * @return PK identifier of new person entry.
+     * @throws SQLException Statement failed to execute.
+     */
+    public int create(Person person) throws SQLException {
+        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, availability) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         prepareStatement(person, statement);
-        statement.setString(1, person.getFullName());
-        statement.execute();
+        statement.executeUpdate();
+        int id = statement.getGeneratedKeys().getInt(1);
         statement.close();
+        return id;
     }
 
+    /**
+     * Update the user profile with the fullName, lastSeen, live, status, longitude, latitude, availability fields stored in person.
+     *
+     * @param person Person object that has fullName, lastSeen, live, status, longitude, latitude, availability fields.
+     * @throws SQLException Statement failed to execute.
+     * @throws PersonNotFoundException Person with person_id not found.
+     */
     public void updateDetails(Person person) throws SQLException, PersonNotFoundException {
         var statement = connection.prepareStatement("UPDATE person SET fullName = ?, lastSeen = ?, live = ?, status = ?, longitude = ?, latitude = ?, availability = ?  WHERE identifier = ? ");
         prepareStatement(person, statement);
@@ -69,8 +103,12 @@ public class PersonRepository {
         }
     }
 
-    /*
-     * Helper to create a person from the database using a ResultSet Object.
+    /**
+     * Helper function to create a a person object from a person database entry.
+     *
+     * @param result Entry from person.
+     * @return Person object with the entries from person DB.
+     * @throws SQLException Result failed to return field.
      */
     private Person createPersonFromDB(ResultSet result) throws SQLException {
         return new Person(
@@ -85,14 +123,21 @@ public class PersonRepository {
         );
     }
 
+    /**
+     * Helper function to fill in values for the SQL query.
+     *
+     * @param person Person object containing the fields to fill into the values for the SQL query.
+     * @param statement SQL query to fill into.
+     * @throws SQLException Statement failed to fill.
+     */
     private void prepareStatement(Person person, PreparedStatement statement) throws SQLException {
         statement.setString(1, person.getFullName());
-        statement.setString(2, person.getLastSeen());
+        statement.setString(2, person.getLastSeen());   // ISO8601 format string
         statement.setBoolean(3, person.isLive());
         statement.setString(4, person.getStatus());
         statement.setFloat(5, person.getLongitude());
         statement.setFloat(6, person.getLatitude());
-//        statement.setInt(7, person.getAvailability().getIdentifier());    //TODO
+//        statement.setInt(7, person.getAvailability().getIdentifier());    //TODO AVAILABILITY
         statement.setInt(7,1);
     }
 }

@@ -1,9 +1,9 @@
 package wya.repositories;
 
 import wya.models.Account;
-import wya.models.Radius;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,22 +11,21 @@ import java.util.List;
 
 public class AccountRepository {
     private Connection connection;
-    private PersonRepository personRepository;
+    private RaidusRepository radiusRepository;
 
-    public AccountRepository(Connection connection, PersonRepository personRepository) throws SQLException {
+    public AccountRepository(Connection connection, RaidusRepository radiusRepository) throws SQLException {
         this.connection = connection;
-        this.personRepository = personRepository;
+        this.radiusRepository = radiusRepository;
         var statement = connection.createStatement();
-        //FK(location, peopleAvailable, peopleAccepted, peopleInvited, peopleSeen)
-        statement.execute("CREATE TABLE IF NOT EXISTS users (identifier INTEGER PRIMARY KEY AUTOINCREMENT, username, email TEXT, " +
-                "FOREIGN KEY (person_id) REFERENCES persons(person_id), radius INTEGER, facebook INTEGER)");
+        statement.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY UNIQUE, password TEXT, email TEXT," +
+                "person_id INTEGER, profilePicture TEXT, radius_id INTEGER, FOREIGN KEY (person_id) REFERENCES person(identifier), FOREIGN KEY (radius_id) REFERENCES radius(radius_id))");
         statement.close();
     }
 
-    public List<Account> getAll() throws SQLException, PersonNotFoundException{
+    public List<Account> getAll() throws SQLException {
         var account = new ArrayList<Account>();
         var statement = connection.createStatement();
-        var result = statement.executeQuery("SELECT FROM users");
+        var result = statement.executeQuery("SELECT * FROM users");
         while (result.next()) {
             account.add(createAccountFromDB(result));
         }
@@ -35,9 +34,9 @@ public class AccountRepository {
         return account;
     }
 
-    public Account getOne(int id) throws SQLException, AccountNotFoundException, PersonNotFoundException {
-        var statement = connection.prepareStatement("SELECT FROM users WHERE identifier = ?");
-        statement.setInt(1, id);
+    public Account getOne(String username) throws SQLException, AccountNotFoundException {
+        var statement = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
+        statement.setString(1, username);
         var result = statement.executeQuery();
         try {
             if (result.next()) {
@@ -51,25 +50,17 @@ public class AccountRepository {
         }
     }
 
-    /*
-     * Update database
-     */
-    public void create() throws SQLException {
-        var statement = connection.createStatement();
-        statement.execute("INSERT INTO users (name) VALUES(\"\")"); //todo
-        statement.close();
-    }
-
-    public void create(Account event) throws SQLException {
-        var statement = connection.prepareStatement("INSERT INTO users (name, description, place, longitude, latitude, image, startTime, endTime) VALUES(?,?,?,?,?,?,?,?)");
+    public void create(Account account) throws SQLException {
+        var statement = connection.prepareStatement("INSERT INTO users (username, password, email, person_id, profilePicture, radius_id) VALUES(?,?,?,?,?,?)");   //TODO radius
+        prepareStatement(account, statement);
         statement.execute();
         statement.close();
     }
 
-    public void updateDetails(Account event) throws SQLException, AccountNotFoundException {
-        var statement = connection.prepareStatement("UPDATE users SET name = ?, description = ?, place = ?, longitude = ?, latitude = ?, image = ?, startTime = ?, endTime = ? WHERE identifier = ?");
-        statement.setString(1, event.getFullName());
-        statement.setInt(9, event.getIdentifier());
+    public void updateDetails(Account account) throws SQLException, AccountNotFoundException {
+        var statement = connection.prepareStatement("UPDATE users SET password = ?,  email = ?, person_id = ?,  profilePicture = ?, radius_id = ? WHERE username = ?");
+        prepareStatement(account, statement);
+        statement.setString(6, account.getUsername());
         try {
             if (statement.executeUpdate() == 0) throw new AccountNotFoundException();
         } finally {
@@ -77,15 +68,23 @@ public class AccountRepository {
         }
     }
 
-    private Account createAccountFromDB(ResultSet result) throws SQLException, PersonNotFoundException {
+    private Account createAccountFromDB(ResultSet result) throws SQLException {
         return new Account(
-                result.getInt("identifier"),
-                result.getString("fullName"),
                 result.getString("username"),
+                result.getString("password"),
                 result.getString("email"),
-                personRepository.getOne(result.getInt("person_id")),
-                new Radius(),   //todo
-                result.getInt("facebook")
-                );
+                result.getInt("person_id"),
+                result.getString("profilePicture"),
+                radiusRepository.getOne(result.getInt("radius_id"))
+        );
+    }
+
+    private void prepareStatement(Account account, PreparedStatement statement) throws SQLException {
+        statement.setString(1, account.getUsername());
+        statement.setString(2, account.getPassword());
+        statement.setString(3, account.getEmail());
+        statement.setInt(4, account.getPerson_id());
+        statement.setString(5, account.getProfilePicture());
+        statement.setInt(6, account.getRadius().getIdentifier());
     }
 }
