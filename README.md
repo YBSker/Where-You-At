@@ -38,7 +38,7 @@ The code for the Client runs directly on the user’s browser, and it is sent th
 
 [`client.js`](/src/main/resources/public/javascripts/client.js): The entry point for the JavaScript portion of the Client, which mounts the [React](https://www.jhu-oose.com/toolbox/#user-interface-builder-react) component.
 
-[`ItemsComponents.js`](/src/main/resources/public/javascripts/components/ItemsComponents.js): A collection of React components for Items.
+[`NavigationBar.js`](/src/main/resources/public/javascripts/components/NavigationBar.js): A collection of React components for Items.
 
 [`vendor/`](/src/main/resources/public/javascripts/vendor): A directory containing the libraries we’re using on the Client: React and [Babel](https://babeljs.io) (to add support for JSX).
 
