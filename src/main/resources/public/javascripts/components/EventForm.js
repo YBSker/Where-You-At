@@ -86,9 +86,9 @@ class EventForm extends React.Component {
 
     render() {
         const eventCreated = <div><h6>Event Created!</h6><Button variant="primary" onClick={this.onNewEvent}>Make Another Event!</Button></div>
-        //
+
         const invalidMessage = <h6>Event was not created, please make sure you filled out all fields and pressed Load Address Location! Then submit again!</h6>
-        //
+
         const loadButton = <Button variant="primary" onClick={this.getLocation}>Load Address Location</Button>
 
         const reloadButton = <div><Button variant="primary" onClick={this.getLocation}>Reload Address Location</Button><h6>Success!</h6></div>
