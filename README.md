@@ -12,15 +12,15 @@
 
 ## Getting Started 
 
-To work on this project, first install **IntelliJ**. Then, clone all the files, import Gradle changes, make sure the SDK environment is Java 12, and run Server.java. The project will then be launched in development mode on **localhost:7000**. 
+To work on this project, first install **IntelliJ IDEA**. Then, clone all the files, import Gradle changes, make sure the SDK environment is Java 12, and run Server.java. The project will then be launched in development mode on **localhost:7000**. 
 
 ## Architecture
 
-**Where you at** is a web application with two components: the Server and the Client. The server is written in Java using Javalin and the client written in Javascript using ReactJS.
+**Where you at** is a web application with two components: the Server and the Client. The server is written in Java using **Javalin** and the client written in Javascript using **ReactJS**.
 
 ## API Documentation
 
-This project utilizes Google API and Facebook API for essential geographical information and user log in functionality. Our application calls Google API to retrieve geocode information, which includes latitude and longitude, and information such as address and city name. Facebook API helps facilitate user log in process and linking of the user to his/her friends on that are already connected on the social network. 
+This project utilizes **Google API** and **Facebook API** for essential geographical information and user log in functionality. Our application calls Google API to retrieve geocode information, which includes latitude and longitude, and information such as address and city name. Facebook API helps facilitate user log in process and linking of the user to his/her friends on that are already connected on the social network. 
 
 [Map API](https://developers.google.com/maps/documentation/javascript/tutorial)
 
@@ -28,7 +28,7 @@ This project utilizes Google API and Facebook API for essential geographical inf
 
 [Facebook API](https://developers.facebook.com/)
 
-We also used React Bootstrap for components such as Button and Form for the client.
+We also used **React Bootstrap** for components such as Button and Form for the client.
 
 [React Bootstrap](https://react-bootstrap.github.io)
 ## Auxiliary Files
