@@ -16,14 +16,17 @@ public class AppController {
     private PersonRepository personRepository = new PersonRepository(connection);
     private RaidusRepository raidusRepository = new RaidusRepository();
     private AccountRepository accountRepository = new AccountRepository(connection, raidusRepository);
+    private PlacesRepository placesRepository = new PlacesRepository(connection);
 
     private EventController eventController = new EventController(eventRepository);
     private PersonController personController = new PersonController(personRepository);
     private AccountController accountController = new AccountController(accountRepository);
+    private PlacesController placesController = new PlacesController(placesRepository);
 
     public void register(Context ctx) throws SQLException {
         int person_id = personController.create(ctx);
         accountController.register(ctx, person_id);
+        placesController.create(ctx, person_id);
         ctx.status(201);
     }
 
@@ -63,4 +66,9 @@ public class AppController {
     public void editFriends(Context ctx) {
         //TODO
     }
+
+    public void updatePlaces(Context ctx) throws SQLException, PlacesNotFoundException {
+        placesController.updateDetails(ctx);
+    }
+
 }
