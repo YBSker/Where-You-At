@@ -37,7 +37,8 @@ class GoogleMap extends React.Component {
             ],
             region: "town",
             place: "New York",
-            region_array: []
+            region_array: [],
+            myEvents:{}
         }
     }
 
@@ -69,8 +70,19 @@ class GoogleMap extends React.Component {
         this.setState({region_array: region_arr});
         console.log(this.state.region_array);
         this.getCurrentLocation();
+        const eventsList = await this.getEvents();
+        this.setState({myEvents: eventsList});
+        console.log(this.state.myEvents);
+        {this.state.myEvents.map(event => (this.displaySingleEvent(event, map)))}
     };
 
+    displaySingleEvent(event, map) {
+        const lat = event.latitude;
+        const lng = event.longitude;
+        const eventName = event.name;
+        const location = {lat, lng};
+        new google.maps.Marker({position: location, map: map, label: eventName});
+    }
 
     getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -144,6 +156,15 @@ class GoogleMap extends React.Component {
             else if (result[j].types[0]==="neighborhood") {region_arr[3] = result[j].address_components[0].long_name;}
         }
     };
+
+    getEvents = async() => {
+        const response = await fetch("/event",{method: "GET"});
+        console.log(response);
+        const eventList = await response.json();
+        console.log(eventList);
+        return eventList;
+    }
+
 
     render() {
         return (
