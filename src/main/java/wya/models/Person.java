@@ -8,7 +8,7 @@ public class Person {
     private String status;
     private float longitude;
     private float latitude;
-    private Availability availability;
+    private int availability;
 
 
     public Person() {}
@@ -25,7 +25,7 @@ public class Person {
      * Constructor with all vars
      */
 
-    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, Availability availability) {
+    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability) {
         this.identifier = identifier;
         this.fullName = fullName;
         this.lastSeen = lastSeen;
@@ -92,11 +92,11 @@ public class Person {
         this.latitude = latitude;
     }
 
-    public Availability getAvailability() {
+    public int getAvailability() {
         return availability;
     }
 
-    public void setAvailability(Availability availability) {
+    public void setAvailability(int availability) {
         this.availability = availability;
     }
 }

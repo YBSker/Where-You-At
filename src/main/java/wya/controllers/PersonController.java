@@ -61,8 +61,6 @@ public class PersonController {
         person.setStatus(ctx.formParam("status", ""));
         person.setLongitude(ctx.formParam("longitude", float.class, "").get());
         person.setLatitude(ctx.formParam("latitude", float.class, "").get());
-        person.setAvailability(new Availability()); //TODO what's the default?
+        person.setAvailability(ctx.formParam("availability", int.class).get()); //TODO what's the default?
     }
-
-
 }
