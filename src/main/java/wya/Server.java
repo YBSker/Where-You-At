@@ -27,8 +27,6 @@ public class Server {
             path("register", () -> {
                 post(appController::register);
             });
-        }).exception(PersonNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
         })
         .routes(() -> {
             path("changePassword", () -> {
@@ -45,11 +43,13 @@ public class Server {
         .routes(() -> {
             path("updateAccount", () -> {
                 put(appController::updateAccount);
+                get(appController::getAccount);
             });
         }).exception(AccountNotFoundException.class, (e, ctx) -> {
             ctx.status(404);
         })
         .routes(() -> {
+            get(appController::getProfile);
             path("updateProfile", () -> {
                 put(appController::updateProfile);
             });

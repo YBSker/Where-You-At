@@ -52,14 +52,24 @@ public class AccountRepository {
 
     public void create(Account account) throws SQLException {
         var statement = connection.prepareStatement("INSERT INTO users (username, password, email, person_id, profilePicture, radius_id) VALUES(?,?,?,?,?,?)");   //TODO radius
-        prepareStatement(account, statement);
+        statement.setString(1, account.getUsername());
+        statement.setString(2, account.getPassword());
+        statement.setString(3, account.getEmail());
+        statement.setInt(4, account.getPerson_id());
+        statement.setString(5, account.getProfilePicture());
+        statement.setInt(6, account.getRadius().getIdentifier());
+
         statement.execute();
         statement.close();
     }
 
     public void updateDetails(Account account) throws SQLException, AccountNotFoundException {
         var statement = connection.prepareStatement("UPDATE users SET password = ?,  email = ?, person_id = ?,  profilePicture = ?, radius_id = ? WHERE username = ?");
-        prepareStatement(account, statement);
+        statement.setString(1, account.getPassword());
+        statement.setString(2, account.getEmail());
+        statement.setInt(3, account.getPerson_id());
+        statement.setString(4, account.getProfilePicture());
+        statement.setInt(5, account.getRadius().getIdentifier());
         statement.setString(6, account.getUsername());
         try {
             if (statement.executeUpdate() == 0) throw new AccountNotFoundException();
@@ -80,11 +90,6 @@ public class AccountRepository {
     }
 
     private void prepareStatement(Account account, PreparedStatement statement) throws SQLException {
-        statement.setString(1, account.getUsername());
-        statement.setString(2, account.getPassword());
-        statement.setString(3, account.getEmail());
-        statement.setInt(4, account.getPerson_id());
-        statement.setString(5, account.getProfilePicture());
-        statement.setInt(6, account.getRadius().getIdentifier());
+
     }
 }

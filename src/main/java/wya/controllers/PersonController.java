@@ -31,6 +31,10 @@ public class PersonController {
         ctx.json(personRepository.getAll());
     }
 
+    public void getOne(Context ctx) throws SQLException, PersonNotFoundException {
+        ctx.json(personRepository.getOne());
+    }
+
     /**
      * Create a new person entry in person table.
      *
