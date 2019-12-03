@@ -103,6 +103,31 @@ public class PersonRepository {
         }
     }
 
+    public void updateTime(String time) throws SQLException {
+        var statement = connection.prepareStatement("Update person SET lastSeen = ? WHERE identifier = ?");
+        statement.setString(1, time);
+        statement.setInt(2, );
+    }
+
+    /**
+     * Updates the location of the Current User's profile to their device's current location.
+     *
+     * @param longitude Longitude of their current location.
+     * @param latitude Latitiude of their current location.
+     * @throws SQLException Result failed to find the row.
+     * @throws PersonNotFoundException Person does not exist.
+     */
+    public void updateLocation(float longitude, float latitude) throws SQLException, PersonNotFoundException {
+        var statement = connection.prepareStatement("UPDATE person set longitude, latitude VALUES (?,?)");
+        statement.setFloat(1, longitude);
+        statement.setFloat(2, latitude);
+        try {
+            if (statement.executeUpdate() == 0) throw new PersonNotFoundException();
+        } finally {
+            statement.close();
+        }
+    }
+
     /**
      * Helper function to create a a person object from a person database entry.
      *

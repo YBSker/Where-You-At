@@ -60,6 +60,7 @@ public class AccountController {
             throw new ForbiddenResponse();
         }
         ctx.sessionAttribute("user", user);
+        ctx.sessionAttribute("person_id", user.getPerson_id());
         ctx.status(200);
     }
 
@@ -69,13 +70,13 @@ public class AccountController {
      * @param ctx Javalin Context object with the form params to insert into user entry.
      */
     void changePass(Context ctx) throws AccountNotFoundException, SQLException {
-        var user = currentUser(ctx);
-        BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("oldpassword", "").toCharArray(), user.getPassword());
+        var curr = currentUser(ctx);
+        BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("oldpassword", "").toCharArray(), curr.getPassword());
         if (!result.verified) {
             throw new ForbiddenResponse();
         }
-        user.setPassword(BCrypt.withDefaults().hashToString(12, ctx.formParam("newpassword", "").toCharArray()));
-        accountRepository.updateDetails(user);
+        curr.setPassword(BCrypt.withDefaults().hashToString(12, ctx.formParam("newpassword", "").toCharArray()));
+        accountRepository.updateDetails(curr);
         ctx.status(200);
     }
 
@@ -100,9 +101,9 @@ public class AccountController {
      * @throws AccountNotFoundException Account with PK identifier not found in user.
      */
     void updateDetails(Context ctx) throws SQLException, AccountNotFoundException {
-        var account = accountRepository.getOne(ctx.pathParam("username"));
-        createToDB(ctx, account);
-        accountRepository.updateDetails(account);
+        var curr = currentUser(ctx);
+        editToDB(ctx, curr);
+        accountRepository.updateDetails(curr);
         ctx.status(204);
     }
 
@@ -113,11 +114,17 @@ public class AccountController {
      * @param account Account object to be converted into user entry.
      * @throws SQLException Statement failed to execute.
      */
-    private void createToDB(Context ctx, Account account) throws SQLException {
+    private void createToDB(Context ctx, Account account) {
         account.setUsername(ctx.formParam("username", ""));
         account.setPassword(BCrypt.withDefaults().hashToString(12, Objects.requireNonNull(ctx.formParam("password", "")).toCharArray()));
         account.setEmail(ctx.formParam("email", ""));
         account.setPerson_id(account.getPerson_id());
+        account.setProfilePicture(ctx.formParam("profilePicture", ""));
+        account.setRadius(new Radius());    //TODO Passing in some radius
+    }
+
+    private void editToDB(Context ctx, Account account) {
+        account.setEmail(ctx.formParam("email", ""));
         account.setProfilePicture(ctx.formParam("profilePicture", ""));
         account.setRadius(new Radius());    //TODO Passing in some radius
     }

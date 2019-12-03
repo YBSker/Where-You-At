@@ -9,32 +9,40 @@ import java.sql.SQLException;
 
 public class AppController {
     Connection connection = DriverManager.getConnection("jdbc:sqlite:wya.db");
+
     public AppController() throws SQLException {
     }
 
     private EventRepository eventRepository = new EventRepository(connection);
+    private FriendRepository friendRepository = new FriendRepository(connection);
     private PersonRepository personRepository = new PersonRepository(connection);
     private RaidusRepository raidusRepository = new RaidusRepository();
     private AccountRepository accountRepository = new AccountRepository(connection, raidusRepository);
     private PlacesRepository placesRepository = new PlacesRepository(connection);
 
     private EventController eventController = new EventController(eventRepository);
-    private PersonController personController = new PersonController(personRepository);
+    private PersonController personController = new PersonController(personRepository, friendRepository);
     private AccountController accountController = new AccountController(accountRepository);
     private PlacesController placesController = new PlacesController(placesRepository);
 
     public void register(Context ctx) throws SQLException {
+        //TODO Would create a new profile everytime we try to register even tho error
         int person_id = personController.create(ctx);
-        accountController.register(ctx, person_id);
+        try {
+            accountController.register(ctx, person_id);
+        } catch (SQLException e) {
+            // ctx.status set to 409 if duplicate username
+            ctx.status(409);
+            return;
+        }
         placesController.create(ctx, person_id);
-        ctx.status(201);
     }
 
-    public void updateAccount(Context ctx) throws PersonNotFoundException, SQLException, AccountNotFoundException {
+    public void updateAccount(Context ctx) throws SQLException, AccountNotFoundException {
         accountController.updateDetails(ctx);
     }
 
-    public void changePassword(Context ctx) throws SQLException, AccountNotFoundException, PersonNotFoundException {
+    public void changePassword(Context ctx) throws SQLException, AccountNotFoundException {
         accountController.changePass(ctx);
     }
 
@@ -42,7 +50,7 @@ public class AppController {
         personController.updateDetails(ctx);
     }
 
-    public void login(Context ctx) throws AccountNotFoundException, SQLException, PersonNotFoundException {
+    public void login(Context ctx) throws AccountNotFoundException, SQLException {
         accountController.login(ctx);
         ctx.status(200);
     }
@@ -59,8 +67,8 @@ public class AppController {
         eventController.updateDetails(ctx);
     }
 
-    public void viewFriends(Context ctx) {
-        //TODO
+    public void viewFriends(Context ctx) throws SQLException {
+        personController.getAllFriends(ctx);
     }
 
     public void editFriends(Context ctx) {
@@ -71,4 +79,11 @@ public class AppController {
         placesController.updateDetails(ctx);
     }
 
+    public void getAccount(Context ctx) throws SQLException {
+        accountController.getAll(ctx);
+    }
+
+    public void getProfile(Context ctx) throws SQLException {
+        personController.getAll(ctx);
+    }
 }
