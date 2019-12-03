@@ -119,7 +119,7 @@ public class PersonRepository {
                 result.getString("status"),
                 result.getFloat("longitude"),
                 result.getFloat("latitude"),
-                result.getInt("availabilty")  //todo
+                result.getInt("availability")  //todo
         );
     }
 

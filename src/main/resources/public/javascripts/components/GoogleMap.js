@@ -5,11 +5,6 @@ const SIDEBAR_STATE = {
     settings: 3,
 };
 
-let userPlace = "";
-let newLocation = {lat: 0, lng: 0};
-let region_arr = [];
-const api_key = 'AIzaSyBPAVxV62gRRQO8EJlnK3JtcGFuV7X5tnw';
-
 const screenHeight = 400;
 const screenWidth = 800;
 
@@ -40,52 +35,32 @@ class GoogleMap extends React.Component {
     }
 
     async componentDidMount() {
-        this.getLocation();
-        this.getFriendsFromServer();
-        console.log(this.state.myFriends);
+        await this.getLocation();
+        await this.getFriendsFromServer();
 
-
+        //create map
         this.map = new window.google.maps.Map(document.getElementById('map'), {
             center: this.state.userLocation,
             zoom: 11
         });
 
-        this.myMarker = new window.google.maps.Marker({
+        //add user's marker to map
+        new window.google.maps.Marker({
             position: this.state.userLocation,
             map: this.map,
             label: "Me"
         });
 
-        {this.state.myFriends.map(name => (
+        //add friends markers to the map
+        {this.state.myFriends.map(item => (
             new window.google.maps.Marker({
-                position: name.pos,
+                position: {lat: item.latitude, lng: item.longitude},
                 map: this.map,
-                label: name.id
+                label: item.fullName
             })
         ))}
 
     };
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.userLocation !== this.state.userLocation) {
-            this.recenterMap();
-        }
-        if (prevState.myFriends !== this.state.myFriends){
-            this.printFriends();
-        }
-    }
-
-    printFriends() {
-        console.log(this.state.myFriends)
-    }
-
-    recenterMap() {
-        let newCenter = new window.google.maps.LatLng(this.state.userLocation.lat, this.state.userLocation.lng);
-        if (this.map && this.myMarker) {
-            this.map.panTo(newCenter);
-            this.myMarker.setPosition(newCenter);
-        }
-    }
 
     render() {
         return (
