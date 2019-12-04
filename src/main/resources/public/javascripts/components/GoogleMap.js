@@ -27,7 +27,6 @@ class GoogleMap extends React.Component {
 
     async getFriendsFromServer() {
         this.setState({ myFriends: await (await fetch("/friends")).json() });
-        window.setTimeout(() => { this.getFriendsFromServer(); }, 200);
 
         //add friends markers to the map
         {this.state.myFriends.map(item => (
