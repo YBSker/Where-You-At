@@ -4,7 +4,8 @@ class LoginPage extends React.Component {
         this.state = {
             username: '',
             password: '',
-            login_time:''
+            login_time:'',
+            logged_in: false
         }
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -14,13 +15,21 @@ class LoginPage extends React.Component {
     handleLogin(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.logIn(true); //Just sending true for now so that things work, you can send actual shit eventually
         console.log(this.state.username);
         console.log(this.state.password);
         const formData = new FormData();
         formData.append("username", this.state.username);
         formData.append("password", this.state.password);
-        fetch("/login", {method: "POST", body: formData}) //To Do: catch Forbidden error from failed password check
+        fetch("/login", {method: "POST", body: formData}).then(function(response) {
+            if (response.status === 403) {
+                console.log("wrong password");
+                this.props.logIn(false);
+            }
+            else {
+                console.log("correct password");
+                this.props.logIn(true);
+            }
+        }.bind(this));
     }
 
     handleRegister(e) {
@@ -34,9 +43,17 @@ class LoginPage extends React.Component {
         formData.append("live","True");
         formData.append("longitude","0.0");
         formData.append("latitude","0.0");
-        fetch("/register", {method: "POST", body: formData})
+        fetch("/register", {method: "POST", body: formData}).then(function(response) {
+            if (response.status === 500) {
+                console.log("user already exists");
+                this.props.logIn(false);
+            }
+            else {
+                console.log("user successfully created");
+                this.props.logIn(true);
+            }
+        }.bind(this));
     }
-
 
     render(){
         return (
