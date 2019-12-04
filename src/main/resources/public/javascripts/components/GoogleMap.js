@@ -1,11 +1,9 @@
-const api_key = 'AIzaSyBPAVxV62gRRQO8EJlnK3JtcGFuV7X5tnw';
-
 const screenHeight = 400;
 const screenWidth = 800;
 
+
+
 class GoogleMap extends React.Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -14,20 +12,13 @@ class GoogleMap extends React.Component {
                 lng: 0
             },
             myFriends: [],
-            privacy: 0,
-            region_array: [],
-            region: "neighborhood",
-            place: "",
-            geocodelatlng: {
-                lat: 0,
-                lng: 0
-            },
+            privacy: "neighborhood",
+            //privacy options are "neighborhood", "postal_code", "locality" (city), "administrative_area_level_1" (state)
         }
     }
 
     async getFriendsFromServer() {
         this.setState({ myFriends: await (await fetch("/friends")).json() });
-        window.setTimeout(() => { this.getFriendsFromServer(); }, 200);
 
         //add friends markers to the map
         {this.state.myFriends.map(item => (
@@ -44,24 +35,25 @@ class GoogleMap extends React.Component {
         //updating current location
         if (navigator && navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
-                this.setState({userLocation: {lat: pos.coords.latitude, lng: pos.coords.longitude}})
-                //console.log(pos.coords)
+                this.setState({userLocation: {lat: pos.coords.latitude, lng: pos.coords.longitude}});
 
-                //create map
+                var myLocation = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+
+                //create map centered at myLocation
                 this.map = new window.google.maps.Map(document.getElementById('map'), {
-                    center: this.state.userLocation,
+                    center: myLocation,
                     zoom: 11
                 });
 
-                //add user's marker to map
+                //add user's marker to map at myLocation
                 new window.google.maps.Marker({
-                    position: this.state.userLocation,
+                    position: myLocation,
                     map: this.map,
                     label: "Me"
                 });
 
                 this.getFriendsFromServer();
-
+                this.reverseGeocode(myLocation);
             })
         }
     }
@@ -69,27 +61,22 @@ class GoogleMap extends React.Component {
     async componentDidMount() {
         await this.getLocation();
 
-
-        // this.reverseGeocode();
-        // this.geocode();
-
     };
 
 
-    //reverse geocode: lat,long to address
-    reverseGeocode(address, fn) {
+    //reverse geocode: latlng to approx place, then get latlng of approx place
+    reverseGeocode(myLocation) {
         let geocoder = new window.google.maps.Geocoder;
-        geocoder.geocode({'location': this.state.userLocation}, (results, status) => {
+        geocoder.geocode({'location': myLocation}, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
                     for (var i in results[0].address_components) {
-                        if (this.state.region === results[0].address_components[i].types[0]) {
-                            console.log(results[0].address_components[i].short_name);
-                            this.setState(() => {
-                                return {
-                                    place: results[0].address_components[i].short_name,
-                                };
-                            });
+                        if (this.state.privacy === results[0].address_components[i].types[0]) {
+                            var address = (results[0].address_components[i].long_name).toString();
+
+                            //get lat and lng from place
+                            console.log("reverseGeocode: " + address);
+                            this.geocode(address)
                         }
                     }
                 } else {
@@ -99,30 +86,31 @@ class GoogleMap extends React.Component {
                 window.alert('reverseGeocoder failed due to: ' + status);
             }
         });
+
+
     }
 
     //gets lat and long given the address
-    geocode() {
-        var geocoder = new window.google.maps.Geocoder;
-        console.log(this.state.place);
-
-        geocoder.geocode( { 'address': this.state.place}, (results, status) => {
+    geocode(address) {
+        let geocoder = new window.google.maps.Geocoder;
+        //console.log("Geocode: " + address);
+        geocoder.geocode( { 'address': address}, (results, status) => {
             if (status == 'OK') {
                 var marker = new window.google.maps.Marker({
                     map: this.map,
                     position: results[0].geometry.location,
                     label: "approx"
                 });
-                this.setState(() => {
-                    return {
-                        geocodelatlng: results[0].geometry.location,
-                    };
-                });
+                console.log("geocode: " +  results[0].geometry.location);
+
+                //TODO: send approx latlng to database
+                //TODO:
 
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
+
     }
 
 
@@ -131,5 +119,4 @@ class GoogleMap extends React.Component {
             <div style={{ width: screenWidth, height: screenHeight }} id="map" />
         );
     }
-
 }
