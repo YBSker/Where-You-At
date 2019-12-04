@@ -30,13 +30,18 @@ class GoogleMap extends React.Component {
         window.setTimeout(() => { this.getFriendsFromServer(); }, 200);
 
         //add friends markers to the map
-        {this.state.myFriends.map(item => (
-            new window.google.maps.Marker({
-                position: {lat: item.latitude, lng: item.longitude},
+
+        for (const friend of this.state.myFriends) {
+            const m = new window.google.maps.Marker({
+                position: {lat: friend.latitude, lng: friend.longitude},
                 map: this.map,
-                label: item.fullName
-            })
-        ))}
+                label: friend.fullName
+            });
+
+            window.google.maps.event.addDomListener(m, 'click', function() {
+                console.log("hello!");
+            });
+        }
     }
 
     async getLocation() {
