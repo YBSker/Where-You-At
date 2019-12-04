@@ -26,26 +26,31 @@ class GoogleMap extends React.Component {
     }
 
     async getFriendsFromServer() {
+        console.trace("called getFriendsFromServer");
         this.setState({ myFriends: await (await fetch("/friends")).json() });
-        window.setTimeout(() => { this.getFriendsFromServer(); }, 200);
 
         //add friends markers to the map
 
         for (const friend of this.state.myFriends) {
+            console.trace("adding marker");
             const m = new window.google.maps.Marker({
                 position: {lat: friend.latitude, lng: friend.longitude},
                 map: this.map,
                 label: friend.fullName
             });
 
-            window.google.maps.event.addDomListener(m, 'click', function() {
-                console.log("hello!");
+            window.google.maps.event.addDomListener(m, 'click', () => {
+                this.populateSidebar(m.getPosition().lat(), m.getPosition().lng());
             });
         }
     }
 
-    async getLocation() {
+    populateSidebar(lat, lng) {
+        console.log(lat);
+        console.log(lng);
+    }
 
+    async getLocation() {
         //updating current location
         if (navigator && navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
@@ -73,13 +78,9 @@ class GoogleMap extends React.Component {
 
     async componentDidMount() {
         await this.getLocation();
-
-
         // this.reverseGeocode();
         // this.geocode();
-
     };
-
 
     //reverse geocode: lat,long to address
     reverseGeocode(address, fn) {
@@ -130,11 +131,9 @@ class GoogleMap extends React.Component {
         });
     }
 
-
     render() {
         return (
             <div style={{ width: screenWidth, height: screenHeight }} id="map" />
         );
     }
-
 }
