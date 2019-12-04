@@ -65,7 +65,7 @@ class GoogleMap extends React.Component {
             })
         ))}
 
-        this.reverseGeocode();
+        //this.reverseGeocode();
         //this.geocode();
 
     };

@@ -27,54 +27,52 @@ public class Server {
                 get(appController::getFriends);
             });
         })
-
-
-//        .routes(() -> {
-//            path("register", () -> {
-//                post(appController::register);
-//            });
-//        }).exception(PersonNotFoundException.class, (e, ctx) -> {
-//            ctx.status(404);
-//        })
-//        .routes(() -> {
-//            path("changePassword", () -> {
-//                put(appController::changePassword);
-//            });
-//        })
-//        .routes(() -> {
-//            path("login", () -> {
-//                post(appController::login);
-//            });
-//        }).exception(AccountNotFoundException.class, (e, ctx) -> {
-//            ctx.status(404);
-//        })
-//        .routes(() -> {
-//            path("updateAccount", () -> {
-//                put(appController::updateAccount);
-//            });
-//        }).exception(AccountNotFoundException.class, (e, ctx) -> {
-//            ctx.status(404);
-//        })
-//        .routes(() -> {
-//            path("updateProfile", () -> {
-//                put(appController::updateProfile);
-//            });
-//        }).exception(PersonNotFoundException.class, (e, ctx) -> {
-//            ctx.status(404);
-//        })
-//        .routes(() -> {
-//            path("event", () -> {
-//                get(appController::viewEvents);
-//                path(":identifier", () -> {
-//                    put(appController::editEvent);
-//                });
-//                path("create", () -> {
-//                    post(appController::createEvent);
-//                });
-//            });
-//        }).exception(EventNotFoundException.class, (e, ctx) -> {
-//            ctx.status(404);
-//        })
+        .routes(() -> {
+            path("register", () -> {
+                post(appController::register);
+            });
+        }).exception(PersonNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        })
+        .routes(() -> {
+            path("changePassword", () -> {
+                put(appController::changePassword);
+            });
+        })
+        .routes(() -> {
+            path("login", () -> {
+                post(appController::login);
+            });
+        }).exception(AccountNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        })
+        .routes(() -> {
+            path("updateAccount", () -> {
+                put(appController::updateAccount);
+            });
+        }).exception(AccountNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        })
+        .routes(() -> {
+            path("updateProfile", () -> {
+                put(appController::updateProfile);
+            });
+        }).exception(PersonNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        })
+        .routes(() -> {
+            path("event", () -> {
+                get(appController::viewEvents);
+                path(":identifier", () -> {
+                    put(appController::editEvent);
+                });
+                path("create", () -> {
+                    post(appController::createEvent);
+                });
+            });
+        }).exception(EventNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        })
 
 
         .start(System.getenv("PORT") == null ? 7000 : Integer.parseInt(System.getenv("PORT")));
