@@ -23,7 +23,7 @@ public class PersonRepository {
     public PersonRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT true, status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER)");
+        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT true, status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER, privacy INTEGER)");
         statement.close();
     }
 
@@ -77,7 +77,7 @@ public class PersonRepository {
      * @throws SQLException Statement failed to execute.
      */
     public int create(Person person) throws SQLException {
-        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, availability) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, availability, privacy) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         prepareStatement(person, statement);
         statement.executeUpdate();
         int id = statement.getGeneratedKeys().getInt(1);
@@ -119,7 +119,8 @@ public class PersonRepository {
                 result.getString("status"),
                 result.getFloat("longitude"),
                 result.getFloat("latitude"),
-                result.getInt("availability")  //todo
+                result.getInt("availability"),//todo
+                result.getInt("privacy")
         );
     }
 
@@ -137,7 +138,8 @@ public class PersonRepository {
         statement.setString(4, person.getStatus());
         statement.setFloat(5, person.getLongitude());
         statement.setFloat(6, person.getLatitude());
-//        statement.setInt(7, person.getAvailability().getIdentifier());    //TODO AVAILABILITY
-        statement.setInt(7,1);
+//        statement.setInt(7, person.getAvailability().getIdentifier());    //TODO AVAILABILITY and PRIVACY
+        statement.setInt(7,person.getAvailability());
+        statement.setInt(8,person.getPrivacy());
     }
 }

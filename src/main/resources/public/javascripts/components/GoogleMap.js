@@ -1,14 +1,11 @@
-const SIDEBAR_STATE = {
-    closed: 0,
-    event: 1,
-    cardList: 2,
-    settings: 3,
-};
+const api_key = 'AIzaSyBPAVxV62gRRQO8EJlnK3JtcGFuV7X5tnw';
 
 const screenHeight = 400;
 const screenWidth = 800;
 
 class GoogleMap extends React.Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,6 +14,14 @@ class GoogleMap extends React.Component {
                 lng: 0
             },
             myFriends: [],
+            privacy: 0,
+            region_array: [],
+            region: "neighborhood",
+            place: "",
+            geocodelatlng: {
+                lat: 0,
+                lng: 0
+            },
         }
     }
 
@@ -60,11 +65,65 @@ class GoogleMap extends React.Component {
             })
         ))}
 
+        this.reverseGeocode();
+        //this.geocode();
+
     };
+
+
+    //reverse geocode: lat,long to address
+    reverseGeocode(address, fn) {
+        let geocoder = new window.google.maps.Geocoder;
+        geocoder.geocode({'location': this.state.userLocation}, (results, status) => {
+            if (status === 'OK') {
+                if (results[0]) {
+                    for (var i in results[0].address_components) {
+                        if (this.state.region === results[0].address_components[i].types[0]) {
+                            console.log(results[0].address_components[i].short_name);
+                            this.setState(() => {
+                                return {
+                                    place: results[0].address_components[i].short_name,
+                                };
+                            });
+                        }
+                    }
+                } else {
+                    window.alert('reverseGeocoder: No results found');
+                }
+            } else {
+                window.alert('reverseGeocoder failed due to: ' + status);
+            }
+        });
+    }
+
+    //gets lat and long given the address
+    geocode() {
+        var geocoder = new window.google.maps.Geocoder;
+
+        geocoder.geocode( { 'address': this.state.place}, (results, status) => {
+            if (status == 'OK') {
+                var marker = new window.google.maps.Marker({
+                    map: this.map,
+                    position: results[0].geometry.location,
+                    label: "approx"
+                });
+                this.setState(() => {
+                    return {
+                        geocodelatlng: results[0].geometry.location,
+                    };
+                });
+
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
 
     render() {
         return (
             <div style={{ width: screenWidth, height: screenHeight }} id="map" />
         );
     }
+
 }

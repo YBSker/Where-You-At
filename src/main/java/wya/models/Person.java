@@ -9,6 +9,7 @@ public class Person {
     private float longitude;
     private float latitude;
     private int availability;
+    private int privacy;
 
 
     public Person() {}
@@ -25,7 +26,7 @@ public class Person {
      * Constructor with all vars
      */
 
-    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability) {
+    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability, int privacy) {
         this.identifier = identifier;
         this.fullName = fullName;
         this.lastSeen = lastSeen;
@@ -34,6 +35,7 @@ public class Person {
         this.availability = availability;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.privacy = privacy;
     }
 
     public int getIdentifier() {
@@ -99,4 +101,13 @@ public class Person {
     public void setAvailability(int availability) {
         this.availability = availability;
     }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
+    }
+
+    public int getPrivacy() {
+        return privacy;
+    }
+
 }
