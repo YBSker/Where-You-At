@@ -29,7 +29,9 @@ class GoogleMap extends React.Component {
 
         //add friends markers to the map
 
-        for (const friend of this.state.myFriends) {
+        let markers = this.bucketize(this.state.myFriends);
+
+        for (const marker of this.state.myFriends) {
             console.trace("adding marker");
             const m = new window.google.maps.Marker({
                 position: {lat: friend.latitude, lng: friend.longitude},
@@ -41,6 +43,27 @@ class GoogleMap extends React.Component {
                 this.populateSidebar(m.getPosition().lat(), m.getPosition().lng());
             });
         }
+    }
+
+    bucketize(friends) {
+        let markers = [];
+        for (const friend of friends) {
+            let duplicate = false;
+            for (const marker of markers) {
+                if (friend.latitude === marker.latitude && friend.longitude === marker.longitude) {
+                    duplicate = true;
+                    marker.num++;
+                    marker.fullName = "";
+                    break;
+                }
+            }
+
+            if (!duplicate) {
+                friend.num = 0;
+                markers.push(friend)
+            }
+        }
+        return markers;
     }
 
     populateSidebar(lat, lng) {
