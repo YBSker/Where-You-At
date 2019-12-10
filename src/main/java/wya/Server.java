@@ -27,36 +27,20 @@ public class Server {
             path("register", () -> {
                 post(appController::register);
             });
-        })
-        .routes(() -> {
             path("changePassword", () -> {
                 put(appController::changePassword);
             });
-        })
-        .routes(() -> {
             path("login", () -> {
                 post(appController::login);
             });
-        }).exception(AccountNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
-        })
-        .routes(() -> {
             path("updateAccount", () -> {
                 put(appController::updateAccount);
                 get(appController::getAccount);
             });
-        }).exception(AccountNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
-        })
-        .routes(() -> {
             get(appController::getProfile);
             path("updateProfile", () -> {
                 put(appController::updateProfile);
             });
-        }).exception(PersonNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
-        })
-        .routes(() -> {
             path("event", () -> {
                 get(appController::viewEvents);
                 path(":identifier", () -> {
@@ -66,16 +50,22 @@ public class Server {
                     post(appController::createEvent);
                 });
             });
-        }).exception(EventNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
-        })
-        .routes(() -> {
             path("friends", () -> {
                 get(appController::viewFriends);
                 path("editFriends", () -> {
                     put(appController::editFriends);
                 });
             });
+        })
+        .exception(AccountNotFoundException.class, (e, ctx) -> {
+            System.out.println("HEre");
+            ctx.status(403);
+        })
+        .exception(PersonNotFoundException.class, (e, ctx) -> {
+            ctx.status(403);
+        })
+        .exception(EventNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
         })
         .start(System.getenv("PORT") == null ? 7000 : Integer.parseInt(System.getenv("PORT")));
     }

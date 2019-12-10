@@ -9,26 +9,28 @@ import java.sql.SQLException;
 
 public class AppController {
     Connection connection = DriverManager.getConnection("jdbc:sqlite:wya.db");
+
     public AppController() throws SQLException {
     }
 
     private EventRepository eventRepository = new EventRepository(connection);
+    private FriendRepository friendRepository = new FriendRepository(connection);
     private PersonRepository personRepository = new PersonRepository(connection);
     private RaidusRepository raidusRepository = new RaidusRepository();
     private AccountRepository accountRepository = new AccountRepository(connection, raidusRepository);
     private PlacesRepository placesRepository = new PlacesRepository(connection);
 
     private EventController eventController = new EventController(eventRepository);
-    private PersonController personController = new PersonController(personRepository);
+    private PersonController personController = new PersonController(personRepository, friendRepository);
     private AccountController accountController = new AccountController(accountRepository);
     private PlacesController placesController = new PlacesController(placesRepository);
 
     public void register(Context ctx) throws SQLException {
+        //TODO Would create a new profile everytime we try to register even tho error
         int person_id = personController.create(ctx);
         try {
             accountController.register(ctx, person_id);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             // ctx.status set to 409 if duplicate username
             ctx.status(409);
             return;
@@ -65,8 +67,8 @@ public class AppController {
         eventController.updateDetails(ctx);
     }
 
-    public void viewFriends(Context ctx) {
-        //TODO
+    public void viewFriends(Context ctx) throws SQLException {
+        personController.getAllFriends(ctx);
     }
 
     public void editFriends(Context ctx) {
@@ -77,7 +79,7 @@ public class AppController {
         placesController.updateDetails(ctx);
     }
 
-    public void getAccount(Context ctx) throws SQLException{
+    public void getAccount(Context ctx) throws SQLException {
         accountController.getAll(ctx);
     }
 

@@ -3,7 +3,6 @@ package wya.repositories;
 import wya.models.Account;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,6 +41,7 @@ public class AccountRepository {
             if (result.next()) {
                 return createAccountFromDB(result);
             } else {
+                System.out.println("Account not found");
                 throw new AccountNotFoundException();
             }
         } finally {
@@ -87,9 +87,5 @@ public class AccountRepository {
                 result.getString("profilePicture"),
                 radiusRepository.getOne(result.getInt("radius_id"))
         );
-    }
-
-    private void prepareStatement(Account account, PreparedStatement statement) throws SQLException {
-
     }
 }

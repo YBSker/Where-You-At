@@ -60,6 +60,7 @@ public class AccountController {
             throw new ForbiddenResponse();
         }
         ctx.sessionAttribute("user", user);
+        ctx.sessionAttribute("person_id", user.getPerson_id());
         ctx.status(200);
     }
 
