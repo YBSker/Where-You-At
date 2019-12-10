@@ -29,16 +29,13 @@ class GoogleMap extends React.Component {
 
         //add friends markers to the map
 
-        let buckets = this.bucketize(this.state.myFriends);
-        buckets = this.resolveMarkerLabels(buckets);
+        let markers = this.resolveMarkerLabels(this.bucketize(this.state.myFriends));
 
-        console.trace(buckets);
-        for (const mark of buckets) {
-            console.trace("adding marker");
+        for (const marker of markers) {
             const m = new window.google.maps.Marker({
-                position: {lat: mark.latitude, lng: mark.longitude},
+                position: {lat: marker.latitude, lng: marker.longitude},
                 map: this.map,
-                label: mark.fullName
+                label: marker.label
             });
 
             window.google.maps.event.addDomListener(m, 'click', () => {
@@ -49,37 +46,46 @@ class GoogleMap extends React.Component {
 
     resolveMarkerLabels(markers) {
         for (const marker of markers) {
-            if (marker.num > 1) {
-                marker.fullName = marker.num.toString();
+            if (marker.numPeople > 1) {
+                marker.label = marker.numPeople.toString();
             }
         }
         return markers;
     }
 
     bucketize(friends) {
-        let buckets = [];
+        let markers = [];
         for (const friend of friends) {
             let duplicate = false;
-            for (const marker of buckets) {
+            for (const marker of markers) {
                 if (friend.latitude === marker.latitude && friend.longitude === marker.longitude) {
                     duplicate = true;
-                    marker.num++;
-                    marker.fullName = "";
+                    marker.numPeople++;
                     break;
                 }
             }
 
             if (!duplicate) {
-                friend.num = 1;
-                buckets.push(friend)
+                let marker = {label: friend.fullName,
+                              numPeople: 1,
+                              latitude: friend.latitude,
+                              longitude: friend.longitude};
+                markers.push(marker);
             }
         }
-        return buckets;
+        return markers;
     }
 
     populateSidebar(lat, lng) {
         console.log(lat);
         console.log(lng);
+        let clickedFriends = [];
+        for (const friend of this.state.myFriends) {
+            if (friend.latitude === lat && friend.longitude === lng) {
+                clickedFriends.push(friend);
+            }
+        }
+        console.log(clickedFriends);
     }
 
     async getLocation() {
