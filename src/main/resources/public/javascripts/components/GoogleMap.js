@@ -60,7 +60,9 @@ class GoogleMap extends React.Component {
 
     async componentDidMount() {
         await this.getLocation();
-
+        var tempDate = new Date();
+        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+        console.log(date);
     };
 
 
