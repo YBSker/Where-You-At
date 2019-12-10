@@ -77,6 +77,10 @@ public class AppController {
         placesController.updateDetails(ctx);
     }
 
+    public void getPlaces(Context ctx) throws SQLException {
+        placesController.getAll(ctx);
+    }
+
     public void getAccount(Context ctx) throws SQLException{
         accountController.getAll(ctx);
     }

@@ -5,6 +5,7 @@ import wya.controllers.AppController;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.EventNotFoundException;
 import wya.repositories.PersonNotFoundException;
+import wya.repositories.PlacesNotFoundException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,6 +47,16 @@ public class Server {
                 get(appController::getAccount);
             });
         }).exception(AccountNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        })
+        .routes(() -> {
+            path("places", () -> {
+                get(appController::getPlaces);
+                path(":identifier", () -> {
+                    put(appController::updatePlaces);
+                });
+            });
+        }).exception(PlacesNotFoundException.class, (e, ctx) -> {
             ctx.status(404);
         })
         .routes(() -> {

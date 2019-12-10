@@ -32,7 +32,7 @@ public class PersonController {
     }
 
     public void getOne(Context ctx) throws SQLException, PersonNotFoundException {
-        ctx.json(personRepository.getOne());
+//        ctx.json(personRepository.getOne());
     }
 
     /**

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b5579273-76fa-428a-add2-26e67a9df72a",
+		"_postman_id": "1d22501e-3b40-4998-9193-0f75fd39f055",
 		"name": "WYA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -234,7 +234,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				},
 				{
 					"name": "Successful Register New Account",
@@ -336,7 +336,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
@@ -424,63 +424,6 @@
 			},
 			"response": [
 				{
-					"name": "Failed Login",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "test",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "securepassword",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:7000/login/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7000",
-							"path": [
-								"login",
-								""
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Mon, 02 Dec 2019 22:17:56 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						},
-						{
-							"key": "Content-Length",
-							"value": "0"
-						}
-					],
-					"cookie": [],
-					"body": null
-				},
-				{
 					"name": "Successful Login",
 					"originalRequest": {
 						"method": "POST",
@@ -543,7 +486,64 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
+				},
+				{
+					"name": "Failed Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "securepassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 02 Dec 2019 22:17:56 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						}
+					],
+					"cookie": [],
+					"body": ""
 				}
 			]
 		},
@@ -613,6 +613,59 @@
 			},
 			"response": [
 				{
+					"name": "Successful ",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "newemailadmin@test.com",
+									"type": "text"
+								},
+								{
+									"key": "profilePicture",
+									"value": "drive.com/profilepicture",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/updateAccount/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"updateAccount",
+								""
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
 					"name": "Failed Edit Account Not Logged In",
 					"originalRequest": {
 						"method": "PUT",
@@ -676,59 +729,6 @@
 					],
 					"cookie": [],
 					"body": "Forbidden"
-				},
-				{
-					"name": "Successful ",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "email",
-									"value": "newemailadmin@test.com",
-									"type": "text"
-								},
-								{
-									"key": "profilePicture",
-									"value": "drive.com/profilepicture",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:7000/updateAccount/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7000",
-							"path": [
-								"updateAccount",
-								""
-							]
-						}
-					},
-					"status": "No Content",
-					"code": 204,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": null
 				}
 			]
 		},
@@ -930,7 +930,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
@@ -1135,7 +1135,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
@@ -1343,9 +1343,29 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
+		},
+		{
+			"name": "Edit Friends",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/editFriends/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"editFriends",
+						""
+					]
+				}
+			},
+			"response": []
 		},
 		{
 			"name": "Get all persons",
@@ -1478,26 +1498,6 @@
 					"body": "[\n    {\n        \"identifier\": 1,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 2,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 3,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 4,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 5,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 6,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 7,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 8,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 9,\n        \"fullName\": \"Vincent Lee \",\n        \"lastSeen\": \"2 hrs ago\",\n        \"live\": false,\n        \"status\": \"taking the final\",\n        \"longitude\": 39.328995,\n        \"latitude\": -76.62052,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    }\n]"
 				}
 			]
-		},
-		{
-			"name": "Edit Friends",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7000/editFriends/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"editFriends",
-						""
-					]
-				}
-			},
-			"response": []
 		},
 		{
 			"name": "Create person",
@@ -1664,7 +1664,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
@@ -1686,6 +1686,127 @@
 					]
 				},
 				"description": "Get all the accounts from the database "
+			},
+			"response": []
+		},
+		{
+			"name": "Update Places",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a30460fe-1c21-4a60-9a10-3231490e3ae4",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/places\", method: \"POST\" }, () => {",
+							"    pm.sendRequest(\"http://localhost:7000/places\", (err, response) => {",
+							"        pm.environment.set(\"placesIdentifier\", response.json().last().identifier);",
+							"        pm.sendRequest({",
+							"            url: 'http://localhost:7000/places/' + pm.environment.get(\"placesIdentifier\"),",
+							"            method: 'POST',",
+							"            body: {",
+							"              mode: 'formdata',",
+							"              formdata: [",
+							"                {key: \"town\", value: \"create event\"},",
+							"                {key: \"city\", value: \"some event\"},",
+							"                {key: \"state\", value: \"Johns Hopkins University\"},",
+							"                {key: \"country\", value: \"help\"}",
+							"              ]",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea6ab520-babe-4149-90d3-c65a807a90a3",
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Item is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/places\", (err, response) => {",
+							"        pm.expect(response.json().first().town).to.equal(\"Hampden\");",
+							"        pm.expect(response.json().first().city).to.equal(\"Baltimore\");",
+							"        pm.expect(response.json().first().state).to.equal(\"Maryland\");",
+							"        pm.expect(response.json().first().country).to.equal(\"USA\");",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Status code is 404 if item isn’t found\", () => {",
+							"    pm.sendRequest({ url: \"http://localhost:7000/places/51039\", method: \"PUT\" }, (err, response) => {",
+							"        pm.expect(response).to.have.status(404);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "town",
+							"value": "Hampden",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Baltimore",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "Maryland",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "USA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/places/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"places",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Places",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/places/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"places",
+						""
+					]
+				}
 			},
 			"response": []
 		}
