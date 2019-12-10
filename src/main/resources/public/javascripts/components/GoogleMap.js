@@ -1,5 +1,3 @@
-const api_key = 'AIzaSyBPAVxV62gRRQO8EJlnK3JtcGFuV7X5tnw';
-
 const screenHeight = 400;
 const screenWidth = 800;
 
@@ -54,7 +52,7 @@ class GoogleMap extends React.Component {
         //updating current location
         if (navigator && navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
-                this.setState({userLocation: {lat: pos.coords.latitude, lng: pos.coords.longitude}})
+                this.setState({userLocation: {lat: pos.coords.latitude, lng: pos.coords.longitude}});
                 //console.log(pos.coords)
 
                 //create map
@@ -88,7 +86,7 @@ class GoogleMap extends React.Component {
         geocoder.geocode({'location': this.state.userLocation}, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
-                    for (var i in results[0].address_components) {
+                    for (let i in results[0].address_components) {
                         if (this.state.region === results[0].address_components[i].types[0]) {
                             console.log(results[0].address_components[i].short_name);
                             this.setState(() => {
@@ -113,8 +111,8 @@ class GoogleMap extends React.Component {
         console.log(this.state.place);
 
         geocoder.geocode( { 'address': this.state.place}, (results, status) => {
-            if (status == 'OK') {
-                var marker = new window.google.maps.Marker({
+            if (status === 'OK') {
+                let marker = new window.google.maps.Marker({
                     map: this.map,
                     position: results[0].geometry.location,
                     label: "approx"
