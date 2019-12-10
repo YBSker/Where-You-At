@@ -5,6 +5,7 @@ import wya.controllers.AppController;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.EventNotFoundException;
 import wya.repositories.PersonNotFoundException;
+import wya.repositories.PlacesNotFoundException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,6 +38,12 @@ public class Server {
                 put(appController::updateAccount);
                 get(appController::getAccount);
             });
+            path("places", () -> {
+                get(appController::getPlaces);
+                path(":identifier", () -> {
+                    put(appController::updatePlaces);
+                });
+            });
             get(appController::getProfile);
             path("updateProfile", () -> {
                 put(appController::updateProfile);
@@ -56,6 +63,12 @@ public class Server {
                     put(appController::editFriends);
                 });
             });
+        })
+        .exception(AccountNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        })
+        .exception(PlacesNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
         })
         .exception(AccountNotFoundException.class, (e, ctx) -> {
             System.out.println("HEre");
