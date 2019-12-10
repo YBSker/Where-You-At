@@ -86,6 +86,7 @@ class GoogleMap extends React.Component {
             }
         }
         console.log(clickedFriends);
+        this.props.updateSidebar(SIDEBAR_STATE.cardList, clickedFriends);
     }
 
     async getLocation() {

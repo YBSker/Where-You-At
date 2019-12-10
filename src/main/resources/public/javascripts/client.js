@@ -21,13 +21,17 @@ class Application extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sidebarState: SIDEBAR_STATE.closed
+            sidebarState: SIDEBAR_STATE.closed,
+            friendsToDisplay: []
         };
 
         this.updateSidebar = this.updateSidebar.bind(this);
     }
 
-    updateSidebar(state) {
+    updateSidebar(state, friends) {
+        if (friends) {
+            this.setState({friendsToDisplay: friends});
+        }
         this.setState({sidebarState: state});
     }
 
@@ -69,7 +73,7 @@ class Application extends React.Component {
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
                             <div className="side">
-                                <Sidebar/>
+                                <Sidebar friends = {this.state.friendsToDisplay}/>
                             </div>
                         </div>
                     </div>

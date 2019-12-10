@@ -20,14 +20,15 @@ class Sidebar extends React.Component {
         this.state = {
             location: 'Baltimore',
             cards: [],
+            testCard: '',
         };
 
         this.addCard = this.addCard.bind(this);
         this.removeCard = this.removeCard.bind(this);
     }
 
-    addCard() {
-        this.state.cards.append();
+    addCard(card) {
+        this.state.cards.push(card);
     }
 
     removeCard(card) {
@@ -36,15 +37,30 @@ class Sidebar extends React.Component {
 
 
     render() {
+        for (const friend of this.props.friends) {
+            this.addCard(new SidebarCard({name: friend.fullName}))
+        }
+
+        const cards = this.state.cards.map(card => {
+            return (<li key={card}>{card}</li>);
+        });
+
+        this.setState({testCard: cards[0]});
+
+        console.log(this.state.cards);
         return (
             <div className="side">
                 <div className="side-header" style={sideHeaderStyles}>
                     <h1 style={h1Styles}>{this.state.location}</h1>
                 </div>
-                <ol className="card-list">
-                    {this.state.cards.map(card => (<li key={card}>{card}</li>))}
-                </ol>
+                <ul className="card-list">
+                    {this.state.testCard}
+                </ul>
             </div>
         );
     }
 }
+
+/*
+
+ */

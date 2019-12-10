@@ -2,18 +2,12 @@ class SidebarCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            picture: '',
-            last_seen: '',
-            live: '',
-            status: '',
+            name: props.name,
+            picture: "https://i.imgur.com/sOXFllp.jpg",
+            last_seen: 'x',
+            live: 'x',
+            status: 'x',
         };
-
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(event) {
-        const target = event.target;
     }
 
     render() {
