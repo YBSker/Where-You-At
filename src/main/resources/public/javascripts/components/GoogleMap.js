@@ -29,14 +29,16 @@ class GoogleMap extends React.Component {
 
         //add friends markers to the map
 
-        let markers = this.bucketize(this.state.myFriends);
+        let buckets = this.bucketize(this.state.myFriends);
+        buckets = this.resolveMarkerLabels(buckets);
 
-        for (const marker of this.state.myFriends) {
+        console.trace(buckets);
+        for (const mark of buckets) {
             console.trace("adding marker");
             const m = new window.google.maps.Marker({
-                position: {lat: friend.latitude, lng: friend.longitude},
+                position: {lat: mark.latitude, lng: mark.longitude},
                 map: this.map,
-                label: friend.fullName
+                label: mark.fullName
             });
 
             window.google.maps.event.addDomListener(m, 'click', () => {
@@ -45,11 +47,20 @@ class GoogleMap extends React.Component {
         }
     }
 
+    resolveMarkerLabels(markers) {
+        for (const marker of markers) {
+            if (marker.num > 1) {
+                marker.fullName = marker.num.toString();
+            }
+        }
+        return markers;
+    }
+
     bucketize(friends) {
-        let markers = [];
+        let buckets = [];
         for (const friend of friends) {
             let duplicate = false;
-            for (const marker of markers) {
+            for (const marker of buckets) {
                 if (friend.latitude === marker.latitude && friend.longitude === marker.longitude) {
                     duplicate = true;
                     marker.num++;
@@ -59,11 +70,11 @@ class GoogleMap extends React.Component {
             }
 
             if (!duplicate) {
-                friend.num = 0;
-                markers.push(friend)
+                friend.num = 1;
+                buckets.push(friend)
             }
         }
-        return markers;
+        return buckets;
     }
 
     populateSidebar(lat, lng) {
