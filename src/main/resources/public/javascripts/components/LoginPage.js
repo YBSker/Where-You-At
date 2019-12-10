@@ -7,7 +7,8 @@ class LoginPage extends React.Component {
             login_time:'',
             wrong_pass: false,
             user_exists: false,
-            logged_in: false
+            logged_in: false,
+            username_not_found: false
         }
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -25,11 +26,17 @@ class LoginPage extends React.Component {
         fetch("/login", {method: "POST", body: formData}).then(function(response) {
             if (response.status === 403) {
                 this.setState({wrong_pass: true});
+                this.setState({username_not_found: false});
                 this.props.logIn(false);
+            }
+            else if (response.status === 404) {
+                this.setState({username_not_found: true});
             }
             else {
                 console.log("correct password");
                 this.setState({logged_in: true});
+                this.setState({wrong_pass: false});
+                this.setState({username_not_found: false});
                 this.props.logIn(true);
             }
         }.bind(this));
@@ -44,6 +51,8 @@ class LoginPage extends React.Component {
         formData.append("username", this.state.username);
         formData.append("password", this.state.password);
         formData.append("live","True");
+        formData.append("availability", "1");
+        formData.append("privacy", "0");
         formData.append("longitude","0.0");
         formData.append("latitude","0.0");
         fetch("/register", {method: "POST", body: formData}).then(function(response) {
@@ -54,6 +63,7 @@ class LoginPage extends React.Component {
             else {
                 console.log("user successfully created");
                 this.setState({logged_in: true});
+                this.setState({user_exists: false});
                 this.props.logIn(true);
             }
         }.bind(this));
@@ -67,7 +77,7 @@ class LoginPage extends React.Component {
                         <form className="login-form" onSubmit={this.handleLogin}>
                             <input type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
                             <input type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
-                            {this.state.wrong_pass ? (<div>User exists, but wrong password entered</div>): null}
+                            {this.state.username_not_found ? <div>Username does not exist</div> : this.state.wrong_pass ? <div>User exists, but wrong password entered</div> : null}
                             <button type="submit">Log in</button>
                         </form>
                     </div>
