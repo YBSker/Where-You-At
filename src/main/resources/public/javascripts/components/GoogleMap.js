@@ -74,6 +74,9 @@ class GoogleMap extends React.Component {
         this.setState({myEvents: eventsList});
         console.log(this.state.myEvents);
         {this.state.myEvents.map(event => (this.displaySingleEvent(event, map)))}
+        var tempDate = new Date();
+        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+        console.log(date);
     };
 
     displaySingleEvent(event, map) {
@@ -116,7 +119,7 @@ class GoogleMap extends React.Component {
         let area = "";
 
         // turns region to google api type names
-        if (!(region === 'town') || !(region === 'city') || !(region === 'state') || !(region === 'country')) {
+        if (!(region === 'town') && !(region === 'city') && !(region === 'state') && !(region === 'country')) {
             console.log("invalid region")
         }
         if (region === 'town') {

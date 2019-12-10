@@ -5,6 +5,8 @@ class LoginPage extends React.Component {
             username: '',
             password: '',
             login_time:'',
+            wrong_pass: false,
+            user_exists: false,
             logged_in: false
         }
 
@@ -22,11 +24,12 @@ class LoginPage extends React.Component {
         formData.append("password", this.state.password);
         fetch("/login", {method: "POST", body: formData}).then(function(response) {
             if (response.status === 403) {
-                console.log("wrong password");
+                this.setState({wrong_pass: true});
                 this.props.logIn(false);
             }
             else {
                 console.log("correct password");
+                this.setState({logged_in: true});
                 this.props.logIn(true);
             }
         }.bind(this));
@@ -45,11 +48,12 @@ class LoginPage extends React.Component {
         formData.append("latitude","0.0");
         fetch("/register", {method: "POST", body: formData}).then(function(response) {
             if (response.status === 500) {
-                console.log("user already exists");
+                this.setState({user_exists: true});
                 this.props.logIn(false);
             }
             else {
                 console.log("user successfully created");
+                this.setState({logged_in: true});
                 this.props.logIn(true);
             }
         }.bind(this));
@@ -63,6 +67,7 @@ class LoginPage extends React.Component {
                         <form className="login-form" onSubmit={this.handleLogin}>
                             <input type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
                             <input type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
+                            {this.state.wrong_pass ? (<div>User exists, but wrong password entered</div>): null}
                             <button type="submit">Log in</button>
                         </form>
                     </div>
@@ -75,6 +80,7 @@ class LoginPage extends React.Component {
                         <form className="register-form" onSubmit={this.handleRegister}>
                             <input type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
                             <input type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
+                            {this.state.user_exists ? (<div>This username already exists, please choose another username</div>): null}
                             <button type="submit">Register</button>
                         </form>
                     </div>
