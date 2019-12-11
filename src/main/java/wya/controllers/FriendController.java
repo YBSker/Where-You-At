@@ -1,6 +1,6 @@
-package wya.controllers;
-
-public class FriendController {
+//package wya.controllers;
+//
+//public class FriendController {
 //
 //    private FriendRepository friendRepository;
 //
@@ -39,5 +39,4 @@ public class FriendController {
 //    private void createToDB(Context ctx, Person person) {
 //
 //    }
-
-}
+//}

@@ -2,7 +2,6 @@ package wya.controllers;
 
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
-import wya.models.Availability;
 import wya.models.Person;
 import wya.repositories.FriendRepository;
 import wya.repositories.PersonNotFoundException;
@@ -15,42 +14,25 @@ public class PersonController {
     private PersonRepository personRepository;
     private FriendRepository friendRepository;
 
-    /**
-     * Person Controller constructor.
-     *
-     * @param PersonRepository Person Repository to control.
-     */
     PersonController(PersonRepository PersonRepository, FriendRepository friendRepository) {
         this.personRepository = PersonRepository;
         this.friendRepository = friendRepository;
     }
 
-    /**
-     * Get all person profiles in person table.
-     *
-     * @param ctx
-     * @throws SQLException
-     */
-    public void getAll(Context ctx) throws SQLException {
+    void getAll(Context ctx) throws SQLException {
         ctx.json(personRepository.getAll());
     }
 
-    public void getAllFriends(Context ctx) throws SQLException {
-//        ctx.json(friendRepository.getAll());
+    void getAllFriends(Context ctx) throws SQLException, PersonNotFoundException {
+        var currperson = currentPerson(ctx);
+        ctx.json(friendRepository.getAll(currperson.getIdentifier()));
     }
 
-//    public void getOne(Context ctx) throws SQLException, PersonNotFoundException {
-//        var person_id = ctx.sessionAttribute("person_id");
-//        ctx.json(personRepository.getOne((int) person_id));
-//    }
+    public void getOne(Context ctx) throws SQLException, PersonNotFoundException {
+        var currperson = currentPerson(ctx);
+        ctx.json(personRepository.getOne(currperson.getIdentifier()));
+    }
 
-    /**
-     * Create a new person entry in person table.
-     *
-     * @param ctx The Javalin Context object to get form fields
-     * @return The person identifier from the newly created person entry.
-     * @throws SQLException Statement failed to execute.
-     */
     int create(Context ctx) throws SQLException {
         Person person = new Person();
         createToDB(ctx, person);
@@ -67,17 +49,21 @@ public class PersonController {
     }
 
     void updateLocation(Context ctx) throws SQLException, PersonNotFoundException {
-
         float longitude = ctx.formParam("longitude", float.class).get();
         float latitude = ctx.formParam("latitude", float.class).get();
-        personRepository.updateLocation(longitude, latitude);
+        personRepository.updateLocation(longitude, latitude, currentPerson(ctx).getIdentifier());
         ctx.status(204);
     }
 
     void updateTime(Context ctx) throws SQLException, PersonNotFoundException {
         String time = ctx.formParam("time");
-        personRepository.updateTime(time);
+        personRepository.updateTime(time, currentPerson(ctx).getIdentifier());
         ctx.status(204);
+    }
+
+    void updateAvailability(Context ctx) throws SQLException, PersonNotFoundException {
+        int avail = ctx.formParam("availability", Integer.class).get();
+        personRepository.updateAvailability(avail, currentPerson(ctx).getIdentifier());
     }
 
     /**
@@ -100,6 +86,5 @@ public class PersonController {
         person.setStatus(ctx.formParam("status", ""));
         person.setLongitude(ctx.formParam("longitude", float.class, "").get());
         person.setLatitude(ctx.formParam("latitude", float.class, "").get());
-        person.setAvailability(new Availability()); //TODO what's the default?
     }
 }

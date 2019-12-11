@@ -6,19 +6,17 @@ public class Account {
     private String email;
     private String profilePicture;
     private int person_id;
-    private Radius radius;
-    private Person[] friends;
 
-    public Account(String username, String password, String email, int person, String profilePicture, Radius radius) {
+    public Account(String username, String password, String email, int person_id, String profilePicture) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.profilePicture = profilePicture;
-        this.person_id = person;
-        this.radius = radius;
+        this.person_id = person_id;
     }
 
-    public Account() {}
+    public Account() {
+    }
 
 
     public String getUsername() {
@@ -51,22 +49,6 @@ public class Account {
 
     public void setPerson_id(int person) {
         this.person_id = person;
-    }
-
-    public Radius getRadius() {
-        return radius;
-    }
-
-    public void setRadius(Radius radius) {
-        this.radius = radius;
-    }
-
-    public Person[] getFriends() {
-        return friends;
-    }
-
-    public void setFriends(Person[] friends) {
-        this.friends = friends;
     }
 
     public String getPassword() {

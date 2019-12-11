@@ -1,6 +1,5 @@
-package wya.controllers;
-
-public class AvailabilityController {
+//package wya.controllers;
+//public class AvailabilityController {
 //
 //    private AvailabilityRepository availabilityRepository;
 //
@@ -13,9 +12,8 @@ public class AvailabilityController {
 //    }
 //
 //    public void create(Context ctx) throws SQLException {
-////        Status status = new Status();
-////        createToDB(ctx, status);
-//        //TODO: How to get an identifier off of a created person ID?
+//        Status status = new Status();
+//        createToDB(ctx, status);
 //        // Vincent: Person.create() returns the identifier for you. Check comments; sorry slowly adding comments.
 //        availabilityRepository.create();
 //        ctx.status(201);
@@ -38,5 +36,4 @@ public class AvailabilityController {
 //            throw new IllegalArgumentException("Give me an int!");
 //        }
 //    }
-
-}
+//}

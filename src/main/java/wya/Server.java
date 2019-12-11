@@ -17,69 +17,74 @@ public class Server {
     public static void main(String[] args) throws SQLException {
         AppController appController = new AppController();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:wya.db");
-        Javalin.create(config -> { config.addStaticFiles("/public"); })
-
-        .events(event -> {
-            event.serverStopped(() -> {
-                connection.close();
-            });
+        Javalin.create(config -> {
+            config.addStaticFiles("/public");
         })
-        .routes(() -> {
-            path("register", () -> {
-                post(appController::register);
-            });
-            path("changePassword", () -> {
-                put(appController::changePassword);
-            });
-            path("login", () -> {
-                post(appController::login);
-            });
-            path("updateAccount", () -> {
-                put(appController::updateAccount);
-                get(appController::getAccount);
-            });
-            path("places", () -> {
-                get(appController::getPlaces);
-                path(":identifier", () -> {
-                    put(appController::updatePlaces);
-                });
-            });
-            get(appController::getProfile);
-            path("updateProfile", () -> {
-                put(appController::updateProfile);
-            });
-            path("event", () -> {
-                get(appController::viewEvents);
-                path(":identifier", () -> {
-                    put(appController::editEvent);
-                });
-                path("create", () -> {
-                    post(appController::createEvent);
-                });
-            });
-            path("friends", () -> {
-                get(appController::viewFriends);
-                path("editFriends", () -> {
-                    put(appController::editFriends);
-                });
-            });
-        })
-        .exception(AccountNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
-        })
-        .exception(PlacesNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
-        })
-        .exception(AccountNotFoundException.class, (e, ctx) -> {
-            System.out.println("HEre");
-            ctx.status(403);
-        })
-        .exception(PersonNotFoundException.class, (e, ctx) -> {
-            ctx.status(403);
-        })
-        .exception(EventNotFoundException.class, (e, ctx) -> {
-            ctx.status(404);
-        })
-        .start(System.getenv("PORT") == null ? 7000 : Integer.parseInt(System.getenv("PORT")));
+                .events(event -> {
+                    event.serverStopped(() -> {
+                        connection.close();
+                    });
+                })
+                .routes(() -> {
+                    path("register", () -> {
+                        post(appController::register);
+                    });
+                    path("changePassword", () -> {
+                        put(appController::changePassword);
+                    });
+                    path("login", () -> {
+                        post(appController::login);
+                    });
+                    path("updateAccount", () -> {
+                        put(appController::updateAccount);
+                        get(appController::getAccount);
+                    });
+                    path("places", () -> {
+                        get(appController::getPlaces);
+                        path(":identifier", () -> {
+                            put(appController::updatePlaces);
+                        });
+                    });
+                    path("profile", () ->
+                    {
+                        get(appController::getProfile);
+                    });
+                    path("updateProfile", () -> {
+                        put(appController::updateProfile);
+                        get(appController::getProfile);
+                    });
+                    path("event", () -> {
+                        get(appController::viewEvents);
+                        path(":identifier", () -> {
+                            put(appController::editEvent);
+                        });
+                        path("create", () -> {
+                            post(appController::createEvent);
+                        });
+                    });
+                    path("friends", () -> {
+                        get(appController::viewFriends);
+                        path("editFriends", () -> {
+                            put(appController::editFriends);
+                        });
+                    });
+                })
+                .exception(AccountNotFoundException.class, (e, ctx) -> {
+                    ctx.status(404);
+                })
+                .exception(PlacesNotFoundException.class, (e, ctx) -> {
+                    ctx.status(404);
+                })
+                .exception(AccountNotFoundException.class, (e, ctx) -> {
+                    System.out.println("HEre");
+                    ctx.status(403);
+                })
+                .exception(PersonNotFoundException.class, (e, ctx) -> {
+                    ctx.status(403);
+                })
+                .exception(EventNotFoundException.class, (e, ctx) -> {
+                    ctx.status(404);
+                })
+                .start(System.getenv("PORT") == null ? 7000 : Integer.parseInt(System.getenv("PORT")));
     }
 }

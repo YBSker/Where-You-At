@@ -16,8 +16,7 @@ public class AppController {
     private EventRepository eventRepository = new EventRepository(connection);
     private FriendRepository friendRepository = new FriendRepository(connection);
     private PersonRepository personRepository = new PersonRepository(connection);
-    private RaidusRepository raidusRepository = new RaidusRepository();
-    private AccountRepository accountRepository = new AccountRepository(connection, raidusRepository);
+    private AccountRepository accountRepository = new AccountRepository(connection);
     private PlacesRepository placesRepository = new PlacesRepository(connection);
 
     private EventController eventController = new EventController(eventRepository);
@@ -40,14 +39,17 @@ public class AppController {
 
     public void updateAccount(Context ctx) throws SQLException, AccountNotFoundException {
         accountController.updateDetails(ctx);
+        ctx.status(204);
     }
 
     public void changePassword(Context ctx) throws SQLException, AccountNotFoundException {
         accountController.changePass(ctx);
+        ctx.status(200);
     }
 
     public void updateProfile(Context ctx) throws SQLException, PersonNotFoundException {
         personController.updateDetails(ctx);
+        ctx.status(204);
     }
 
     public void login(Context ctx) throws AccountNotFoundException, SQLException {
@@ -57,18 +59,22 @@ public class AppController {
 
     public void viewEvents(Context ctx) throws SQLException {
         eventController.getAll(ctx);
+        ctx.status(200);
     }
 
     public void createEvent(Context ctx) throws SQLException {
         eventController.create(ctx);
+        ctx.status(201);
     }
 
     public void editEvent(Context ctx) throws SQLException, EventNotFoundException {
         eventController.updateDetails(ctx);
+        ctx.status(204);
     }
 
-    public void viewFriends(Context ctx) throws SQLException {
+    public void viewFriends(Context ctx) throws SQLException, PersonNotFoundException {
         personController.getAllFriends(ctx);
+        ctx.status(200);
     }
 
     public void editFriends(Context ctx) {
@@ -77,17 +83,21 @@ public class AppController {
 
     public void updatePlaces(Context ctx) throws SQLException, PlacesNotFoundException {
         placesController.updateDetails(ctx);
+        ctx.status(204);
     }
 
     public void getPlaces(Context ctx) throws SQLException {
         placesController.getAll(ctx);
+        ctx.status(200);
     }
 
     public void getAccount(Context ctx) throws SQLException {
         accountController.getAll(ctx);
+        ctx.status(200);
     }
 
-    public void getProfile(Context ctx) throws SQLException {
-        personController.getAll(ctx);
+    public void getProfile(Context ctx) throws SQLException, PersonNotFoundException {
+        personController.getOne(ctx);
+        ctx.status(200);
     }
 }
