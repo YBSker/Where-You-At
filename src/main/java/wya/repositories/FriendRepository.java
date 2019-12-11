@@ -1,9 +1,10 @@
 package wya.repositories;
 
-import wya.models.Availability;
 import wya.models.Person;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,15 @@ public class FriendRepository {
         return people;
     }
 
-
+    /**
+     * Get the Person object of a specific friend specified by user2.
+     *
+     * @param user1 The person making the request.
+     * @param user2 The target user friend.
+     * @return The Person object of the friend.
+     * @throws SQLException            The statement failed to execute.
+     * @throws PersonNotFoundException Person is not found in the table.
+     */
     public Person getOne(int user1, int user2) throws SQLException, PersonNotFoundException {
         var statement = connection.prepareStatement("SELECT * FROM person INNER JOIN friends ON friends.user2=person.identifier WHERE user1=? AND user2=? END AND");
         statement.setInt(1, user1);
@@ -68,9 +77,9 @@ public class FriendRepository {
     /**
      * When user1 requests to add user2 as a friend.
      *
-     * @param user1 the ID of the user making the request.
-     * @param user2
-     * @throws SQLException
+     * @param user1 The ID of the user making the request.
+     * @param user2 The ID of the user the request is being sent to.
+     * @throws SQLException SQL statement failed to execut.
      */
     public void request(int user1, int user2) throws SQLException {
         var statement = connection.prepareStatement("INSERT INTO friends (user1, user2) VALUES (?,?)");
@@ -87,7 +96,7 @@ public class FriendRepository {
      * @param user1  The ID of the user that created the original request.
      * @param accept A boolean that determines the status of the friend request; if true, friend request accepted
      *               if false, the pair are not friends.
-     * @throws SQLException SQL Error.
+     * @throws SQLException            SQL Error.
      * @throws FriendNotFoundException No such friend request found.
      */
     public void updateStatus(int user2, int user1, boolean accept) throws SQLException, FriendNotFoundException {
@@ -118,7 +127,7 @@ public class FriendRepository {
      * @param user1 The person making the request.
      * @param user2 The target person to see if they are friends.
      * @return The status of the relationship of the friends.
-     * @throws SQLException SQL failed to execute properly.
+     * @throws SQLException            SQL failed to execute properly.
      * @throws FriendNotFoundException There's no relationship between the two people.
      */
     public int checkStatus(int user1, int user2) throws SQLException, FriendNotFoundException {
@@ -154,7 +163,7 @@ public class FriendRepository {
                 result.getString("status"),
                 result.getFloat("longitude"),
                 result.getFloat("latitude"),
-                new Availability()  //todo
+                result.getInt("availability")
         );
     }
 }

@@ -4,10 +4,8 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
 import wya.models.Account;
-import wya.models.Radius;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.AccountRepository;
-import wya.repositories.PersonNotFoundException;
 
 import java.sql.SQLException;
 import java.util.Objects;
@@ -33,8 +31,7 @@ public class AccountController {
      *
      * @param ctx       Javalin Context object with the form params to insert into new user entry.
      * @param person_id PK from person to use as FK in person.
-     * @throws SQLException            Statement failed to execute.
-     * @throws PersonNotFoundException Person with PK person_id not found in person.
+     * @throws SQLException Statement failed to execute.
      */
     void register(Context ctx, int person_id) throws SQLException {
         Account account = new Account();
@@ -48,10 +45,9 @@ public class AccountController {
      * Login handler.
      * Set the session attribute to the user account.
      *
-     * @param ctx
-     * @throws AccountNotFoundException
-     * @throws SQLException
-     * @throws PersonNotFoundException
+     * @param ctx Javalin Context object with the form params to insert into new user entry.
+     * @throws AccountNotFoundException Account with the username/password combination is wrong.
+     * @throws SQLException             SQL statement failed to execute.
      */
     void login(Context ctx) throws AccountNotFoundException, SQLException {
         var user = accountRepository.getOne(ctx.formParam("username"));
@@ -97,7 +93,6 @@ public class AccountController {
      *
      * @param ctx Javalin Context object with the form params to insert into user entry.
      * @throws SQLException             Statement failed to execute.
-     * @throws PersonNotFoundException  Person with PK person_id not found in person.
      * @throws AccountNotFoundException Account with PK identifier not found in user.
      */
     void updateDetails(Context ctx) throws SQLException, AccountNotFoundException {
@@ -112,7 +107,6 @@ public class AccountController {
      *
      * @param ctx     Javalin Context object with the form params to insert into user entry.
      * @param account Account object to be converted into user entry.
-     * @throws SQLException Statement failed to execute.
      */
     private void createToDB(Context ctx, Account account) {
         account.setUsername(ctx.formParam("username", ""));
@@ -120,12 +114,10 @@ public class AccountController {
         account.setEmail(ctx.formParam("email", ""));
         account.setPerson_id(account.getPerson_id());
         account.setProfilePicture(ctx.formParam("profilePicture", ""));
-        account.setRadius(new Radius());    //TODO Passing in some radius
     }
 
     private void editToDB(Context ctx, Account account) {
         account.setEmail(ctx.formParam("email", ""));
         account.setProfilePicture(ctx.formParam("profilePicture", ""));
-        account.setRadius(new Radius());    //TODO Passing in some radius
     }
 }

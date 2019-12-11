@@ -8,24 +8,37 @@ public class Person {
     private String status;
     private float longitude;
     private float latitude;
-    private Availability availability;
+    private int availability;
 
 
-    public Person() {}
-
-    //todo figure out default live, status, and avail
-    public Person(int identifier, String name, String lastSeen, boolean live) {
-        this.identifier = identifier;
-        this.fullName = name;
-        this.lastSeen = lastSeen;
-        this.live = live;
+    public Person() {
     }
 
-    /*
-     * Constructor with all vars
-     */
+//    public Person(int identifier, String name, String lastSeen, boolean live) {
+//        this.identifier = identifier;
+//        this.fullName = name;
+//        this.lastSeen = lastSeen;
+//        this.live = live;
+//    }
 
-    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, Availability availability) {
+    /**
+     * Public constructor to create a Person model in the MVC.
+     *
+     * @param identifier   The identifier of the person.
+     * @param fullName     The full name of the person.
+     * @param lastSeen     The time stamp of the last time the person updated his/her time.
+     * @param live         The boolean whether or not the person is active or inactive on the app.
+     *                     true = online
+     *                     false = offline
+     * @param status       The status that the user wants to tell other users about what they are doing.
+     * @param longitude    The longitude of their last logged location.
+     * @param latitude     The latitude of their last logged location
+     * @param availability The availability of the user at the current time using an enumeration.
+     *                     0 = available
+     *                     1 = busy
+     *                     2 = do not disturb
+     */
+    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability) {
         this.identifier = identifier;
         this.fullName = fullName;
         this.lastSeen = lastSeen;
@@ -92,11 +105,11 @@ public class Person {
         this.latitude = latitude;
     }
 
-    public Availability getAvailability() {
+    public int getAvailability() {
         return availability;
     }
 
-    public void setAvailability(Availability availability) {
+    public void setAvailability(int availability) {
         this.availability = availability;
     }
 }

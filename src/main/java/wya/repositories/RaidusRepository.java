@@ -1,13 +1,12 @@
-package wya.repositories;
-
-import wya.models.Radius;
-
-public class RaidusRepository {
-    public Radius getOne(int radius_id) {
-        //TODO
-        return new Radius();
-    }
-}
+//package wya.repositories;
+//
+//import wya.models.Radius;
+//
+//public class RaidusRepository {
+//    public Radius getOne(int radius_id) {
+//        return new Radius();
+//    }
+//}
 
 //package wya.repositories;
 //
@@ -63,8 +62,8 @@ public class RaidusRepository {
 //
 //    public void create() throws SQLException {
 //        var statement = connection.prepareStatement("INSERT INTO status (status) VALUES (?)");
-////        prepareStatement(status, statement);
-////        statement.execute();
+//        prepareStatement(status, statement);
+//        statement.execute();
 //        statement.close();
 //    }
 //

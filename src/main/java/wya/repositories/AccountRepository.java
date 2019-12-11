@@ -10,14 +10,12 @@ import java.util.List;
 
 public class AccountRepository {
     private Connection connection;
-    private RaidusRepository radiusRepository;
 
-    public AccountRepository(Connection connection, RaidusRepository radiusRepository) throws SQLException {
+    public AccountRepository(Connection connection) throws SQLException {
         this.connection = connection;
-        this.radiusRepository = radiusRepository;
         var statement = connection.createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY UNIQUE, password TEXT, email TEXT," +
-                "person_id INTEGER, profilePicture TEXT, radius_id INTEGER, FOREIGN KEY (person_id) REFERENCES person(identifier), FOREIGN KEY (radius_id) REFERENCES radius(radius_id))");
+                "person_id INTEGER, profilePicture TEXT, FOREIGN KEY (person_id) REFERENCES person(identifier))");
         statement.close();
     }
 
@@ -51,26 +49,24 @@ public class AccountRepository {
     }
 
     public void create(Account account) throws SQLException {
-        var statement = connection.prepareStatement("INSERT INTO users (username, password, email, person_id, profilePicture, radius_id) VALUES(?,?,?,?,?,?)");   //TODO radius
+        var statement = connection.prepareStatement("INSERT INTO users (username, password, email, person_id, profilePicture) VALUES(?,?,?,?,?)");
         statement.setString(1, account.getUsername());
         statement.setString(2, account.getPassword());
         statement.setString(3, account.getEmail());
         statement.setInt(4, account.getPerson_id());
         statement.setString(5, account.getProfilePicture());
-        statement.setInt(6, account.getRadius().getIdentifier());
 
         statement.execute();
         statement.close();
     }
 
     public void updateDetails(Account account) throws SQLException, AccountNotFoundException {
-        var statement = connection.prepareStatement("UPDATE users SET password = ?,  email = ?, person_id = ?,  profilePicture = ?, radius_id = ? WHERE username = ?");
+        var statement = connection.prepareStatement("UPDATE users SET password = ?,  email = ?, person_id = ?,  profilePicture = ? WHERE username = ?");
         statement.setString(1, account.getPassword());
         statement.setString(2, account.getEmail());
         statement.setInt(3, account.getPerson_id());
         statement.setString(4, account.getProfilePicture());
-        statement.setInt(5, account.getRadius().getIdentifier());
-        statement.setString(6, account.getUsername());
+        statement.setString(5, account.getUsername());
         try {
             if (statement.executeUpdate() == 0) throw new AccountNotFoundException();
         } finally {
@@ -84,8 +80,7 @@ public class AccountRepository {
                 result.getString("password"),
                 result.getString("email"),
                 result.getInt("person_id"),
-                result.getString("profilePicture"),
-                radiusRepository.getOne(result.getInt("radius_id"))
+                result.getString("profilePicture")
         );
     }
 }
