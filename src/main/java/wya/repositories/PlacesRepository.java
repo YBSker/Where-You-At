@@ -19,7 +19,7 @@ public class PlacesRepository {
     public List<Places> getAll() throws SQLException {
         var places = new ArrayList<Places>();
         var statement = connection.createStatement();
-        var result = statement.executeQuery("SELECT * FROM person");
+        var result = statement.executeQuery("SELECT * FROM places");
         while (result.next()) {
             places.add(createPlacesFromDB(result));
         }

@@ -234,7 +234,11 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": null
+=======
+					"body": ""
+>>>>>>> origin/Backend2.0
 				},
 				{
 					"name": "Successful Register New Account",
@@ -336,7 +340,11 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": null
+=======
+					"body": ""
+>>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -424,7 +432,11 @@
 			},
 			"response": [
 				{
+<<<<<<< HEAD
 					"name": "Failed Login",
+=======
+					"name": "Successful Login",
+>>>>>>> origin/Backend2.0
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -433,7 +445,11 @@
 							"formdata": [
 								{
 									"key": "username",
+<<<<<<< HEAD
 									"value": "test",
+=======
+									"value": "admin",
+>>>>>>> origin/Backend2.0
 									"type": "text"
 								},
 								{
@@ -456,70 +472,22 @@
 							]
 						}
 					},
+<<<<<<< HEAD
 					"status": "Not Found",
 					"code": 404,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Mon, 02 Dec 2019 22:17:56 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						},
-						{
-							"key": "Content-Length",
-							"value": "0"
-						}
-					],
-					"cookie": [],
-					"body": null
-				},
-				{
-					"name": "Successful Login",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "securepassword",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:7000/login/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7000",
-							"path": [
-								"login",
-								""
-							]
-						}
-					},
+=======
 					"status": "OK",
 					"code": 200,
+>>>>>>> origin/Backend2.0
 					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
+<<<<<<< HEAD
+							"value": "Mon, 02 Dec 2019 22:17:56 GMT"
+=======
 							"value": "Mon, 02 Dec 2019 22:18:26 GMT"
+>>>>>>> origin/Backend2.0
 						},
 						{
 							"key": "Server",
@@ -530,6 +498,8 @@
 							"value": "text/plain"
 						},
 						{
+<<<<<<< HEAD
+=======
 							"key": "Set-Cookie",
 							"value": "JSESSIONID=node0gjjsgstcdobd1q4170t1iw3ip0.node0; Path=/; HttpOnly"
 						},
@@ -538,12 +508,105 @@
 							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
 						},
 						{
+>>>>>>> origin/Backend2.0
 							"key": "Content-Length",
 							"value": "0"
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": null
+				},
+				{
+					"name": "Successful Login",
+=======
+					"body": ""
+				},
+				{
+					"name": "Failed Login",
+>>>>>>> origin/Backend2.0
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+<<<<<<< HEAD
+									"value": "admin",
+=======
+									"value": "test",
+>>>>>>> origin/Backend2.0
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "securepassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+<<<<<<< HEAD
+					"status": "OK",
+					"code": 200,
+=======
+					"status": "Not Found",
+					"code": 404,
+>>>>>>> origin/Backend2.0
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+<<<<<<< HEAD
+							"value": "Mon, 02 Dec 2019 22:18:26 GMT"
+=======
+							"value": "Mon, 02 Dec 2019 22:17:56 GMT"
+>>>>>>> origin/Backend2.0
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+<<<<<<< HEAD
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=node0gjjsgstcdobd1q4170t1iw3ip0.node0; Path=/; HttpOnly"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+=======
+>>>>>>> origin/Backend2.0
+							"key": "Content-Length",
+							"value": "0"
+						}
+					],
+					"cookie": [],
+<<<<<<< HEAD
+					"body": null
+=======
+					"body": ""
+>>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -613,7 +676,11 @@
 			},
 			"response": [
 				{
+<<<<<<< HEAD
 					"name": "Failed Edit Account Not Logged In",
+=======
+					"name": "Successful ",
+>>>>>>> origin/Backend2.0
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -645,13 +712,22 @@
 							]
 						}
 					},
+<<<<<<< HEAD
 					"status": "Forbidden",
 					"code": 403,
+=======
+					"status": "No Content",
+					"code": 204,
+>>>>>>> origin/Backend2.0
 					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
+<<<<<<< HEAD
 							"value": "Mon, 02 Dec 2019 22:57:14 GMT"
+=======
+							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
+>>>>>>> origin/Backend2.0
 						},
 						{
 							"key": "Server",
@@ -660,6 +736,7 @@
 						{
 							"key": "Content-Type",
 							"value": "text/plain"
+<<<<<<< HEAD
 						},
 						{
 							"key": "Set-Cookie",
@@ -679,6 +756,15 @@
 				},
 				{
 					"name": "Successful ",
+=======
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Failed Edit Account Not Logged In",
+>>>>>>> origin/Backend2.0
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -710,13 +796,22 @@
 							]
 						}
 					},
+<<<<<<< HEAD
 					"status": "No Content",
 					"code": 204,
+=======
+					"status": "Forbidden",
+					"code": 403,
+>>>>>>> origin/Backend2.0
 					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
+<<<<<<< HEAD
 							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
+=======
+							"value": "Mon, 02 Dec 2019 22:57:14 GMT"
+>>>>>>> origin/Backend2.0
 						},
 						{
 							"key": "Server",
@@ -725,10 +820,29 @@
 						{
 							"key": "Content-Type",
 							"value": "text/plain"
+<<<<<<< HEAD
 						}
 					],
 					"cookie": [],
 					"body": null
+=======
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=node015jt9v2nupdc3yvxjrcbxfla21.node0; Path=/; HttpOnly"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "9"
+						}
+					],
+					"cookie": [],
+					"body": "Forbidden"
+>>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -930,7 +1044,11 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": null
+=======
+					"body": ""
+>>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -1135,7 +1253,11 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": null
+=======
+					"body": ""
+>>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -1343,11 +1465,38 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": null
+=======
+					"body": ""
+>>>>>>> origin/Backend2.0
 				}
 			]
 		},
 		{
+<<<<<<< HEAD
+=======
+			"name": "Edit Friends",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/editFriends/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"editFriends",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+>>>>>>> origin/Backend2.0
 			"name": "Get all persons",
 			"request": {
 				"method": "GET",
@@ -1480,6 +1629,7 @@
 			]
 		},
 		{
+<<<<<<< HEAD
 			"name": "Edit Friends",
 			"request": {
 				"method": "PUT",
@@ -1500,6 +1650,8 @@
 			"response": []
 		},
 		{
+=======
+>>>>>>> origin/Backend2.0
 			"name": "Create person",
 			"event": [
 				{
@@ -1664,7 +1816,11 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": null
+=======
+					"body": ""
+>>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -1688,6 +1844,130 @@
 				"description": "Get all the accounts from the database "
 			},
 			"response": []
+<<<<<<< HEAD
+=======
+		},
+		{
+			"name": "Update Places",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a30460fe-1c21-4a60-9a10-3231490e3ae4",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/places\", method: \"POST\" }, () => {",
+							"    pm.sendRequest(\"http://localhost:7000/places\", (err, response) => {",
+							"        pm.environment.set(\"placesIdentifier\", response.json().last().identifier);",
+							"        pm.sendRequest({",
+							"            url: 'http://localhost:7000/places/' + pm.environment.get(\"placesIdentifier\"),",
+							"            method: 'POST',",
+							"            body: {",
+							"              mode: 'formdata',",
+							"              formdata: [",
+							"                {key: \"town\", value: \"create event\"},",
+							"                {key: \"city\", value: \"some event\"},",
+							"                {key: \"state\", value: \"Johns Hopkins University\"},",
+							"                {key: \"country\", value: \"help\"}",
+							"              ]",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea6ab520-babe-4149-90d3-c65a807a90a3",
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Item is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/places\", (err, response) => {",
+							"        pm.expect(response.json().first().town).to.equal(\"Hampden\");",
+							"        pm.expect(response.json().first().city).to.equal(\"Baltimore\");",
+							"        pm.expect(response.json().first().state).to.equal(\"Maryland\");",
+							"        pm.expect(response.json().first().country).to.equal(\"USA\");",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Status code is 404 if item isn’t found\", () => {",
+							"    pm.sendRequest({ url: \"http://localhost:7000/places/51039\", method: \"PUT\" }, (err, response) => {",
+							"        pm.expect(response).to.have.status(404);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "town",
+							"value": "Hampden",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Baltimore",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "Maryland",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "USA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/places/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"places",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Places",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/places/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"places",
+						""
+					]
+				}
+			},
+			"response": []
+>>>>>>> origin/Backend2.0
 		}
 	],
 	"protocolProfileBehavior": {}
