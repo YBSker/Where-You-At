@@ -83,11 +83,6 @@
 							"type": "text"
 						},
 						{
-							"key": "availability",
-							"value": "1",
-							"type": "text"
-						},
-						{
 							"key": "longitude",
 							"value": "39.3289957",
 							"type": "text"
@@ -133,253 +128,6 @@
 				},
 				"description": "Registration test\n"
 			},
-			"response": [
-				{
-					"name": "Failed Register Duplicate Username ",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "fullName",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "lastSeen",
-									"value": "2 hrs ago",
-									"type": "text"
-								},
-								{
-									"key": "live",
-									"value": "no",
-									"type": "text"
-								},
-								{
-									"key": "status",
-									"value": "admin stuff",
-									"type": "text"
-								},
-								{
-									"key": "availability",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "longitude",
-									"value": "39.3289957",
-									"type": "text"
-								},
-								{
-									"key": "latitude",
-									"value": "-76.6205235",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "securepassword",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "admin@test.com",
-									"type": "text"
-								},
-								{
-									"key": "profilePicture",
-									"value": "drive.com/profilepicture",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:7000/register/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7000",
-							"path": [
-								"register",
-								""
-							]
-						}
-					},
-					"status": "Conflict",
-					"code": 409,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Mon, 02 Dec 2019 22:54:47 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						},
-						{
-							"key": "Content-Length",
-							"value": "0"
-						}
-					],
-					"cookie": [],
-<<<<<<< HEAD
-					"body": null
-=======
-					"body": ""
->>>>>>> origin/Backend2.0
-				},
-				{
-					"name": "Successful Register New Account",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "fullName",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "lastSeen",
-									"value": "2 hrs ago",
-									"type": "text"
-								},
-								{
-									"key": "live",
-									"value": "no",
-									"type": "text"
-								},
-								{
-									"key": "status",
-									"value": "admin stuff",
-									"type": "text"
-								},
-								{
-									"key": "availability",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "longitude",
-									"value": "39.3289957",
-									"type": "text"
-								},
-								{
-									"key": "latitude",
-									"value": "-76.6205235",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "securepassword",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "admin@test.com",
-									"type": "text"
-								},
-								{
-									"key": "profilePicture",
-									"value": "drive.com/profilepicture",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:7000/register/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7000",
-							"path": [
-								"register",
-								""
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Mon, 02 Dec 2019 22:54:14 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						},
-						{
-							"key": "Content-Length",
-							"value": "0"
-						}
-					],
-					"cookie": [],
-<<<<<<< HEAD
-					"body": null
-=======
-					"body": ""
->>>>>>> origin/Backend2.0
-				}
-			]
-		},
-		{
-			"name": "Change Account Password",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "oldpassword",
-							"value": "securepassword",
-							"type": "text"
-						},
-						{
-							"key": "newpassword",
-							"value": "moresecurepassword",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:7000/changePassword",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"changePassword"
-					]
-				}
-			},
 			"response": []
 		},
 		{
@@ -392,6 +140,40 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {",
 							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Bad password\", () => {",
+							"    pm.sendRequest({ ",
+							"        url: \"http://localhost:7000/login\",",
+							"        method: \"POST\", ",
+							"        body: {",
+							"                mode: 'formdata',",
+							"                formdata: [",
+							"                {key: \"username\", value:\"admin\"},",
+							"                {key: \"password\", value:\"badpassword\"}",
+							"                ]",
+							"            }",
+							"        },",
+							"        (err, response) => {",
+							"        pm.expect(response).to.have.status(403);",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Bad username\", () => {",
+							"    pm.sendRequest({ ",
+							"        url: \"http://localhost:7000/login\",",
+							"        method: \"POST\", ",
+							"        body: {",
+							"                mode: 'formdata',",
+							"                formdata: [",
+							"                {key: \"username\", value:\"notadmin\"},",
+							"                {key: \"password\", value:\"securepassword\"}",
+							"                ]",
+							"            }",
+							"        },",
+							"        (err, response) => {",
+							"        pm.expect(response).to.have.status(403);",
+							"    });",
 							"});",
 							""
 						],
@@ -432,11 +214,7 @@
 			},
 			"response": [
 				{
-<<<<<<< HEAD
-					"name": "Failed Login",
-=======
 					"name": "Successful Login",
->>>>>>> origin/Backend2.0
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -445,11 +223,7 @@
 							"formdata": [
 								{
 									"key": "username",
-<<<<<<< HEAD
-									"value": "test",
-=======
 									"value": "admin",
->>>>>>> origin/Backend2.0
 									"type": "text"
 								},
 								{
@@ -472,22 +246,13 @@
 							]
 						}
 					},
-<<<<<<< HEAD
-					"status": "Not Found",
-					"code": 404,
-=======
 					"status": "OK",
 					"code": 200,
->>>>>>> origin/Backend2.0
 					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
-<<<<<<< HEAD
-							"value": "Mon, 02 Dec 2019 22:17:56 GMT"
-=======
-							"value": "Mon, 02 Dec 2019 22:18:26 GMT"
->>>>>>> origin/Backend2.0
+							"value": "Tue, 10 Dec 2019 21:32:50 GMT"
 						},
 						{
 							"key": "Server",
@@ -498,117 +263,87 @@
 							"value": "text/plain"
 						},
 						{
-<<<<<<< HEAD
-=======
 							"key": "Set-Cookie",
-							"value": "JSESSIONID=node0gjjsgstcdobd1q4170t1iw3ip0.node0; Path=/; HttpOnly"
+							"value": "JSESSIONID=node013f62itoss33szaae7qknhp80.node0; Path=/; HttpOnly"
 						},
 						{
 							"key": "Expires",
 							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
 						},
 						{
->>>>>>> origin/Backend2.0
 							"key": "Content-Length",
 							"value": "0"
 						}
 					],
 					"cookie": [],
-<<<<<<< HEAD
 					"body": null
-				},
-				{
-					"name": "Successful Login",
-=======
-					"body": ""
-				},
-				{
-					"name": "Failed Login",
->>>>>>> origin/Backend2.0
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-<<<<<<< HEAD
-									"value": "admin",
-=======
-									"value": "test",
->>>>>>> origin/Backend2.0
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "securepassword",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:7000/login/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7000",
-							"path": [
-								"login",
-								""
-							]
-						}
-					},
-<<<<<<< HEAD
-					"status": "OK",
-					"code": 200,
-=======
-					"status": "Not Found",
-					"code": 404,
->>>>>>> origin/Backend2.0
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Date",
-<<<<<<< HEAD
-							"value": "Mon, 02 Dec 2019 22:18:26 GMT"
-=======
-							"value": "Mon, 02 Dec 2019 22:17:56 GMT"
->>>>>>> origin/Backend2.0
-						},
-						{
-							"key": "Server",
-							"value": "Javalin"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						},
-						{
-<<<<<<< HEAD
-							"key": "Set-Cookie",
-							"value": "JSESSIONID=node0gjjsgstcdobd1q4170t1iw3ip0.node0; Path=/; HttpOnly"
-						},
-						{
-							"key": "Expires",
-							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
-						},
-						{
-=======
->>>>>>> origin/Backend2.0
-							"key": "Content-Length",
-							"value": "0"
-						}
-					],
-					"cookie": [],
-<<<<<<< HEAD
-					"body": null
-=======
-					"body": ""
->>>>>>> origin/Backend2.0
 				}
 			]
+		},
+		{
+			"name": "Change Account Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8e10107-74ca-4693-8661-f97dd8a9f597",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Bad original password\", () => {",
+							"    pm.sendRequest({ ",
+							"        url: \"http://localhost:7000/changePassword\",",
+							"        method: \"PUT\", ",
+							"        body: {",
+							"                mode: 'formdata',",
+							"                formdata: [",
+							"                {key:\"oldpassword\", value:\"wrongpassword\"},",
+							"                {key:\"newpassword\", value:\"moresecurepassword\"}",
+							"                ]",
+							"            }",
+							"        },",
+							"        (err, response) => {",
+							"        pm.expect(response).to.have.status(403);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "oldpassword",
+							"value": "securepassword",
+							"type": "text"
+						},
+						{
+							"key": "newpassword",
+							"value": "moresecurepassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/changePassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"changePassword"
+					]
+				}
+			},
+			"response": []
 		},
 		{
 			"name": "Edit Account",
@@ -634,7 +369,7 @@
 							"",
 							"pm.test(\"Account is edited\", () => {",
 							"    pm.sendRequest(\"http://localhost:7000/updateAccount\", (err, response) => {",
-							"        pm.expect(response.json().last().email).to.equal(\"newemailadmin@test.com\");",
+							"        pm.expect(response.json().email).to.equal(\"newemailadmin@test.com\");",
 							"    });",
 							"});"
 						],
@@ -676,11 +411,7 @@
 			},
 			"response": [
 				{
-<<<<<<< HEAD
 					"name": "Failed Edit Account Not Logged In",
-=======
-					"name": "Successful ",
->>>>>>> origin/Backend2.0
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -712,22 +443,13 @@
 							]
 						}
 					},
-<<<<<<< HEAD
 					"status": "Forbidden",
 					"code": 403,
-=======
-					"status": "No Content",
-					"code": 204,
->>>>>>> origin/Backend2.0
 					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
-<<<<<<< HEAD
 							"value": "Mon, 02 Dec 2019 22:57:14 GMT"
-=======
-							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
->>>>>>> origin/Backend2.0
 						},
 						{
 							"key": "Server",
@@ -736,7 +458,6 @@
 						{
 							"key": "Content-Type",
 							"value": "text/plain"
-<<<<<<< HEAD
 						},
 						{
 							"key": "Set-Cookie",
@@ -756,15 +477,6 @@
 				},
 				{
 					"name": "Successful ",
-=======
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Failed Edit Account Not Logged In",
->>>>>>> origin/Backend2.0
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -796,22 +508,13 @@
 							]
 						}
 					},
-<<<<<<< HEAD
 					"status": "No Content",
 					"code": 204,
-=======
-					"status": "Forbidden",
-					"code": 403,
->>>>>>> origin/Backend2.0
 					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
-<<<<<<< HEAD
 							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
-=======
-							"value": "Mon, 02 Dec 2019 22:57:14 GMT"
->>>>>>> origin/Backend2.0
 						},
 						{
 							"key": "Server",
@@ -820,29 +523,10 @@
 						{
 							"key": "Content-Type",
 							"value": "text/plain"
-<<<<<<< HEAD
 						}
 					],
 					"cookie": [],
 					"body": null
-=======
-						},
-						{
-							"key": "Set-Cookie",
-							"value": "JSESSIONID=node015jt9v2nupdc3yvxjrcbxfla21.node0; Path=/; HttpOnly"
-						},
-						{
-							"key": "Expires",
-							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "9"
-						}
-					],
-					"cookie": [],
-					"body": "Forbidden"
->>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -850,60 +534,59 @@
 			"name": "Edit Profile",
 			"event": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "6c75f730-2d12-45fe-9ffe-97ac019c4506",
-						"exec": [
-							"pm.sendRequest({ url: \"http://localhost:7000/account/user\", method: \"POST\" }, () => {",
-							"    pm.sendRequest(\"http://localhost:7000/account/user\", (err, response) => {",
-							"        pm.environment.set(\"personIdentifier\", response.json().last().identifier);",
-							"        pm.sendRequest({",
-							"            url: 'http://localhost:7000/account/user/' + pm.environment.get(\"personIdentifier\"),",
-							"            method: 'POST',",
-							"            body: {",
-							"              mode: 'formdata',",
-							"              formdata: [",
-							"                {key:\"fullName\", value:\"Leandro Facchinetti\"},",
-							"                {key:\"lastSeen\", value:\"2 hrs ago\"},",
-							"                {key:\"live\", value:\"no\"},",
-							"                {key:\"status\", value:\"writing the final\"},",
-							"                {key:\"availability\", value:\"1\"},",
-							"                {key:\"longitude\", value:\"39.3289957\"},",
-							"                {key:\"latitude\", value:\"-76.6205235\"}",
-							"              ]",
-							"            }",
-							"        });",
-							"    });",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
 					"listen": "test",
 					"script": {
-						"id": "71ae2faf-3a8f-4c61-9ca5-9b893232b11a",
+						"id": "d5aa8daa-4337-4f36-a458-e0dd414f5aa8",
 						"exec": [
 							"pm.test(\"Status code is 204\", () => {",
 							"    pm.response.to.have.status(204);",
 							"});",
 							"",
-							"pm.test(\"Item is edited\", () => {",
-							"    pm.sendRequest(\"http://localhost:7000/account/user\", (err, response) => {",
-							"        pm.expect(response.json().last().fullName).to.equal(\"Vincent Lee\");",
-							"        pm.expect(response.json().last().lastSeen).to.equal(\"3 hrs ago\");",
-							"        pm.expect(response.json().last().status).to.equal(\"taking the final\");",
-							"        ",
+							"pm.test(\"Profile is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/updateProfile\", (err, response) => {",
+							"        pm.expect(response.json().fullName).to.equal(\"Vincent Lee\");",
+							"        pm.expect(response.json().lastSeen).to.equal(\"3 hrs ago\");",
+							"        pm.expect(response.json().status).to.equal(\"failing the final\");",
 							"    });",
 							"});",
 							"",
 							"",
-							"pm.test(\"Status code is 404 if item isn’t found\", () => {",
-							"    pm.sendRequest({ url: \"http://localhost:7000/account/user/51039\", method: \"PUT\" }, (err, response) => {",
-							"        pm.expect(response).to.have.status(404);",
-							"    });",
-							"});",
+							"// pm.test(\"Status code is 404 if item isn’t found\", () => {",
+							"//     pm.sendRequest({ url: \"http://localhost:7000/account/user/51039\", method: \"PUT\" }, (err, response) => {",
+							"//         pm.expect(response).to.have.status(404);",
+							"//     });",
+							"// });",
 							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82006695-5dbe-42d6-b0e8-4fbe5d00070a",
+						"exec": [
+							"// pm.sendRequest({ url: \"http://localhost:7000/account/user\", method: \"POST\" }, () => {",
+							"//     pm.sendRequest(\"http://localhost:7000/account/user\", (err, response) => {",
+							"//         pm.environment.set(\"personIdentifier\", response.json().last().identifier);",
+							"//         pm.sendRequest({",
+							"//             url: 'http://localhost:7000/account/user/' + pm.environment.get(\"personIdentifier\"),",
+							"//             method: 'POST',",
+							"//             body: {",
+							"//               mode: 'formdata',",
+							"//               formdata: [",
+							"//                 {key:\"fullName\", value:\"Leandro Facchinetti\"},",
+							"//                 {key:\"lastSeen\", value:\"2 hrs ago\"},",
+							"//                 {key:\"live\", value:\"no\"},",
+							"//                 {key:\"status\", value:\"writing the final\"},",
+							"//                 {key:\"availability\", value:\"1\"},",
+							"//                 {key:\"longitude\", value:\"39.3289957\"},",
+							"//                 {key:\"latitude\", value:\"-76.6205235\"}",
+							"//               ]",
+							"//             }",
+							"//         });",
+							"//     });",
+							"// });"
 						],
 						"type": "text/javascript"
 					}
@@ -932,7 +615,7 @@
 						},
 						{
 							"key": "status",
-							"value": "taking the final",
+							"value": "failing the final",
 							"type": "text"
 						},
 						{
@@ -1044,16 +727,35 @@
 						}
 					],
 					"cookie": [],
-<<<<<<< HEAD
 					"body": null
-=======
-					"body": ""
->>>>>>> origin/Backend2.0
 				}
 			]
 		},
 		{
 			"name": "Show All Events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddcd9b67-f634-4f80-86ce-ea82f1dd7fab",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response JSON is a list\", () => {",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");",
+							"});",
+							"pm.test(\"Items have all the event keys\", () => {",
+							"    pm.response.json().forEach(item => {",
+							"        pm.expect(item).to.have.all.keys(\"identifier\",\"name\",\"description\",\"place\",\"longitude\",\"latitude\",\"image\",\"startTime\",\"endTime\",\"peopleAvailable\",\"peopleInvited\", \"peopleAccepted\",\"peopleSeen\");",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -1078,18 +780,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "31bba8ee-2938-4282-be95-0d30dd5be307",
+						"id": "88acd247-c9a3-41a8-803b-f6bf630a26c1",
 						"exec": [
 							"pm.test(\"Status code is 201\", () => {",
 							"    pm.response.to.have.status(201);",
-							"});",
-							"pm.test(\"Identifiers are always increasing\", () => {",
-							"    pm.sendRequest(\"http://localhost:7000/event\", (err, response) => {",
-							"        const identifiers = response.json().map(item => item.identifier).reverse();",
-							"        pm.expect(identifiers[0]).to.be.equal(identifiers[1] + 1);",
-							"    });",
-							"});",
-							""
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -1097,9 +792,9 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "76cc81c7-59ab-4d79-aff0-20b9817df1e4",
+						"id": "369223f6-c8d0-4222-af4c-b831c62f2327",
 						"exec": [
-							"pm.sendRequest({ url: \"http://localhost:7000/event\", method: \"POST\" });",
+							"pm.sendRequest({ url: \"http://localhost:7000/event/create\", method: \"POST\" });",
 							""
 						],
 						"type": "text/javascript"
@@ -1253,11 +948,7 @@
 						}
 					],
 					"cookie": [],
-<<<<<<< HEAD
 					"body": null
-=======
-					"body": ""
->>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -1465,52 +1156,45 @@
 						}
 					],
 					"cookie": [],
-<<<<<<< HEAD
 					"body": null
-=======
-					"body": ""
->>>>>>> origin/Backend2.0
 				}
 			]
 		},
 		{
-<<<<<<< HEAD
-=======
-			"name": "Edit Friends",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7000/editFriends/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"editFriends",
-						""
-					]
+			"name": "Get profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8145e5f5-26d2-4fe7-95cd-20c92ce9db8e",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Items have identifier and description\", () => {",
+							"    pm.expect(pm.response.json()).to.have.all.keys(\"identifier\",\"fullName\",\"lastSeen\",\"live\",\"status\",\"longitude\",\"latitude\",\"availability\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
-			},
-			"response": []
-		},
-		{
->>>>>>> origin/Backend2.0
-			"name": "Get all persons",
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:7000/account/user",
+					"raw": "http://localhost:7000/profile",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "7000",
 					"path": [
-						"account",
-						"user"
+						"profile"
 					]
 				}
 			},
@@ -1564,6 +1248,27 @@
 		},
 		{
 			"name": "Get All Friends",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "17f3cee3-1ac5-41b8-ab45-8e89b613fbad",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// pm.test(\"Items have identifier and description\", () => {",
+							"//     pm.expect(pm.response.json()).to.have.all.keys();",
+							"// });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -1629,7 +1334,6 @@
 			]
 		},
 		{
-<<<<<<< HEAD
 			"name": "Edit Friends",
 			"request": {
 				"method": "PUT",
@@ -1650,8 +1354,6 @@
 			"response": []
 		},
 		{
-=======
->>>>>>> origin/Backend2.0
 			"name": "Create person",
 			"event": [
 				{
@@ -1816,11 +1518,7 @@
 						}
 					],
 					"cookie": [],
-<<<<<<< HEAD
 					"body": null
-=======
-					"body": ""
->>>>>>> origin/Backend2.0
 				}
 			]
 		},
@@ -1844,130 +1542,6 @@
 				"description": "Get all the accounts from the database "
 			},
 			"response": []
-<<<<<<< HEAD
-=======
-		},
-		{
-			"name": "Update Places",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "a30460fe-1c21-4a60-9a10-3231490e3ae4",
-						"exec": [
-							"pm.sendRequest({ url: \"http://localhost:7000/places\", method: \"POST\" }, () => {",
-							"    pm.sendRequest(\"http://localhost:7000/places\", (err, response) => {",
-							"        pm.environment.set(\"placesIdentifier\", response.json().last().identifier);",
-							"        pm.sendRequest({",
-							"            url: 'http://localhost:7000/places/' + pm.environment.get(\"placesIdentifier\"),",
-							"            method: 'POST',",
-							"            body: {",
-							"              mode: 'formdata',",
-							"              formdata: [",
-							"                {key: \"town\", value: \"create event\"},",
-							"                {key: \"city\", value: \"some event\"},",
-							"                {key: \"state\", value: \"Johns Hopkins University\"},",
-							"                {key: \"country\", value: \"help\"}",
-							"              ]",
-							"            }",
-							"        });",
-							"    });",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "ea6ab520-babe-4149-90d3-c65a807a90a3",
-						"exec": [
-							"pm.test(\"Status code is 204\", () => {",
-							"    pm.response.to.have.status(204);",
-							"});",
-							"",
-							"pm.test(\"Item is edited\", () => {",
-							"    pm.sendRequest(\"http://localhost:7000/places\", (err, response) => {",
-							"        pm.expect(response.json().first().town).to.equal(\"Hampden\");",
-							"        pm.expect(response.json().first().city).to.equal(\"Baltimore\");",
-							"        pm.expect(response.json().first().state).to.equal(\"Maryland\");",
-							"        pm.expect(response.json().first().country).to.equal(\"USA\");",
-							"    });",
-							"});",
-							"",
-							"pm.test(\"Status code is 404 if item isn’t found\", () => {",
-							"    pm.sendRequest({ url: \"http://localhost:7000/places/51039\", method: \"PUT\" }, (err, response) => {",
-							"        pm.expect(response).to.have.status(404);",
-							"    });",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "town",
-							"value": "Hampden",
-							"type": "text"
-						},
-						{
-							"key": "city",
-							"value": "Baltimore",
-							"type": "text"
-						},
-						{
-							"key": "state",
-							"value": "Maryland",
-							"type": "text"
-						},
-						{
-							"key": "country",
-							"value": "USA",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:7000/places/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"places",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Places",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7000/places/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"places",
-						""
-					]
-				}
-			},
-			"response": []
->>>>>>> origin/Backend2.0
 		}
 	],
 	"protocolProfileBehavior": {}
