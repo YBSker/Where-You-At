@@ -1,0 +1,1548 @@
+{
+	"info": {
+		"_postman_id": "b5579273-76fa-428a-add2-26e67a9df72a",
+		"name": "WYA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register New Account",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "40fb9d82-7fef-4dd0-b356-06c2455fe086",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6fa8fda-7a57-4933-a13d-292de68fa637",
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Duplicate username\", () => {",
+							"    pm.sendRequest({ ",
+							"        url: \"http://localhost:7000/register\",",
+							"        method: \"POST\", ",
+							"        body: {",
+							"                mode: 'formdata',",
+							"                formdata: [",
+							"                {key: \"fullName\", value:\"Leandro\"},",
+							"                {key: \"lastSeen\", value:\"2 hrs ago\"},",
+							"                {key: \"live\", value:\"no\"},",
+							"                {key: \"status\", value:\"writing the final\"},",
+							"                {key: \"longitude\", value:\"39.3289957\"},",
+							"                {key: \"latitude\", value:\"-76.6205235\"},",
+							"                {key: \"username\", value:\"admin\"},",
+							"                {key: \"password\", value:\"securepassword\"},",
+							"                {key: \"email\", value:\"testing@test.com\"},",
+							"                {key: \"profilePicture\", value:\"drive.com/profilepicture\"}",
+							"                ]",
+							"            }",
+							"        },",
+							"        (err, response) => {",
+							"        pm.expect(response).to.have.status(409);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fullName",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "lastSeen",
+							"value": "2 hrs ago",
+							"type": "text"
+						},
+						{
+							"key": "live",
+							"value": "no",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "admin stuff",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "39.3289957",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "-76.6205235",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "securepassword",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin@test.com",
+							"type": "text"
+						},
+						{
+							"key": "profilePicture",
+							"value": "drive.com/profilepicture",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/register/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"register",
+						""
+					]
+				},
+				"description": "Registration test\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9dfff1f3-6c62-45d9-8f3e-75ed35075c9d",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Bad password\", () => {",
+							"    pm.sendRequest({ ",
+							"        url: \"http://localhost:7000/login\",",
+							"        method: \"POST\", ",
+							"        body: {",
+							"                mode: 'formdata',",
+							"                formdata: [",
+							"                {key: \"username\", value:\"admin\"},",
+							"                {key: \"password\", value:\"badpassword\"}",
+							"                ]",
+							"            }",
+							"        },",
+							"        (err, response) => {",
+							"        pm.expect(response).to.have.status(403);",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Bad username\", () => {",
+							"    pm.sendRequest({ ",
+							"        url: \"http://localhost:7000/login\",",
+							"        method: \"POST\", ",
+							"        body: {",
+							"                mode: 'formdata',",
+							"                formdata: [",
+							"                {key: \"username\", value:\"notadmin\"},",
+							"                {key: \"password\", value:\"securepassword\"}",
+							"                ]",
+							"            }",
+							"        },",
+							"        (err, response) => {",
+							"        pm.expect(response).to.have.status(403);",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "securepassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Successful Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "securepassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Dec 2019 21:32:50 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=node013f62itoss33szaae7qknhp80.node0; Path=/; HttpOnly"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Change Account Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8e10107-74ca-4693-8661-f97dd8a9f597",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Bad original password\", () => {",
+							"    pm.sendRequest({ ",
+							"        url: \"http://localhost:7000/changePassword\",",
+							"        method: \"PUT\", ",
+							"        body: {",
+							"                mode: 'formdata',",
+							"                formdata: [",
+							"                {key:\"oldpassword\", value:\"wrongpassword\"},",
+							"                {key:\"newpassword\", value:\"moresecurepassword\"}",
+							"                ]",
+							"            }",
+							"        },",
+							"        (err, response) => {",
+							"        pm.expect(response).to.have.status(403);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "oldpassword",
+							"value": "securepassword",
+							"type": "text"
+						},
+						{
+							"key": "newpassword",
+							"value": "moresecurepassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/changePassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"changePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Account",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8b72e839-dd49-49af-b1f9-f0e8631031c8",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "39a32149-d3cd-4484-b43b-fe545ce05df8",
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Account is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/updateAccount\", (err, response) => {",
+							"        pm.expect(response.json().email).to.equal(\"newemailadmin@test.com\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "newemailadmin@test.com",
+							"type": "text"
+						},
+						{
+							"key": "profilePicture",
+							"value": "drive.com/profilepicture",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/updateAccount/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"updateAccount",
+						""
+					]
+				},
+				"description": "Update the details of an account"
+			},
+			"response": [
+				{
+					"name": "Failed Edit Account Not Logged In",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "newemailadmin@test.com",
+									"type": "text"
+								},
+								{
+									"key": "profilePicture",
+									"value": "drive.com/profilepicture",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/updateAccount/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"updateAccount",
+								""
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 02 Dec 2019 22:57:14 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=node015jt9v2nupdc3yvxjrcbxfla21.node0; Path=/; HttpOnly"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "9"
+						}
+					],
+					"cookie": [],
+					"body": "Forbidden"
+				},
+				{
+					"name": "Successful ",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "newemailadmin@test.com",
+									"type": "text"
+								},
+								{
+									"key": "profilePicture",
+									"value": "drive.com/profilepicture",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/updateAccount/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"updateAccount",
+								""
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Edit Profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d5aa8daa-4337-4f36-a458-e0dd414f5aa8",
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Profile is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/updateProfile\", (err, response) => {",
+							"        pm.expect(response.json().fullName).to.equal(\"Vincent Lee\");",
+							"        pm.expect(response.json().lastSeen).to.equal(\"3 hrs ago\");",
+							"        pm.expect(response.json().status).to.equal(\"failing the final\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"// pm.test(\"Status code is 404 if item isn’t found\", () => {",
+							"//     pm.sendRequest({ url: \"http://localhost:7000/account/user/51039\", method: \"PUT\" }, (err, response) => {",
+							"//         pm.expect(response).to.have.status(404);",
+							"//     });",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82006695-5dbe-42d6-b0e8-4fbe5d00070a",
+						"exec": [
+							"// pm.sendRequest({ url: \"http://localhost:7000/account/user\", method: \"POST\" }, () => {",
+							"//     pm.sendRequest(\"http://localhost:7000/account/user\", (err, response) => {",
+							"//         pm.environment.set(\"personIdentifier\", response.json().last().identifier);",
+							"//         pm.sendRequest({",
+							"//             url: 'http://localhost:7000/account/user/' + pm.environment.get(\"personIdentifier\"),",
+							"//             method: 'POST',",
+							"//             body: {",
+							"//               mode: 'formdata',",
+							"//               formdata: [",
+							"//                 {key:\"fullName\", value:\"Leandro Facchinetti\"},",
+							"//                 {key:\"lastSeen\", value:\"2 hrs ago\"},",
+							"//                 {key:\"live\", value:\"no\"},",
+							"//                 {key:\"status\", value:\"writing the final\"},",
+							"//                 {key:\"availability\", value:\"1\"},",
+							"//                 {key:\"longitude\", value:\"39.3289957\"},",
+							"//                 {key:\"latitude\", value:\"-76.6205235\"}",
+							"//               ]",
+							"//             }",
+							"//         });",
+							"//     });",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fullName",
+							"value": "Vincent Lee",
+							"type": "text"
+						},
+						{
+							"key": "lastSeen",
+							"value": "3 hrs ago",
+							"type": "text"
+						},
+						{
+							"key": "live",
+							"value": "no",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "failing the final",
+							"type": "text"
+						},
+						{
+							"key": "availability",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "longitude",
+							"value": "39.3289957",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "-76.6205235",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/updateProfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"updateProfile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Person",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Vincent Lee",
+									"type": "text"
+								},
+								{
+									"key": "lastSeen",
+									"value": "3 hrs ago",
+									"type": "text"
+								},
+								{
+									"key": "live",
+									"value": "no",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "taking the final",
+									"type": "text"
+								},
+								{
+									"key": "availability",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "39.3289957",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-76.6205235",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/account/user/{{personIdentifier}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"account",
+								"user",
+								"{{personIdentifier}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2019 19:36:53 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Show All Events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddcd9b67-f634-4f80-86ce-ea82f1dd7fab",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response JSON is a list\", () => {",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");",
+							"});",
+							"pm.test(\"Items have all the event keys\", () => {",
+							"    pm.response.json().forEach(item => {",
+							"        pm.expect(item).to.have.all.keys(\"identifier\",\"name\",\"description\",\"place\",\"longitude\",\"latitude\",\"image\",\"startTime\",\"endTime\",\"peopleAvailable\",\"peopleInvited\", \"peopleAccepted\",\"peopleSeen\");",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/event",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"event"
+					]
+				},
+				"description": "Show all the events that the user has."
+			},
+			"response": []
+		},
+		{
+			"name": "Create an event",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "88acd247-c9a3-41a8-803b-f6bf630a26c1",
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "369223f6-c8d0-4222-af4c-b831c62f2327",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/event/create\", method: \"POST\" });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "event",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "some event",
+							"type": "text"
+						},
+						{
+							"key": "place",
+							"value": "Johns Hopkins University",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "39.3289957",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "-76.6205235",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"value": "someimageurl.com",
+							"type": "text"
+						},
+						{
+							"key": "startTime",
+							"value": "2019-11-06T01:29:06+00:00",
+							"type": "text"
+						},
+						{
+							"key": "endTime",
+							"value": "2019-11-07T01:29:06+00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/event/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"event",
+						"create"
+					]
+				},
+				"description": "Create a new event for the user"
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "event",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "some event",
+									"type": "text"
+								},
+								{
+									"key": "place",
+									"value": "Johns Hopkins University",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "39.3289957",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-76.6205235",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "someimageurl.com",
+									"type": "text"
+								},
+								{
+									"key": "startTime",
+									"value": "2019-11-06T01:29:06+00:00",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "2019-11-07T01:29:06+00:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"event"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2019 02:50:28 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Edit event",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "abecee61-34cc-42bb-855d-09620a45a038",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/event\", method: \"POST\" }, () => {",
+							"    pm.sendRequest(\"http://localhost:7000/event\", (err, response) => {",
+							"        pm.environment.set(\"eventIdentifier\", response.json().last().identifier);",
+							"        pm.sendRequest({",
+							"            url: 'http://localhost:7000/event/' + pm.environment.get(\"eventIdentifier\"),",
+							"            method: 'POST',",
+							"            body: {",
+							"              mode: 'formdata',",
+							"              formdata: [",
+							"                {key: \"name\", value: \"create event\"},",
+							"                {key: \"description\", value: \"some event\"},",
+							"                {key: \"place\", value: \"Johns Hopkins University\"},",
+							"                {key: \"longitude\", value: \"39.3289957\"},",
+							"                {key: \"latitude\", value: \"-76.6205235\"},",
+							"                {key: \"image\", value: \"someimageurl.com\"},",
+							"                {key: \"startTime\", value: \"2019-11-06T01:29:06+00:00\"},",
+							"                {key: \"endTime\", value: \"2019-11-07T01:29:06+00:00\"}",
+							"              ]",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b5cd4cb-8105-481e-b142-446f828b7769",
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Item is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/event\", (err, response) => {",
+							"        pm.expect(response.json().last().name).to.equal(\"edit event\");",
+							"        pm.expect(response.json().last().description).to.equal(\"edited event\");",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Status code is 404 if item isn’t found\", () => {",
+							"    pm.sendRequest({ url: \"http://localhost:7000/event/51039\", method: \"PUT\" }, (err, response) => {",
+							"        pm.expect(response).to.have.status(404);",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "edit event",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "edited event",
+							"type": "text"
+						},
+						{
+							"key": "place",
+							"value": "Johns Hopkins University",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "39.3289957",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "-76.6205235",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"value": "someimageurl.com",
+							"type": "text"
+						},
+						{
+							"key": "startTime",
+							"value": "2019-11-06T01:29:06+00:00",
+							"type": "text"
+						},
+						{
+							"key": "endTime",
+							"value": "2019-11-07T01:29:06+00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/event/{{eventIdentifier}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"event",
+						"{{eventIdentifier}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "edit event",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "edited event",
+									"type": "text"
+								},
+								{
+									"key": "place",
+									"value": "Johns Hopkins University",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "39.3289957",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-76.6205235",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "someimageurl.com",
+									"type": "text"
+								},
+								{
+									"key": "startTime",
+									"value": "2019-11-06T01:29:06+00:00",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "2019-11-07T01:29:06+00:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/event/{{eventIdentifier}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"event",
+								"{{eventIdentifier}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2019 02:52:25 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8145e5f5-26d2-4fe7-95cd-20c92ce9db8e",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Items have identifier and description\", () => {",
+							"    pm.expect(pm.response.json()).to.have.all.keys(\"identifier\",\"fullName\",\"lastSeen\",\"live\",\"status\",\"longitude\",\"latitude\",\"availability\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2019 02:47:52 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Length",
+							"value": "230"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"identifier\": 1,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 2,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 3,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 4,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 5,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 6,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 7,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 8,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 9,\n        \"fullName\": \"Vincent Lee \",\n        \"lastSeen\": \"2 hrs ago\",\n        \"live\": false,\n        \"status\": \"taking the final\",\n        \"longitude\": 39.328995,\n        \"latitude\": -76.62052,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get All Friends",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "17f3cee3-1ac5-41b8-ab45-8e89b613fbad",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// pm.test(\"Items have identifier and description\", () => {",
+							"//     pm.expect(pm.response.json()).to.have.all.keys();",
+							"// });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/friends/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"friends",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2019 02:47:52 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Length",
+							"value": "230"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"identifier\": 1,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 2,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 3,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 4,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 5,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 6,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 7,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 8,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 9,\n        \"fullName\": \"Vincent Lee \",\n        \"lastSeen\": \"2 hrs ago\",\n        \"live\": false,\n        \"status\": \"taking the final\",\n        \"longitude\": 39.328995,\n        \"latitude\": -76.62052,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Edit Friends",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/editFriends/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"editFriends",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6ee38bf-9848-40fd-aad3-47d69c787173",
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "474e2611-790e-49dc-856a-ba347a9c9b9f",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/account/user\", method: \"POST\" });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fullName",
+							"value": "Leandro Facchinetti ",
+							"type": "text"
+						},
+						{
+							"key": "lastSeen",
+							"value": "2 hrs ago",
+							"type": "text"
+						},
+						{
+							"key": "live",
+							"value": "no",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "writing the final",
+							"type": "text"
+						},
+						{
+							"key": "availability",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "longitude",
+							"value": "39.3289957",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "-76.6205235",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/account/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"account",
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Leandro Facchinetti ",
+									"type": "text"
+								},
+								{
+									"key": "lastSeen",
+									"value": "2 hrs ago",
+									"type": "text"
+								},
+								{
+									"key": "live",
+									"value": "no",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "writing the final",
+									"type": "text"
+								},
+								{
+									"key": "availability",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "39.3289957",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-76.6205235",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2019 02:20:52 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get all accounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/account/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"account",
+						""
+					]
+				},
+				"description": "Get all the accounts from the database "
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
