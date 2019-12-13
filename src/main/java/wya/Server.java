@@ -51,12 +51,12 @@ public class Server {
                         /** This is a person identifier. */
                         path(":identifier", () -> {
                             get(appController::getEventIDsForPerson);
-                            path(":eventIdentifier", () -> {
-                                /** Say that a user is NOT going to a specific event. */
-                                delete(appController::removeRelation);
-                                /** Say that a user IS going to a specific event. */
-                                put(appController::createRelation);
-                            });
+//                            path(":eventIdentifier", () -> {
+//                                /** Say that a user is NOT going to a specific event. */
+//                                delete(appController::removeRelation);
+//                                /** Say that a user IS going to a specific event. */
+//                                put(appController::createRelation);
+//                            });
                         });
                     });
                     path("updateProfile", () -> {
@@ -68,9 +68,18 @@ public class Server {
                         path(":identifier", () -> {
                             put(appController::editEvent);
                             get(appController::getPersonIDForEvent);
+                            delete(appController::removeRelation);
                         });
                         path("create", () -> {
                             post(appController::createEvent);
+                        });
+                    });
+                    path("eventAttendance", () -> {
+                        /** this path will also get person IDs for an event. getting event IDs for a person is in  profile path. */
+                        path(":identifier", () -> {
+                            put(appController::createRelation);
+                            get(appController::getPersonIDForEvent);
+                            delete(appController::removeRelation);
                         });
                     });
                     path("friends", () -> {

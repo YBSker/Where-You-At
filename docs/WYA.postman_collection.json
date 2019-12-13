@@ -1831,14 +1831,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:7000/event/{{Identifier}}",
+					"raw": "http://localhost:7000/eventAttendance/{{Identifier}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "7000",
 					"path": [
-						"event",
+						"eventAttendance",
 						"{{Identifier}}"
 					]
 				}
@@ -1902,16 +1902,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:7000/profile/{{Identifier}}/{{eventIdentifier}}",
+					"raw": "http://localhost:7000/eventAttendance/{{Identifier}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "7000",
 					"path": [
-						"profile",
-						"{{Identifier}}",
-						"{{eventIdentifier}}"
+						"eventAttendance",
+						"{{Identifier}}"
 					]
 				}
 			},
@@ -1938,16 +1937,15 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:7000/profile/{{Identifier}}/{{eventIdentifier}}",
+					"raw": "http://localhost:7000/eventAttendance/{{Identifier}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "7000",
 					"path": [
-						"profile",
-						"{{Identifier}}",
-						"{{eventIdentifier}}"
+						"eventAttendance",
+						"{{Identifier}}"
 					]
 				}
 			},

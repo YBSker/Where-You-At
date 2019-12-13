@@ -1,6 +1,8 @@
 package wya.controllers;
 
 import io.javalin.http.Context;
+import io.javalin.http.ForbiddenResponse;
+import wya.models.Account;
 import wya.models.EventRelations;
 import wya.repositories.EventRelationsNotFoundException;
 import wya.repositories.EventRelationsRepository;
@@ -46,7 +48,7 @@ public class EventRelationsController {
     public void removeRelation(Context ctx) throws SQLException {
         var eventRelation = new EventRelations();
         //route through person id then find way to get event id?
-        createToDB(ctx.pathParam("identifier", Integer.class).get(), ctx.pathParam("eventIdentifier", Integer.class).get(), eventRelation);
+        createToDB(this.currentUserID(ctx), ctx.pathParam("identifier", Integer.class).get(), eventRelation);
         eventRelationsRepository.removeAPerson(eventRelation);
     }
 
@@ -57,7 +59,7 @@ public class EventRelationsController {
      */
     public void create(Context ctx) throws SQLException {
         var eventRelation = new EventRelations();
-        createToDB(ctx.pathParam("identifier", Integer.class).get(), ctx.pathParam("eventIdentifier", Integer.class).get(), eventRelation);
+        createToDB(this.currentUserID(ctx), ctx.pathParam("identifier", Integer.class).get(), eventRelation);
         eventRelationsRepository.create(eventRelation);
     }
 
@@ -81,7 +83,18 @@ public class EventRelationsController {
         eventRelationsRepository.removePerson(ctx.pathParam("identifier", Integer.class).get());
     }
 
-
+    /**
+     * Get the current user of the session.
+     *
+     * @param ctx Javalin Context object
+     * @return The Account of the current user.
+     */
+    private int currentUserID(Context ctx) {
+        var user = (Account) ctx.sessionAttribute("user");
+        if (user == null) throw new ForbiddenResponse();
+        int userID = user.getPerson_id();
+        return userID;
+    }
 
     private void createToDB(int personID, int eventID, EventRelations eventRelations) {
         eventRelations.setPersonID(personID);
