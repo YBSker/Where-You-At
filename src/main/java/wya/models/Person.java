@@ -9,19 +9,20 @@ public class Person {
     private float longitude;
     private float latitude;
     private int availability;
+    private int privacy;
 
 
-    public Person() {
-    }
+    public Person() {}
 
-//    public Person(int identifier, String name, String lastSeen, boolean live) {
-//        this.identifier = identifier;
-//        this.fullName = name;
-//        this.lastSeen = lastSeen;
-//        this.live = live;
-//    }
+//     //todo figure out default live, status, and avail
+//     public Person(int identifier, String name, String lastSeen, boolean live) {
+//         this.identifier = identifier;
+//         this.fullName = name;
+//         this.lastSeen = lastSeen;
+//         this.live = live;
+//     }
 
-    /**
+   /**
      * Public constructor to create a Person model in the MVC.
      *
      * @param identifier   The identifier of the person.
@@ -38,7 +39,7 @@ public class Person {
      *                     1 = busy
      *                     2 = do not disturb
      */
-    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability) {
+    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability, int privacy) {
         this.identifier = identifier;
         this.fullName = fullName;
         this.lastSeen = lastSeen;
@@ -47,6 +48,7 @@ public class Person {
         this.availability = availability;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.privacy = privacy;
     }
 
     public int getIdentifier() {
@@ -112,4 +114,13 @@ public class Person {
     public void setAvailability(int availability) {
         this.availability = availability;
     }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
+    }
+
+    public int getPrivacy() {
+        return privacy;
+    }
+
 }

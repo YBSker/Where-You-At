@@ -21,10 +21,16 @@ class Application extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loggedIn: false,
             sidebarState: SIDEBAR_STATE.closed
         };
 
+        this.logIn = this.logIn.bind(this);
         this.updateSidebar = this.updateSidebar.bind(this);
+    }
+
+    logIn(state) {
+        this.setState({loggedIn: state});
     }
 
     updateSidebar(state) {
@@ -32,6 +38,14 @@ class Application extends React.Component {
     }
 
     render() {
+        if (!this.state.loggedIn) {
+            return (
+                <div>
+                    <LoginPage logIn = {this.logIn}/>
+                </div>
+            );
+        }
+
         switch (this.state.sidebarState) {
             case SIDEBAR_STATE.closed:
                 return (
