@@ -74,15 +74,15 @@ public class AppController {
         eventController.updateDetails(ctx);
         ctx.status(204);
     }
-
+  
     public void viewFriends(Context ctx) throws SQLException, PersonNotFoundException {
         personController.getAllFriends(ctx);
         ctx.status(200);
     }
 
-    public void editFriends(Context ctx) {
-        //TODO
-    }
+//    public void editFriends(Context ctx) {
+//        //TODO
+//    }
 
     public void updatePlaces(Context ctx) throws SQLException, PlacesNotFoundException {
         placesController.updateDetails(ctx);

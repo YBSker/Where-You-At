@@ -1,6 +1,62 @@
+/* CSS Reset */
+* { margin:0; padding:0; font-size:100%; line-height:1; }
+
 body {
     max-width: 400px;
     margin: 0 auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    overflow: hidden;
 }
+
+h1 {
+    text-transform: uppercase;
+    font-family: futura-pt, sans-serif;
+    font-weight: 700;
+    line-height: 40px;
+    font-size: 40px;
+    display: inline;
+}
+
+.login-div {
+    display: inline-block;
+}
+
+
+
+.login-form {
+    display: inline-block;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.logo {
+    display: inline-block;
+    border-left: medium solid purple;
+    padding: 0 10px ;
+    text-align: left;
+}
+
+input {
+    display: block;
+    margin: 5px;
+    font-family: futura-pt, sans-serif;
+    padding: 0 0 0 5px;
+}
+
+.login-side {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.login-side > img {
+    display: block;
+}
+
+.login-wrapper {
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+    padding: 25% 0;
+}
+
 

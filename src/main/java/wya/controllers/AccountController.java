@@ -3,6 +3,7 @@ package wya.controllers;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
+import io.javalin.http.NotFoundResponse;
 import wya.models.Account;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.AccountRepository;
@@ -50,7 +51,15 @@ public class AccountController {
      * @throws SQLException             SQL statement failed to execute.
      */
     void login(Context ctx) throws AccountNotFoundException, SQLException {
-        var user = accountRepository.getOne(ctx.formParam("username"));
+        Account user = null;
+        try {
+            user = accountRepository.getOne(ctx.formParam("username"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (AccountNotFoundException e) {
+            System.out.println("Username does not exist");
+            throw new NotFoundResponse();
+        }
         BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("password", "").toCharArray(), user.getPassword());
         if (!result.verified) {
             throw new ForbiddenResponse();
@@ -59,6 +68,7 @@ public class AccountController {
         ctx.sessionAttribute("person_id", user.getPerson_id());
         ctx.status(200);
     }
+
 
     /**
      * Change password for account specified by ctx.
@@ -121,3 +131,4 @@ public class AccountController {
         account.setProfilePicture(ctx.formParam("profilePicture", ""));
     }
 }
+
