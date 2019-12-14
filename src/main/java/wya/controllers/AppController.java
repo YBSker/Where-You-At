@@ -18,11 +18,14 @@ public class AppController {
     private PersonRepository personRepository = new PersonRepository(connection);
     private AccountRepository accountRepository = new AccountRepository(connection);
     private PlacesRepository placesRepository = new PlacesRepository(connection);
+    private EventRelationsRepository eventRelationsRepository = new EventRelationsRepository(connection);
 
     private EventController eventController = new EventController(eventRepository);
     private PersonController personController = new PersonController(personRepository, friendRepository);
     private AccountController accountController = new AccountController(accountRepository);
     private PlacesController placesController = new PlacesController(placesRepository);
+    private EventRelationsController eventRelationsController = new EventRelationsController(eventRelationsRepository);
+
 
     public void register(Context ctx) throws SQLException {
         //TODO Would create a new profile everytime we try to register even tho error
@@ -100,4 +103,34 @@ public class AppController {
         personController.getOne(ctx);
         ctx.status(200);
     }
+
+    public void getPersonIDForEvent(Context ctx) throws SQLException, EventRelationsNotFoundException {
+        eventRelationsController.getPersonIDForEvent(ctx);
+        ctx.status(200);
+    }
+
+    public void getEventIDsForPerson(Context ctx) throws SQLException, EventRelationsNotFoundException {
+        eventRelationsController.getEventIDsForPerson(ctx);
+        ctx.status(200);
+    }
+
+    public void removeRelation(Context ctx) throws SQLException {
+        eventRelationsController.removeRelation(ctx);
+        ctx.status(204);
+    }
+
+    public void createRelation(Context ctx) throws SQLException {
+        eventRelationsController.create(ctx);
+        ctx.status(201);
+    }
+
+    //TODO: Route through event...WHEN DELETE EVENT IS IMPLEMENTED
+    public void deleteEvent(Context ctx) throws SQLException {
+        eventRelationsController.deleteEvent(ctx);
+    }
+    //TODO: Route through person WHEN DELETE ACCOUNT IS IMPLEMENTED
+    public void deletePerson(Context ctx) throws SQLException {
+        eventRelationsController.deletePerson(ctx);
+    }
+
 }
