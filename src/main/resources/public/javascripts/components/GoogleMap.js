@@ -77,15 +77,12 @@ class GoogleMap extends React.Component {
     }
 
     populateSidebar(lat, lng) {
-        console.log(lat);
-        console.log(lng);
         let clickedFriends = [];
         for (const friend of this.state.myFriends) {
             if (friend.latitude === lat && friend.longitude === lng) {
                 clickedFriends.push(friend);
             }
         }
-        console.log(clickedFriends);
         this.props.updateSidebar(SIDEBAR_STATE.cardList, clickedFriends);
     }
 

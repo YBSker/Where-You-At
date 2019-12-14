@@ -20,35 +20,18 @@ class Sidebar extends React.Component {
         this.state = {
             location: 'Baltimore',
             cards: [],
-            testCard: '',
         };
-
-        this.addCard = this.addCard.bind(this);
-        this.removeCard = this.removeCard.bind(this);
     }
-
-    addCard(card) {
-        this.state.cards.push(card);
-    }
-
-    removeCard(card) {
-        this.setState({cards: this.state.cards.filter(c => c !== card)});
-    }
-
 
     render() {
-        for (const friend of this.props.friends) {
-            this.addCard(new SidebarCard({name: friend.fullName}))
-        }
-
-        const cardsRender = this.state.cards.map((card) => {
+        const cardsRender = this.props.friends.map((friend) => {
             return([
                 <li>
-                    <div className="pfp-container"><img src={card.picture} alt={card.name}/></div>
+                    <div className="pfp-container"><img src={friend.pfp} alt={friend.fullName}/></div>
                     <div className="info">
-                        <div className="name"><h2>{card.name}</h2></div>
-                        <div className="last-seen"><p><i>last seen {card.last_seen} min ago</i></p></div>
-                        <div className="status"><p>{card.status}</p>
+                        <div className="name"><h2>{friend.fullName}</h2></div>
+                        <div className="last-seen"><p><i>last seen {friend.lastseen} min ago</i></p></div>
+                        <div className="status"><p>{friend.status}</p>
                         </div>
                     </div>
                 </li>]);
