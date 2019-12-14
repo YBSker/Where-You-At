@@ -21,30 +21,36 @@ class Sidebar extends React.Component {
             location: 'Baltimore',
             cards: [],
         };
-
-        this.addCard = this.addCard.bind(this);
-        this.removeCard = this.removeCard.bind(this);
     }
-
-    addCard() {
-        this.state.cards.append();
-    }
-
-    removeCard(card) {
-        this.setState({cards: this.state.cards.filter(c => c !== card)});
-    }
-
 
     render() {
+        const cardsRender = this.props.friends.map((friend) => {
+            return([
+                <li>
+                    <div className="pfp-container"><img src={friend.pfp} alt={friend.fullName}/></div>
+                    <div className="info">
+                        <div className="name"><h2>{friend.fullName}</h2></div>
+                        <div className="last-seen"><p><i>last seen {friend.lastseen} min ago</i></p></div>
+                        <div className="status"><p>{friend.status}</p>
+                        </div>
+                    </div>
+                </li>]);
+        });
+
+
         return (
             <div className="side">
                 <div className="side-header" style={sideHeaderStyles}>
                     <h1 style={h1Styles}>{this.state.location}</h1>
                 </div>
-                <ol className="card-list">
-                    {this.state.cards.map(card => (<li key={card}>{card}</li>))}
-                </ol>
+                <ul className="card-list">
+                    {cardsRender}
+                </ul>
             </div>
         );
     }
 }
+
+/*
+
+ */
