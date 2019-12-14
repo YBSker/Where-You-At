@@ -5,8 +5,7 @@ class LoginPage extends React.Component {
             username: '',
             password: '',
             login_time:'',
-            wrong_pass: false,
-            user_exists: false,
+            failed_login: false,
             logged_in: false,
             username_not_found: false,
             empty_entries: false
@@ -26,17 +25,13 @@ class LoginPage extends React.Component {
         formData.append("password", this.state.password);
         if (this.state.username && this.state.password) {
             fetch("/login", {method: "POST", body: formData}).then(function (response) {
-                if (response.status === 403) {
-                    this.setState({wrong_pass: true});
-                    this.setState({username_not_found: false});
+                if (response.status === 403 || response.status == 404) {
+                    this.setState({failed_login: true});
                     this.props.logIn(false);
-                } else if (response.status === 404) {
-                    this.setState({username_not_found: true});
                 } else {
                     console.log("correct password");
                     this.setState({logged_in: true});
-                    this.setState({wrong_pass: false});
-                    this.setState({username_not_found: false});
+                    this.setState({failed_login: false});
                     this.props.logIn(true);
                 }
             }.bind(this));
@@ -79,7 +74,7 @@ class LoginPage extends React.Component {
                         <form className="login-form" onSubmit={this.handleLogin}>
                             <input required type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
                             <input required type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
-                            {this.state.username_not_found ? <div>Username does not exist</div> : this.state.wrong_pass ? <div>User exists, but wrong password entered</div> : null}
+                            {this.state.failed_login ? <div>You have entered the wrong username or password</div>  : null}
                             <button type="submit">Log in</button>
                         </form>
                     </div>

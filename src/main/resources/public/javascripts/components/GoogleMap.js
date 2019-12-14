@@ -60,9 +60,6 @@ class GoogleMap extends React.Component {
 
     async componentDidMount() {
         await this.getLocation();
-        var tempDate = new Date();
-        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
-        console.log(date);
     };
 
 
@@ -112,6 +109,15 @@ class GoogleMap extends React.Component {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
+
+    }
+
+    updateTime() {
+        var tempDate = new Date();
+        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+        console.log(date);
+        const formData = new F
+        fetch("/time", {method: "PUT", body: formData})
 
     }
 
