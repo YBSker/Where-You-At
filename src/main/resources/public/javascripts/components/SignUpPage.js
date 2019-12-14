@@ -57,7 +57,7 @@ class SignUpPage extends React.Component {
                         </div>
                         <form>
                             <p>Please choose your desired privacy range: </p>
-                            <div className="radio" span={}>
+                            <div className="radio">
                                 <label>
                                     <input type="radio" value="town" checked={this.state.range === 'town'} onChange={this.handleChange}/>
                                     Town
