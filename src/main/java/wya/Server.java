@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import wya.controllers.AppController;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.EventNotFoundException;
+import wya.repositories.EventRelationsNotFoundException;
 import wya.repositories.PersonNotFoundException;
 import wya.repositories.PlacesNotFoundException;
 
@@ -45,9 +46,18 @@ public class Server {
                             put(appController::updatePlaces);
                         });
                     });
-                    path("profile", () ->
-                    {
+                    path("profile", () -> {
                         get(appController::getProfile);
+                        /** This is a person identifier. */
+                        path(":identifier", () -> {
+                            get(appController::getEventIDsForPerson);
+//                            path(":eventIdentifier", () -> {
+//                                /** Say that a user is NOT going to a specific event. */
+//                                delete(appController::removeRelation);
+//                                /** Say that a user IS going to a specific event. */
+//                                put(appController::createRelation);
+//                            });
+                        });
                     });
                     path("updateProfile", () -> {
                         put(appController::updateProfile);
@@ -57,9 +67,19 @@ public class Server {
                         get(appController::viewEvents);
                         path(":identifier", () -> {
                             put(appController::editEvent);
+                            get(appController::getPersonIDForEvent);
+                            delete(appController::removeRelation);
                         });
                         path("create", () -> {
                             post(appController::createEvent);
+                        });
+                    });
+                    path("eventAttendance", () -> {
+                        /** this path will also get person IDs for an event. getting event IDs for a person is in  profile path. */
+                        path(":identifier", () -> {
+                            put(appController::createRelation);
+                            get(appController::getPersonIDForEvent);
+                            delete(appController::removeRelation);
                         });
                     });
                     path("friends", () -> {
@@ -83,6 +103,9 @@ public class Server {
                     ctx.status(403);
                 })
                 .exception(EventNotFoundException.class, (e, ctx) -> {
+                    ctx.status(404);
+                })
+                .exception(EventRelationsNotFoundException.class, (e, ctx) -> {
                     ctx.status(404);
                 })
                 .start(System.getenv("PORT") == null ? 7000 : Integer.parseInt(System.getenv("PORT")));
