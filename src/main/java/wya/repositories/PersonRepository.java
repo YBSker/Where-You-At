@@ -22,7 +22,7 @@ public class PersonRepository {
     public PersonRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT true, status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER DEFAULT 0, privacy INTEGER)");
+        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT true, status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER DEFAULT 0, privacy TEXT)");
         statement.close();
     }
 
@@ -76,7 +76,8 @@ public class PersonRepository {
      * @throws SQLException Statement failed to execute.
      */
     public int create(Person person) throws SQLException {
-        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, privacy) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+//        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, privacy) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         prepareStatement(person, statement);
         statement.executeUpdate();
         int id = statement.getGeneratedKeys().getInt(1);
@@ -92,9 +93,8 @@ public class PersonRepository {
      * @throws PersonNotFoundException Person with person_id not found.
      */
     public void updateDetails(Person person) throws SQLException, PersonNotFoundException {
-        var statement = connection.prepareStatement("UPDATE person SET fullName=?, lastSeen=?, live=?, status=?, longitude=?, latitude=?, privacy=? WHERE identifier = ? ");
+        var statement = connection.prepareStatement("UPDATE person SET fullName=?, lastSeen=?, live=?, status=?, longitude=?, latitude=? WHERE identifier =?");
         prepareStatement(person, statement);
-        statement.setInt(8, person.identifier); 
         try {
             if (statement.executeUpdate() == 0) throw new PersonNotFoundException();
         } finally {
@@ -186,6 +186,6 @@ public class PersonRepository {
         statement.setString(4, person.getStatus());
         statement.setFloat(5, person.getLongitude());
         statement.setFloat(6, person.getLatitude());
-        statement.setInt(7,person.getPrivacy());
+//        statement.setInt(7,person.getPrivacy());
     }
 }

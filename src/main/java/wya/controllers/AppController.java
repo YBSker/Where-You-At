@@ -77,9 +77,9 @@ public class AppController {
         ctx.status(200);
     }
 
-//    public void editFriends(Context ctx) {
+    public void editFriends(Context ctx) {
 //        //TODO
-//    }
+    }
 
     public void updatePlaces(Context ctx) throws SQLException, PlacesNotFoundException {
         placesController.updateDetails(ctx);

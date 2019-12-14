@@ -3,7 +3,6 @@ package wya.controllers;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
-import io.javalin.http.NotFoundResponse;
 import wya.models.Account;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.AccountRepository;
@@ -47,10 +46,8 @@ public class AccountController {
      * Set the session attribute to the user account.
      *
      * @param ctx Javalin Context object with the form params to insert into new user entry.
-     * @throws AccountNotFoundException Account with the username/password combination is wrong.
-     * @throws SQLException             SQL statement failed to execute.
      */
-    void login(Context ctx) throws AccountNotFoundException, SQLException {
+    void login(Context ctx) {
         Account user = null;
         try {
             user = accountRepository.getOne(ctx.formParam("username"));
@@ -58,7 +55,7 @@ public class AccountController {
             e.printStackTrace();
         } catch (AccountNotFoundException e) {
             System.out.println("Username does not exist");
-            throw new NotFoundResponse();
+            throw new ForbiddenResponse();
         }
         BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("password", "").toCharArray(), user.getPassword());
         if (!result.verified) {
