@@ -41,20 +41,27 @@ class Sidebar extends React.Component {
             this.addCard(new SidebarCard({name: friend.fullName}))
         }
 
-        const cards = this.state.cards.map(card => {
-            return (<li key={card}>{card}</li>);
+        const cardsRender = this.state.cards.map((card) => {
+            return([
+                <li>
+                    <div className="pfp-container"><img src={card.picture} alt={card.name}/></div>
+                    <div className="info">
+                        <div className="name"><h2>{card.name}</h2></div>
+                        <div className="last-seen"><p><i>last seen {card.last_seen} min ago</i></p></div>
+                        <div className="status"><p>{card.status}</p>
+                        </div>
+                    </div>
+                </li>]);
         });
 
-        this.setState({testCard: cards[0]});
 
-        console.log(this.state.cards);
         return (
             <div className="side">
                 <div className="side-header" style={sideHeaderStyles}>
                     <h1 style={h1Styles}>{this.state.location}</h1>
                 </div>
                 <ul className="card-list">
-                    {this.state.testCard}
+                    {cardsRender}
                 </ul>
             </div>
         );
