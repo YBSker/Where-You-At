@@ -10,12 +10,9 @@ class LoginPage extends React.Component {
             username_not_found: false,
             empty_entries: false
         }
-
-        this.handleLogin = this.handleLogin.bind(this);
-        this.handleRegister = this.handleRegister.bind(this);
     }
 
-    handleLogin(e) {
+    handleLogin = (e) => {
         e.preventDefault();
         e.stopPropagation();
         console.log(this.state.username);
@@ -38,32 +35,8 @@ class LoginPage extends React.Component {
         }
     }
 
-    handleRegister(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log(this.state.username);
-        console.log(this.state.password);
-        const formData = new FormData();
-        formData.append("username", this.state.username);
-        formData.append("password", this.state.password);
-        formData.append("live","True");
-        formData.append("availability", "1");
-        formData.append("privacy", "0");
-        formData.append("longitude","-76.634000");
-        formData.append("latitude","39.32932");
-        if (this.state.username && this.state.password) {
-            fetch("/register", {method: "POST", body: formData}).then(function (response) {
-                if (response.status === 409) {
-                    this.setState({user_exists: true});
-                    this.props.logIn(false);
-                } else {
-                    console.log("user successfully created");
-                    this.setState({logged_in: true});
-                    this.setState({user_exists: false});
-                    this.props.logIn(true);
-                }
-            }.bind(this));
-        }
+    handleClick = () => {
+        this.props.signUp(true);
     }
 
     render(){
@@ -74,7 +47,7 @@ class LoginPage extends React.Component {
                         <form className="login-form" onSubmit={this.handleLogin}>
                             <input required type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
                             <input required type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
-                            {this.state.failed_login ? <div>You have entered the wrong username or password</div>  : null}
+                            {this.state.failed_login ? <div>Wrong username or password, please try again</div>  : null}
                             <button type="submit">Log in</button>
                         </form>
                     </div>
@@ -83,14 +56,10 @@ class LoginPage extends React.Component {
                         <h1>Where<br/>You<br/>At</h1>
                     </div>
 
-                    <div className="register">
-                        <form className="register-form" onSubmit={this.handleRegister}>
-                            <input required type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
-                            <input required type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
-                            {this.state.user_exists ? <div>This username already exists, please choose another username</div>: null}
-                            <button type="submit">Register</button>
-                        </form>
-                    </div>
+                    <br />
+                    <br />
+                    <p>If you have not created an account, please do so here!</p>
+                    <button onClick={this.handleClick}>Sign Up</button>
                 </div>
             </div>
         );

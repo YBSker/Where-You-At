@@ -60,6 +60,7 @@ class GoogleMap extends React.Component {
 
     async componentDidMount() {
         await this.getLocation();
+        this.updateTime();
     };
 
 
@@ -116,9 +117,9 @@ class GoogleMap extends React.Component {
         var tempDate = new Date();
         var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
         console.log(date);
-        const formData = new F
-        fetch("/time", {method: "PUT", body: formData})
-
+        const formData = new FormData();
+        // formData.append("time", date);
+        // fetch("/time", {method: "PUT", body: formData})
     }
 
 
