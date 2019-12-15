@@ -24,10 +24,12 @@ class Sidebar extends React.Component {
     }
 
     render() {
+        const puppyPlaceholder = "https://i.imgur.com/sOXFllp.jpg";
         const cardsRender = this.props.friends.map((friend) => {
+            friend.pfp = puppyPlaceholder; //TODO Delete this once pfp's in the database are working
             return([
                 <li>
-                    <div className="pfp-container"><img src={friend.pfp} alt={friend.fullName}/></div>
+                    <div className="pfp-container"><img src= {friend.pfp} alt={friend.fullName}/></div>
                     <div className="info">
                         <div className="name"><h2>{friend.fullName}</h2></div>
                         <div className="last-seen"><p><i>last seen {friend.lastseen} min ago</i></p></div>
@@ -50,7 +52,3 @@ class Sidebar extends React.Component {
         );
     }
 }
-
-/*
-
- */
