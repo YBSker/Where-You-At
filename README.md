@@ -6,7 +6,8 @@
 
 [Code Base](https://github.com/jhu-oose/2019-group-GrOOSEp)
 
-[![Build Status](https://travis-ci.com/jhu-oose/todoose.svg?branch=master)](https://travis-ci.com/jhu-oose/todoose)
+
+[![Build Status](https://travis-ci.com/jhu-oose/2019-group-GrOOSEp.svg?branch=master](https://travis-ci.com/jhu-oose/2019-group-GrOOSEp)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
