@@ -3,7 +3,6 @@ package wya.controllers;
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
 import wya.models.Person;
-import wya.repositories.FriendRepository;
 import wya.repositories.PersonNotFoundException;
 import wya.repositories.PersonRepository;
 
@@ -12,21 +11,26 @@ import java.sql.SQLException;
 public class PersonController {
 
     private PersonRepository personRepository;
-    private FriendRepository friendRepository;
 
-    PersonController(PersonRepository PersonRepository, FriendRepository friendRepository) {
+//    private FriendRepository friendRepository;
+//
+//    PersonController(PersonRepository PersonRepository, FriendRepository friendRepository) {
+//        this.personRepository = PersonRepository;
+//        this.friendRepository = friendRepository;
+//    }
+    PersonController(PersonRepository PersonRepository) {
         this.personRepository = PersonRepository;
-        this.friendRepository = friendRepository;
     }
 
     void getAll(Context ctx) throws SQLException {
         ctx.json(personRepository.getAll());
     }
 
-    void getAllFriends(Context ctx) throws SQLException, PersonNotFoundException {
-        var currperson = currentPerson(ctx);
-        ctx.json(friendRepository.getAll(currperson.getIdentifier()));
-    }
+// For use if we implement adding and removing friends
+//    void getAllFriends(Context ctx) throws SQLException, PersonNotFoundException {
+//        var currperson = currentPerson(ctx);
+//        ctx.json(friendRepository.getAll(currperson.getIdentifier()));
+//    }
 
     public void getOne(Context ctx) throws SQLException, PersonNotFoundException {
         var currperson = currentPerson(ctx);
@@ -44,6 +48,8 @@ public class PersonController {
     void updateDetails(Context ctx) throws SQLException, PersonNotFoundException {
         var person = currentPerson(ctx);
         createToDB(ctx, person);
+        person.setLive(ctx.formParam("live", Boolean.class).get());
+        person.setAvailability(ctx.formParam("availability", Integer.class).get());
         personRepository.updateDetails(person);
         ctx.status(204);
     }
@@ -58,7 +64,6 @@ public class PersonController {
     void updateTime(Context ctx) throws SQLException, PersonNotFoundException {
         String time = ctx.formParam("time");
         personRepository.updateTime(time, currentPerson(ctx).getIdentifier());
-        ctx.status(204);
     }
 
     void updateAvailability(Context ctx) throws SQLException, PersonNotFoundException {
@@ -82,9 +87,9 @@ public class PersonController {
     private void createToDB(Context ctx, Person person) {
         person.setFullName(ctx.formParam("fullName", ""));
         person.setLastSeen(ctx.formParam("lastSeen", ""));
-        person.setLive(ctx.formParam("live", Boolean.class).get());
         person.setStatus(ctx.formParam("status", ""));
         person.setLongitude(ctx.formParam("longitude", float.class, "").get());
         person.setLatitude(ctx.formParam("latitude", float.class, "").get());
+        person.setPrivacy(ctx.formParam("privacy"));
     }
 }

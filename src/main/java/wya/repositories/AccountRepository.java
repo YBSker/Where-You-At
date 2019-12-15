@@ -1,5 +1,6 @@
 package wya.repositories;
 
+import io.javalin.http.Context;
 import wya.models.Account;
 
 import java.sql.Connection;
@@ -14,8 +15,8 @@ public class AccountRepository {
     public AccountRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY UNIQUE, password TEXT, email TEXT," +
-                "person_id INTEGER, profilePicture TEXT, FOREIGN KEY (person_id) REFERENCES person(identifier))");
+        statement.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY UNIQUE NOT NULL, password TEXT NOT NULL, email TEXT," +
+                "person_id INTEGER NOT NULL, profilePicture TEXT, FOREIGN KEY (person_id) REFERENCES person(identifier))");
         statement.close();
     }
 
@@ -39,7 +40,6 @@ public class AccountRepository {
             if (result.next()) {
                 return createAccountFromDB(result);
             } else {
-                System.out.println("Account not found");
                 throw new AccountNotFoundException();
             }
         } finally {
@@ -55,9 +55,16 @@ public class AccountRepository {
         statement.setString(3, account.getEmail());
         statement.setInt(4, account.getPerson_id());
         statement.setString(5, account.getProfilePicture());
-
         statement.execute();
         statement.close();
+    }
+
+    public boolean duplicateUsername(Context ctx) throws SQLException {
+        var username = ctx.formParam("username");
+        var statement = connection.prepareStatement("SELECT CASE WHEN EXISTS (SELECT 1 FROM users WHERE username=?) THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END");
+        statement.setString(1, ctx.formParam("username"));
+        var result = statement.executeQuery();
+        return result.getBoolean(1);
     }
 
     public void updateDetails(Account account) throws SQLException, AccountNotFoundException {

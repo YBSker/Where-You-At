@@ -9,37 +9,32 @@ public class Person {
     private float longitude;
     private float latitude;
     private int availability;
-    private int privacy;
+    private String privacy;
 
 
-    public Person() {}
+    public Person() {
+    }
 
-//     //todo figure out default live, status, and avail
-//     public Person(int identifier, String name, String lastSeen, boolean live) {
-//         this.identifier = identifier;
-//         this.fullName = name;
-//         this.lastSeen = lastSeen;
-//         this.live = live;
-//     }
-
-   /**
+    /**
      * Public constructor to create a Person model in the MVC.
      *
      * @param identifier   The identifier of the person.
      * @param fullName     The full name of the person.
      * @param lastSeen     The time stamp of the last time the person updated his/her time.
      * @param live         The boolean whether or not the person is active or inactive on the app.
-     *                     true = online
-     *                     false = offline
+     *                     true = online.
+     *                     false = offline.
      * @param status       The status that the user wants to tell other users about what they are doing.
      * @param longitude    The longitude of their last logged location.
-     * @param latitude     The latitude of their last logged location
-     * @param availability The availability of the user at the current time using an enumeration.
+     * @param latitude     The latitude of their last logged location.
+     * @param availability The availability of the user at the current time using the enumeration:
      *                     0 = available
      *                     1 = busy
      *                     2 = do not disturb
+     * @param privacy      The privacy setting chosen by the user from the following set:
+     *                     {"neighborhood", "postal_code", "locality" (city), "administrative_area_level_1" (state)}.
      */
-    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability, int privacy) {
+    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability, String privacy) {
         this.identifier = identifier;
         this.fullName = fullName;
         this.lastSeen = lastSeen;
@@ -115,11 +110,11 @@ public class Person {
         this.availability = availability;
     }
 
-    public void setPrivacy(int privacy) {
+    public void setPrivacy(String privacy) {
         this.privacy = privacy;
     }
 
-    public int getPrivacy() {
+    public String getPrivacy() {
         return privacy;
     }
 

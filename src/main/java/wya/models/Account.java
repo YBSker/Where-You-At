@@ -18,7 +18,6 @@ public class Account {
     public Account() {
     }
 
-
     public String getUsername() {
         return username;
     }
