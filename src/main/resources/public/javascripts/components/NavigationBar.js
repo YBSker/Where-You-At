@@ -2,9 +2,10 @@ var Nav = ReactBootstrap.Nav;
 
 const SIDEBAR_STATE = {
     closed: 0,
-    event: 1,
-    cardList: 2,
-    settings: 3,
+    createEvent: 1,
+    yourEvents: 2,
+    cardList: 3,
+    settings: 4,
 };
 
 class NavigationBar extends React.Component {
@@ -17,10 +18,13 @@ class NavigationBar extends React.Component {
                     default:
                         this.props.updateSidebar(SIDEBAR_STATE.closed);
                         break;
-                    case "EVENTS":
-                        this.props.updateSidebar(SIDEBAR_STATE.event);
+                    case "CREATE EVENT":
+                        this.props.updateSidebar(SIDEBAR_STATE.createEvent);
                         break;
-                    case "NEARBY":
+                    case "YOUR EVENTS":
+                        this.props.updateSidebar(SIDEBAR_STATE.yourEvents);
+                        break;
+                    case "NEARBY FRIENDS":
                         this.props.updateSidebar(SIDEBAR_STATE.cardList);
                         break;
                     case "SETTINGS":
@@ -32,10 +36,13 @@ class NavigationBar extends React.Component {
                     <Nav.Link eventKey="HOME">Home</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="EVENTS">Events</Nav.Link>
+                    <Nav.Link eventKey="CREATE EVENT">Create an Event</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="NEARBY">Nearby</Nav.Link>
+                    <Nav.Link eventKey="YOUR EVENTS"> Your Events</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="NEARBY FRIENDS">Nearby Friends</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey="SETTINGS">Settings</Nav.Link>
