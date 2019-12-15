@@ -41,6 +41,18 @@ class Settings extends React.Component {
         this.getDBPersonState.bind(this);
     }
 
+    /** Fetches privacy data before the page renders! */
+    componentDidMount() {
+        const that = this;
+        fetch("/profile")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (jsonData) {
+                that.setState({privacy: jsonData['privacy']})
+            });
+    }
+
     /** Fetch and set default person props.
      *  Call this everytime you're about to update state of a person
      * */
@@ -48,7 +60,7 @@ class Settings extends React.Component {
         /** This block fixes the "Unexpected token I in JSON... error". */
         fetch('/profile')
             .then(res => res.text);
-            // .then(text => console.log(text));
+        // .then(text => console.log(text));
 
         let profile = await (await fetch("/profile")).json();
 
@@ -98,13 +110,20 @@ class Settings extends React.Component {
         }
         this.setState({fullName: this.state.editName});
         this.submitForm();
-        document.getElementById('Edit_Name').value=''
+        document.getElementById('Edit_Name').value = ''
     }
 
-    async handleAvailabilityUpdate (num) {
+    async handleAvailabilityUpdate(num) {
         await this.getDBPersonState();
         /* Check if there was no submission data. */
         this.setState({availability: num});
+        await this.submitForm();
+    }
+
+    async handlePrivacyUpdate(str) {
+        await this.getDBPersonState();
+        /* Check if there was no submission data. */
+        this.setState({privacy: str});
         await this.submitForm();
     }
 
@@ -119,7 +138,7 @@ class Settings extends React.Component {
         }
         this.setState({status: this.state.editStatus});
         this.submitForm();
-        document.getElementById('Edit_Status').value='';
+        document.getElementById('Edit_Status').value = '';
     }
 
     //TODO: Get "User" info once route is setup.
@@ -141,7 +160,7 @@ class Settings extends React.Component {
     }
 
     test() {
-        console.log(this.state.editName);
+        console.log(this.state.privacy);
     }
 
     render() {
@@ -152,29 +171,62 @@ class Settings extends React.Component {
 
         const failedSubmitMessage = <h6>Something went wrong with submission...</h6>;
 
-        /** Render different selected avail dropdowns depending on availability state. */
-        const selectedAvailable = <DropdownButton id="availability" title="Availability">
-            <Dropdown.Item active as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
+        /** Render different selected AVAILABILITY dropdowns depending on availability state. */
+        const selectedAvailAvailable = <DropdownButton id="availability" title="Availability">
+            <Dropdown.Item active as="button"
+                           onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
                 disturb </Dropdown.Item>
-            </DropdownButton>;
-        const selectedBusy = <DropdownButton id="availability" title="Availability">
+        </DropdownButton>;
+        const selectedAvailBusy = <DropdownButton id="availability" title="Availability">
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
-            <Dropdown.Item active as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
+            <Dropdown.Item active as="button"
+                           onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
                 disturb </Dropdown.Item>
-            </DropdownButton>;
-        const selectedDnD = <DropdownButton id="availability" title="Availability">
+        </DropdownButton>;
+        const selectedAvailDnD = <DropdownButton id="availability" title="Availability">
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
             <Dropdown.Item active as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
                 disturb </Dropdown.Item>
-            </DropdownButton>;
+        </DropdownButton>;
 
-        // const changeNameButton = <Button variant="primary"
-        //     // onClick={this.getDefaultPersonState.bind(this)}
-        //                                  onClick={this.test.bind(this)}>Submit</Button>;
+
+        /** Render different selected PRIVACY dropdowns depending on privacy state. */
+        const selectedPrivNeighborhood = <DropdownButton id="privacy" title="Privacy Range">
+            <Dropdown.Item active as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+        </DropdownButton>;
+        const selectedPrivTown = <DropdownButton id="privacy" title="Privacy Range">
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
+            <Dropdown.Item active as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+        </DropdownButton>;
+        const selectedPrivCity = <DropdownButton id="privacy" title="Privacy Range">
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
+            <Dropdown.Item active as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+        </DropdownButton>;
+        const selectedPrivState = <DropdownButton id="privacy" title="Privacy Range">
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
+            <Dropdown.Item active as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+        </DropdownButton>;
+
 
         return (
             <div style={{padding: '25px'}}>
@@ -182,9 +234,15 @@ class Settings extends React.Component {
                     <h1> Settings </h1>
                 </header>
 
-                {this.state.availability === 0 ? selectedAvailable: null}
-                {this.state.availability === 1 ? selectedBusy: null}
-                {this.state.availability === 2 ? selectedDnD: null}
+                {this.state.availability === 0 ? selectedAvailAvailable : null}
+                {this.state.availability === 1 ? selectedAvailBusy : null}
+                {this.state.availability === 2 ? selectedAvailDnD : null}
+
+
+                {this.state.privacy === "neighborhood" ? selectedPrivNeighborhood : null}
+                {this.state.privacy === "town" ? selectedPrivTown : null}
+                {this.state.privacy === "city" ? selectedPrivCity : null}
+                {this.state.privacy === "state" ? selectedPrivState : null}
 
 
                 <div className={"Edit Name"}>
