@@ -27,6 +27,11 @@ public class AccountController {
         ctx.json(accountRepository.getOne(ctx.pathParam("username")));
     }
 
+    public void getCurrentUser(Context ctx) throws SQLException, AccountNotFoundException {
+        var curr = currentUser(ctx);
+        ctx.json(accountRepository.getOne(curr.getUsername()));
+    }
+
     /**
      * Create a new user entry in user using the form params from ctx and the person_id.
      *
@@ -47,17 +52,17 @@ public class AccountController {
      * Set the session attribute to the user account.
      *
      * @param ctx Javalin Context object with the form params to insert into new user entry.
-     * @throws AccountNotFoundException Account with the username/password combination is wrong.
-     * @throws SQLException             SQL statement failed to execute.
      */
-    void login(Context ctx) throws AccountNotFoundException, SQLException {
-        Account user = null;
+    void login(Context ctx) {
+        Account user;
+        String username = ctx.formParam("username");
         try {
-            user = accountRepository.getOne(ctx.formParam("username"));
+            user = accountRepository.getOne(username);
+        } catch (AccountNotFoundException e) {
+            System.out.println("\"" + username + "\": Username not registered.");
+            throw new ForbiddenResponse();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (AccountNotFoundException e) {
-            System.out.println("Username does not exist");
             throw new NotFoundResponse();
         }
         BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("password", "").toCharArray(), user.getPassword());
@@ -69,7 +74,6 @@ public class AccountController {
         ctx.status(200);
     }
 
-
     /**
      * Change password for account specified by ctx.
      *
@@ -79,11 +83,24 @@ public class AccountController {
         var curr = currentUser(ctx);
         BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("oldpassword", "").toCharArray(), curr.getPassword());
         if (!result.verified) {
+            System.out.println("Old passwords don't match.");
             throw new ForbiddenResponse();
         }
         curr.setPassword(BCrypt.withDefaults().hashToString(12, ctx.formParam("newpassword", "").toCharArray()));
         accountRepository.updateDetails(curr);
         ctx.status(200);
+    }
+
+    /**
+     * Check if the username is a duplicate.
+     *
+     * @param ctx
+     * @return
+     * @throws SQLException
+     */
+    public boolean duplicateUsername(Context ctx) throws SQLException {
+        var username = ctx.formParam("username");
+        return accountRepository.duplicateUsername(ctx);
     }
 
     /**

@@ -163,7 +163,8 @@ public class FriendRepository {
                 result.getString("status"),
                 result.getFloat("longitude"),
                 result.getFloat("latitude"),
-                result.getInt("availability")
+                result.getInt("availability"),
+                result.getString("privacy")
         );
     }
 }

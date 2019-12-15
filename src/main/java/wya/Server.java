@@ -40,15 +40,9 @@ public class Server {
                         put(appController::updateAccount);
                         get(appController::getAccount);
                     });
-                    path("places", () -> {
-                        get(appController::getPlaces);
-                        path(":identifier", () -> {
-                            put(appController::updatePlaces);
-                        });
-                    });
                     path("profile", () -> {
                         get(appController::getProfile);
-                        /** This is a person identifier. */
+                        /* This is a person identifier. */
                         path(":identifier", () -> {
                             get(appController::getEventIDsForPerson);
 //                            path(":eventIdentifier", () -> {
@@ -58,6 +52,15 @@ public class Server {
 //                                put(appController::createRelation);
 //                            });
                         });
+                    });
+                    path("time", () -> {
+                        put(appController::updateTime);
+                    });
+                    path("location", () -> {
+                        put(appController::updateLocation);
+                    });
+                    path("availability", () -> {
+                        put(appController::updateAvailability);
                     });
                     path("updateProfile", () -> {
                         put(appController::updateProfile);
@@ -75,7 +78,7 @@ public class Server {
                         });
                     });
                     path("eventAttendance", () -> {
-                        /** this path will also get person IDs for an event. getting event IDs for a person is in  profile path. */
+                        /* this path will also get person IDs for an event. getting event IDs for a person is in  profile path. */
                         path(":identifier", () -> {
                             put(appController::createRelation);
                             get(appController::getPersonIDForEvent);
@@ -84,9 +87,9 @@ public class Server {
                     });
                     path("friends", () -> {
                         get(appController::viewFriends);
-                        path("editFriends", () -> {
-                            put(appController::editFriends);
-                        });
+//                        path("editFriends", () -> {
+//                            put(appController::editFriends);
+//                        });
                     });
                 })
                 .exception(AccountNotFoundException.class, (e, ctx) -> {
