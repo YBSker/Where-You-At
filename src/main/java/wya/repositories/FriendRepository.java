@@ -13,7 +13,7 @@ public class FriendRepository {
     /**
      * Connection to db via JDBC.
      */
-    private Connection connection;
+    private final Connection connection;
 
     /**
      * Constructor for Person Repository.

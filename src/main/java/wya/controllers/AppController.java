@@ -7,25 +7,24 @@ import wya.repositories.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class AppController {
-    Connection connection = DriverManager.getConnection("jdbc:sqlite:wya.db");
+    final Connection connection = DriverManager.getConnection("jdbc:sqlite:wya.db");
 
     public AppController() throws SQLException {
     }
 
-    private EventRepository eventRepository = new EventRepository(connection);
-    //    private FriendRepository friendRepository = new FriendRepository(connection);
-    private PersonRepository personRepository = new PersonRepository(connection);
-    private AccountRepository accountRepository = new AccountRepository(connection);
-    private PlacesRepository placesRepository = new PlacesRepository(connection);
-    private EventRelationsRepository eventRelationsRepository = new EventRelationsRepository(connection);
+    private final EventRepository eventRepository = new EventRepository(connection);
+    //    private final FriendRepository friendRepository = new FriendRepository(connection);
+    private final PersonRepository personRepository = new PersonRepository(connection);
+    private final AccountRepository accountRepository = new AccountRepository(connection);
+    private final EventRelationsRepository eventRelationsRepository = new EventRelationsRepository(connection);
 
-    private EventController eventController = new EventController(eventRepository);
-    private PersonController personController = new PersonController(personRepository);
-    private AccountController accountController = new AccountController(accountRepository);
-    private PlacesController placesController = new PlacesController(placesRepository);
-    private EventRelationsController eventRelationsController = new EventRelationsController(eventRelationsRepository);
+    private final EventController eventController = new EventController(eventRepository);
+    private final PersonController personController = new PersonController(personRepository);
+    private final AccountController accountController = new AccountController(accountRepository);
+    private final EventRelationsController eventRelationsController = new EventRelationsController(eventRelationsRepository);
 
     /**
      * Creates an entry in the user and person tables. This uses Context.formParams to fill in the attributes for each entry.
@@ -45,11 +44,11 @@ public class AppController {
      * @throws SQLException Unable to execute the account creation.
      */
     public void register(Context ctx) throws SQLException {
-        if (ctx.formParam("username").length() < 1) {
+        if (Objects.requireNonNull(ctx.formParam("username")).length() < 1) {
             System.out.println("No username entered");
             throw new ForbiddenResponse();
         }
-        if (ctx.formParam("password").length() < 1) {
+        if (Objects.requireNonNull(ctx.formParam("password")).length() < 1) {
             System.out.println("No password entered");
         }
         if (accountController.duplicateUsername(ctx)) {
@@ -65,9 +64,7 @@ public class AppController {
             // ctx.status set to 409 if duplicate username
             // repeated just in case
             ctx.status(409);
-            return;
         }
-        placesController.create(ctx, person_id);
     }
 
     /**
@@ -125,16 +122,6 @@ public class AppController {
 
    public void editFriends(Context ctx) {    // If we ever implement adding and removing friends
 //        //TODO
-    }
-
-    public void updatePlaces(Context ctx) throws SQLException, PlacesNotFoundException {
-        placesController.updateDetails(ctx);
-        ctx.status(204);
-    }
-
-    public void getPlaces(Context ctx) throws SQLException {
-        placesController.getAll(ctx);
-        ctx.status(200);
     }
 
     public void getAccount(Context ctx) throws SQLException, AccountNotFoundException {

@@ -1,7 +1,7 @@
 {
-  "name": "TODOOSE",
-  "description": "A to-do application for OOSE",
-  "website": "https://www.jhu-oose.com/todoose",
-  "repository": "https://github.com/jhu-oose/todoose",
+  "name": "Where-You-At",
+  "description": "A location sharing logistics app for you and your friends.",
+  "website": "https://whereyouatjhu.herokuapp.com/",
+  "repository": "https://github.com/jhu-oose/2019-group-GrOOSEp",
   "success_url": "/"
 }

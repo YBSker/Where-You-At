@@ -10,8 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountRepository {
-    private Connection connection;
+    private final Connection connection;
 
+    /**
+     * Prepares and creates the users table and headers.
+     * Headers:
+     * 1) username: TEXT | PRIMARY KEY | UNIQUE | NOT NULL
+     * 2) password: TEXT | NOT NULL
+     * 3) email: TEXT
+     * 4) person_id: INTEGER | FOREIGN KEY (Referencing person(identifier)
+     * 5) profilePictre: TEXT
+     *
+     * @param connection The connection to the database
+     * @throws SQLException SQL statement failed to execute.
+     */
     public AccountRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
@@ -20,6 +32,12 @@ public class AccountRepository {
         statement.close();
     }
 
+    /**
+     * Get all the entries in the users table and returns every column using the Account object representation.
+     *
+     * @return A list of Account objects.
+     * @throws SQLException SQL statement failed to execute.
+     */
     public List<Account> getAll() throws SQLException {
         var account = new ArrayList<Account>();
         var statement = connection.createStatement();
@@ -32,6 +50,13 @@ public class AccountRepository {
         return account;
     }
 
+    /**
+     * Get the entry in the users table with the specific username.
+     * @param username The username that will be used to select from the users table.
+     * @return The Account object representation of the columns for the users entry.
+     * @throws SQLException SQL statement failed to execute.
+     * @throws AccountNotFoundException Entry with the username not found in users.
+     */
     public Account getOne(String username) throws SQLException, AccountNotFoundException {
         var statement = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
         statement.setString(1, username);
@@ -48,6 +73,11 @@ public class AccountRepository {
         }
     }
 
+    /**
+     * Insert a new entry into users with the same data from account member variables.
+     * @param account The Account object to be inserted into the users table.
+     * @throws SQLException SQL statement failed to execute.
+     */
     public void create(Account account) throws SQLException {
         var statement = connection.prepareStatement("INSERT INTO users (username, password, email, person_id, profilePicture) VALUES(?,?,?,?,?)");
         statement.setString(1, account.getUsername());
@@ -59,14 +89,25 @@ public class AccountRepository {
         statement.close();
     }
 
+    /**
+     * Find an entry with the same username specified in ctx.formParam("username").
+     * @param ctx Javalin Context Object.
+     * @return If true, the username is not unique. If false, the username is unique.
+     * @throws SQLException SQL statement failed to execute.
+     */
     public boolean duplicateUsername(Context ctx) throws SQLException {
-        var username = ctx.formParam("username");
         var statement = connection.prepareStatement("SELECT CASE WHEN EXISTS (SELECT 1 FROM users WHERE username=?) THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END");
         statement.setString(1, ctx.formParam("username"));
         var result = statement.executeQuery();
         return result.getBoolean(1);
     }
 
+    /**
+     * Update the details of the user with details stored in the Account object representation of the user into the users table.
+     * @param account The account that needs to be uploaded.
+     * @throws SQLException SQL statement failed to execute.
+     * @throws AccountNotFoundException Account with the username not found in the users table.
+     */
     public void updateDetails(Account account) throws SQLException, AccountNotFoundException {
         var statement = connection.prepareStatement("UPDATE users SET password = ?,  email = ?, person_id = ?,  profilePicture = ? WHERE username = ?");
         statement.setString(1, account.getPassword());

@@ -8,7 +8,7 @@ import wya.repositories.EventRepository;
 import java.sql.SQLException;
 
 public class EventController {
-    private EventRepository eventsRepository;
+    private final EventRepository eventsRepository;
 
     public EventController(EventRepository eventsRepository) {
         this.eventsRepository = eventsRepository;
@@ -32,7 +32,7 @@ public class EventController {
         ctx.status(204);
     }
 
-    public void updatePeople(Context ctx) throws SQLException, EventNotFoundException {
+    public void updatePeople(Context ctx) {
         //TODO FOR PERSONS ARRAYS
     }
 
