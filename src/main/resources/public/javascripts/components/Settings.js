@@ -33,6 +33,12 @@ class Settings extends React.Component {
 
             selectedAvailBut: null,
 
+            /* 0 means nothing, 1 means success, 2 means random DB fail, 3 means empty submit. */
+            nameSuccess: 0,
+            statusSuccess: 0,
+            emailSuccess: 0,
+            picSuccess: 0,
+
             failedSubmit: false,
             emptySubmit: false
         };
@@ -55,6 +61,7 @@ class Settings extends React.Component {
      *  Call this everytime you're about to update state of a person
      * */
     async getDBPersonState() {
+        await this.resetSuccessHandlers();
         /** This block fixes the "Unexpected token I in JSON... error". */
         fetch('/profile')
             .then(res => res.text);
@@ -80,6 +87,7 @@ class Settings extends React.Component {
      *  call everytime before update state of user.
      * */
     async getDBUserState() {
+        await this.resetSuccessHandlers();
         let user = await (await fetch("/updateAccount", {method: "GET"})).json();
         /** Set state based on information from "profile". */
         this.setState({"email": user['email']});
@@ -119,21 +127,7 @@ class Settings extends React.Component {
         // console.trace("Submitted updated user form data.");
     }
 
-    async handleNameUpdate() {
-        await this.getDBPersonState();
-        /* Check if there was no submission data. */
-        if (this.state.editName === "") {
-            this.setState({emptySubmit: true});
-            return;
-        } else {
-            this.setState({emptySubmit: false});
-        }
-        this.setState({fullName: this.state.editName});
-        this.setState({editName: ""});
-        this.submitProfileForm();
-        document.getElementById('Edit_Name').value = ''
-    }
-
+    /** Dropdown handlers! */
     async handleAvailabilityUpdate(num) {
         await this.getDBPersonState();
         /* Check if there was no submission data. */
@@ -148,49 +142,87 @@ class Settings extends React.Component {
         await this.submitProfileForm();
     }
 
+    /* Form input Handlers! */
+    async handleNameUpdate() {
+        await this.getDBPersonState();
+        /* Check if there was no submission data. */
+        if (this.state.editName === "") {
+            this.setState({nameSuccess: 3});
+            return;
+        }
+        this.setState({fullName: this.state.editName});
+        this.setState({editName: ""});
+        this.submitProfileForm();
+        if (this.state.failedSubmit) {
+            this.setState({nameSuccess: 2});
+            return;
+        }
+        document.getElementById('Edit_Name').value = '';
+        this.setState({nameSuccess: 1});
+    }
+
     async handleStatusUpdate() {
         await this.getDBPersonState();
         /* Check if there was no submission data. */
         if (this.state.editStatus === "") {
-            this.setState({emptySubmit: true});
+            this.setState({statusSuccess: 3});
             return;
-        } else {
-            this.setState({emptySubmit: false});
         }
         this.setState({status: this.state.editStatus});
         this.setState({editStatus: ""});
         this.submitProfileForm();
+        if (this.state.failedSubmit) {
+            this.setState({statusSuccess: 2});
+            return;
+        }
         document.getElementById('Edit_Status').value = '';
+        this.setState({statusSuccess: 1});
     }
 
     async handleEmailUpdate() {
         await this.getDBUserState();
         /* Check if there was no submission data. */
         if (this.state.editEmail === "") {
-            this.setState({emptySubmit: true});
+            this.setState({emailSuccess: 3});
             return;
-        } else {
-            this.setState({emptySubmit: false});
         }
         this.setState({email: this.state.editEmail});
         this.setState({editEmail: ""});
         this.submitUserForm();
+        if (this.state.failedSubmit) {
+            this.setState({emailSuccess: 2});
+            return;
+        }
         document.getElementById('Edit_Email').value = '';
+        this.setState({emailSuccess: 1});
     }
 
     async handleProfPicUpdate() {
         await this.getDBUserState();
         /* Check if there was no submission data. */
         if (this.state.editPic === "") {
-            this.setState({emptySubmit: true});
+            this.setState({picSuccess: 3});
             return;
-        } else {
-            this.setState({emptySubmit: false});
         }
         this.setState({profilePicture: this.state.editPic});
         this.setState({editPic: ""});
         this.submitUserForm();
+        if (this.state.failedSubmit) {
+            this.setState({picSuccess: 2});
+            return;
+        }
         document.getElementById('Edit_Picture').value = '';
+        this.setState({picSuccess: 1});
+    }
+
+    /* Helper functs. */
+
+    resetSuccessHandlers() {
+        this.setState({nameSuccess: 0});
+        this.setState({statusSuccess: 0});
+        this.setState({emailSuccess: 0});
+        this.setState({picSuccess: 0});
+        this.setState({failedSubmit: false});
     }
 
     //TODO: DELETE THIS
@@ -299,8 +331,9 @@ class Settings extends React.Component {
                             >Submit</Button>
                         </InputGroup.Append>
                     </InputGroup>
-                    {this.state.emptySubmit ? emptySubmitMessage : null}
-                    {this.state.failedSubmit ? failedSubmitMessage : null}
+                    {this.state.nameSuccess === 1 ? successMessage : null}
+                    {this.state.nameSuccess === 2 ? failedSubmitMessage : null}
+                    {this.state.nameSuccess === 3 ? emptySubmitMessage : null}
                 </div>
 
                 <div className={"Edit Status"}>
@@ -322,8 +355,9 @@ class Settings extends React.Component {
                             >Submit</Button>
                         </InputGroup.Append>
                     </InputGroup>
-                    {this.state.emptySubmit ? emptySubmitMessage : null}
-                    {this.state.failedSubmit ? failedSubmitMessage : null}
+                    {this.state.statusSuccess === 1 ? successMessage : null}
+                    {this.state.statusSuccess === 2 ? failedSubmitMessage : null}
+                    {this.state.statusSuccess === 3 ? emptySubmitMessage : null}
                 </div>
 
                 <div className={"Edit Email"}>
@@ -345,12 +379,13 @@ class Settings extends React.Component {
                             >Submit</Button>
                         </InputGroup.Append>
                     </InputGroup>
-                    {this.state.emptySubmit ? emptySubmitMessage : null}
-                    {this.state.failedSubmit ? failedSubmitMessage : null}
+                    {this.state.emailSuccess === 1 ? successMessage : null}
+                    {this.state.emailSuccess === 2 ? failedSubmitMessage : null}
+                    {this.state.emailSuccess === 3 ? emptySubmitMessage : null}
                 </div>
 
                 <div className={"Edit ProfPic link"}>
-                    <Form.Label>Status</Form.Label>
+                    <Form.Label>Profile Picture</Form.Label>
                     <InputGroup className="mb-3">
                         <Form.Control
                             placeholder="Edit your Picture"
@@ -368,8 +403,9 @@ class Settings extends React.Component {
                             >Submit</Button>
                         </InputGroup.Append>
                     </InputGroup>
-                    {this.state.emptySubmit ? emptySubmitMessage : null}
-                    {this.state.failedSubmit ? failedSubmitMessage : null}
+                    {this.state.picSuccess === 1 ? successMessage : null}
+                    {this.state.picSuccess === 2 ? failedSubmitMessage : null}
+                    {this.state.picSuccess === 3 ? emptySubmitMessage : null}
                 </div>
 
             </div>
@@ -377,10 +413,3 @@ class Settings extends React.Component {
         );
     }
 }
-
-
-
-
-
-
-
