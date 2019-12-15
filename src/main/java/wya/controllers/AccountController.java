@@ -3,6 +3,7 @@ package wya.controllers;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
+import io.javalin.http.NotFoundResponse;
 import wya.models.Account;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.AccountRepository;
@@ -12,23 +13,50 @@ import java.util.Objects;
 
 public class AccountController {
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     public AccountController(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
+    /**
+     * Returns the entire users table.
+     * ctx.status = 200 upon successful completion.
+     * Creates a JSON object with all the entries in users.
+     *
+     * @param ctx Javalin Context Object.
+     * @throws SQLException SQL statement failed to execute.
+     */
     public void getAll(Context ctx) throws SQLException {
         ctx.json(accountRepository.getAll());
+        ctx.status(200);
     }
 
+    /**
+     * Returns the user specified by the username field from ctx.formParam.
+     * Creates a JSON object with the specified entry in users with the ctx.formParam("username").
+     *
+     * @param ctx The Javalin Context Object.
+     * @throws SQLException             SQL statement failed to execute.
+     * @throws AccountNotFoundException Account with the specificed username not found in users table.
+     */
     public void getOne(Context ctx) throws SQLException, AccountNotFoundException {
-        ctx.json(accountRepository.getOne(ctx.pathParam("username")));
+        ctx.json(accountRepository.getOne(ctx.formParam("username")));
+        ctx.status(200);
     }
 
+    /**
+     * Gets the current user from the user table according to the username stored as ctx.sessionAttribute.
+     * Creates a JSON object with the specified entry in useres with the username of the current user.
+     *
+     * @param ctx Javalin Context Object.
+     * @throws SQLException             SQL statement failed to execute.
+     * @throws AccountNotFoundException Account with the username not found in users table.
+     */
     public void getCurrentUser(Context ctx) throws SQLException, AccountNotFoundException {
         var curr = currentUser(ctx);
         ctx.json(accountRepository.getOne(curr.getUsername()));
+        ctx.status(200);
     }
 
     /**
@@ -48,7 +76,7 @@ public class AccountController {
 
     /**
      * Login handler.
-     * Set the session attribute to the user account.
+     * Set the session attribute to the user account and the person_id of the current user logged in using cookies.
      *
      * @param ctx Javalin Context object with the form params to insert into new user entry.
      */
@@ -64,7 +92,7 @@ public class AccountController {
             e.printStackTrace();
             throw new NotFoundResponse();
         }
-        BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("password", "").toCharArray(), user.getPassword());
+        BCrypt.Result result = BCrypt.verifyer().verify(Objects.requireNonNull(ctx.formParam("password", "")).toCharArray(), user.getPassword());
         if (!result.verified) {
             throw new ForbiddenResponse();
         }
@@ -80,12 +108,17 @@ public class AccountController {
      */
     void changePass(Context ctx) throws AccountNotFoundException, SQLException {
         var curr = currentUser(ctx);
-        BCrypt.Result result = BCrypt.verifyer().verify(ctx.formParam("oldpassword", "").toCharArray(), curr.getPassword());
+        BCrypt.Result result = BCrypt.verifyer().verify(Objects.requireNonNull(ctx.formParam("oldpassword")).toCharArray(), curr.getPassword());
         if (!result.verified) {
             System.out.println("Old passwords don't match.");
             throw new ForbiddenResponse();
         }
-        curr.setPassword(BCrypt.withDefaults().hashToString(12, ctx.formParam("newpassword", "").toCharArray()));
+
+        if (Objects.requireNonNull(ctx.formParam("newpassword")).length() < 1) {
+            System.out.println("New password is empty.");
+            throw new ForbiddenResponse();
+        }
+        curr.setPassword(BCrypt.withDefaults().hashToString(12, Objects.requireNonNull(ctx.formParam("newpassword")).toCharArray()));
         accountRepository.updateDetails(curr);
         ctx.status(200);
     }
@@ -93,12 +126,11 @@ public class AccountController {
     /**
      * Check if the username is a duplicate.
      *
-     * @param ctx
-     * @return
-     * @throws SQLException
+     * @param ctx Javalin Context Object.
+     * @return If true, a duplicate username already in users table. If false, the username is unique.
+     * @throws SQLException SQL statement failed to execute.
      */
     public boolean duplicateUsername(Context ctx) throws SQLException {
-        var username = ctx.formParam("username");
         return accountRepository.duplicateUsername(ctx);
     }
 
@@ -142,6 +174,12 @@ public class AccountController {
         account.setProfilePicture(ctx.formParam("profilePicture", ""));
     }
 
+    /**
+     * Helper function to create the Account object for updateDetails to be inserted into users table.
+     *
+     * @param ctx     Javalin Context Object.
+     * @param account Account object containing metadata of user account.
+     */
     private void editToDB(Context ctx, Account account) {
         account.setEmail(ctx.formParam("email", ""));
         account.setProfilePicture(ctx.formParam("profilePicture", ""));

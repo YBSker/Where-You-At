@@ -8,10 +8,9 @@ import wya.repositories.EventRelationsNotFoundException;
 import wya.repositories.EventRelationsRepository;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class EventRelationsController {
-    private EventRelationsRepository eventRelationsRepository;
+    private final EventRelationsRepository eventRelationsRepository;
 
     public EventRelationsController(EventRelationsRepository eventRelationsRepository) {
         this.eventRelationsRepository = eventRelationsRepository;

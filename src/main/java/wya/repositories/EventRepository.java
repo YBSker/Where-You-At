@@ -11,12 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventRepository {
-    private Connection connection;
+    private final Connection connection;
 
+    /**
+     * Prepares and creates the events table and headers.
+     * Headers:
+     * 1) identifier: INTEGER | PRIMARY KEY | AUTOINCREMENT
+     * 2) name: TEXT
+     * 3) description: TEXT
+     * 4) place: TEXT
+     * 5) longitude: DECIMAL(9,6)
+     * 6) latitude: DECIMAL(9,6)
+     * 7) image: TEXT
+     * 8) startTime: TEXT
+     * 9) endTime: TEXT
+     *
+     * @param connection The connection to the database.
+     * @throws SQLException The SQL statement failed to execute.
+     */
     public EventRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
-        //FK(location, peopleAvailable, peopleAccepted, peopleInvited, peopleSeen)
         statement.execute("CREATE TABLE IF NOT EXISTS events (identifier INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, " +
                 "place TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), image TEXT, startTime TEXT, endTime TEXT)");
         statement.close();

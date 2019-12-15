@@ -6,7 +6,6 @@ import wya.repositories.AccountNotFoundException;
 import wya.repositories.EventNotFoundException;
 import wya.repositories.EventRelationsNotFoundException;
 import wya.repositories.PersonNotFoundException;
-import wya.repositories.PlacesNotFoundException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,27 +17,15 @@ public class Server {
     public static void main(String[] args) throws SQLException {
         AppController appController = new AppController();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:wya.db");
-        Javalin.create(config -> {
-            config.addStaticFiles("/public");
-        })
-                .events(event -> {
-                    event.serverStopped(() -> {
-                        connection.close();
-                    });
-                })
+        Javalin.create(config -> config.addStaticFiles("/public"))
+                .events(event -> event.serverStopped(connection::close))
                 .routes(() -> {
-                    path("register", () -> {
-                        post(appController::register);
-                    });
-                    path("changePassword", () -> {
-                        put(appController::changePassword);
-                    });
-                    path("login", () -> {
-                        post(appController::login);
-                    });
+                    path("register", () -> post(appController::register));
+                    path("changePassword", () -> put(appController::changePassword));
+                    path("login", () -> post(appController::login));
                     path("updateAccount", () -> {
-                        put(appController::updateAccount);
                         get(appController::getAccount);
+                        put(appController::updateAccount);
                     });
                     path("profile", () -> {
                         get(appController::getProfile);
@@ -53,15 +40,6 @@ public class Server {
 //                            });
                         });
                     });
-                    path("time", () -> {
-                        put(appController::updateTime);
-                    });
-                    path("location", () -> {
-                        put(appController::updateLocation);
-                    });
-                    path("availability", () -> {
-                        put(appController::updateAvailability);
-                    });
                     path("updateProfile", () -> {
                         put(appController::updateProfile);
                         get(appController::getProfile);
@@ -73,9 +51,7 @@ public class Server {
                             get(appController::getPersonIDForEvent);
                             delete(appController::removeRelation);
                         });
-                        path("create", () -> {
-                            post(appController::createEvent);
-                        });
+                        path("create", () -> post(appController::createEvent));
                     });
                     path("eventAttendance", () -> {
                         /* this path will also get person IDs for an event. getting event IDs for a person is in  profile path. */
@@ -91,26 +67,14 @@ public class Server {
 //                            put(appController::editFriends);
 //                        });
                     });
+                    path("time", () -> put(appController::updateTime));
+                    path("location", () -> put(appController::updateLocation));
+                    path("availability", () -> put(appController::updateAvailability));
                 })
-                .exception(AccountNotFoundException.class, (e, ctx) -> {
-                    ctx.status(404);
-                })
-                .exception(PlacesNotFoundException.class, (e, ctx) -> {
-                    ctx.status(404);
-                })
-                .exception(AccountNotFoundException.class, (e, ctx) -> {
-                    System.out.println("HEre");
-                    ctx.status(403);
-                })
-                .exception(PersonNotFoundException.class, (e, ctx) -> {
-                    ctx.status(403);
-                })
-                .exception(EventNotFoundException.class, (e, ctx) -> {
-                    ctx.status(404);
-                })
-                .exception(EventRelationsNotFoundException.class, (e, ctx) -> {
-                    ctx.status(404);
-                })
+                .exception(AccountNotFoundException.class, (e, ctx) -> ctx.status(403))
+                .exception(PersonNotFoundException.class, (e, ctx) -> ctx.status(403))
+                .exception(EventNotFoundException.class, (e, ctx) -> ctx.status(404))
+                .exception(EventRelationsNotFoundException.class, (e, ctx) -> ctx.status(404))
                 .start(System.getenv("PORT") == null ? 7000 : Integer.parseInt(System.getenv("PORT")));
     }
 }

@@ -15,8 +15,26 @@ public class Event {
     private Person[] peopleAccepted;
     private Person[] peopleSeen;
 
-    public Event() {}
+    public Event() {
+    }
 
+    /**
+     * Event constructor.
+     *
+     * @param identifier      PK in events table.
+     * @param name            Title of the event.
+     * @param description     Description of the event.
+     * @param place           String representation of the location of the event.
+     * @param longitude       Longitude of the location of the event.
+     * @param latitude        Latitude of the location of the event.
+     * @param image           Image of the event.
+     * @param startTime       Start time of the event.
+     * @param endTime         End time of the event.
+     * @param peopleAvailable Friends available to attend.
+     * @param peopleInvited   Friends invited to attend.
+     * @param peopleAccepted  Friends who have accepted the event.
+     * @param peopleSeen      Friend who have seen the event.
+     */
     public Event(int identifier, String name, String description, String place, float longitude, float latitude, String image, String startTime, String endTime, Person[] peopleAvailable, Person[] peopleInvited, Person[] peopleAccepted, Person[] peopleSeen) {
         this.identifier = identifier;
         this.name = name;

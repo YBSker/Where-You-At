@@ -17,7 +17,7 @@ public class EventRelations {
          *  0 for not going
          *  1 for interested
          *  2 for going
-         */
+         **/
 //        this.interest = interest;
     }
 

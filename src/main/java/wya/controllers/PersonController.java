@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class PersonController {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
 //    private FriendRepository friendRepository;
 //

@@ -4,13 +4,12 @@ import wya.models.EventRelations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventRelationsRepository {
-    private Connection connection;
+    private final Connection connection;
 
     public EventRelationsRepository(Connection connection) throws SQLException {
         this.connection = connection;
