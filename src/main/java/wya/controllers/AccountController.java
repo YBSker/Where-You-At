@@ -3,6 +3,7 @@ package wya.controllers;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
+import io.javalin.http.NotFoundResponse;
 import wya.models.Account;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.AccountRepository;
@@ -93,9 +94,9 @@ public class AccountController {
     /**
      * Check if the username is a duplicate.
      *
-     * @param ctx
-     * @return
-     * @throws SQLException
+     * @param ctx Javalin Context Object
+     * @return If duplicate username found in user table.
+     * @throws SQLException SQL statement failed to execute.
      */
     public boolean duplicateUsername(Context ctx) throws SQLException {
         var username = ctx.formParam("username");
