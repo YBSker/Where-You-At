@@ -110,6 +110,7 @@ class GoogleMap extends React.Component {
     async componentDidMount() {
         await this.getLocation();
         this.updateTime();
+        console.log(this.props.range);
     };
 
 
