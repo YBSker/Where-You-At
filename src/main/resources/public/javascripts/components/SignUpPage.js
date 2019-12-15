@@ -6,7 +6,7 @@ class SignUpPage extends React.Component {
             username: "",
             password: "",
             user_exists: false,
-            range: "town"
+            range: "neighborhood"
         }
     }
 
@@ -38,6 +38,7 @@ class SignUpPage extends React.Component {
     }
 
     handleChange = (e) => {
+        this.props.setRange(e.target.value);
         this.setState({range: e.target.value});
     }
 
@@ -56,24 +57,33 @@ class SignUpPage extends React.Component {
                             <h1>Where<br/>You<br/>At</h1>
                         </div>
                         <form>
+                            <br />
                             <p>Please choose your desired privacy range: </p>
-                            <div className="radio">
-                                <label>
-                                    <input type="radio" value="town" checked={this.state.range === 'town'} onChange={this.handleChange}/>
-                                    Town
-                                </label>
-                                <label>
-                                    <input type="radio" value="city" checked={this.state.range === 'city'} onChange={this.handleChange}/>
-                                    City
-                                </label>
-                                <label>
-                                    <input type="radio" value="state" checked={this.state.range === 'state'} onChange={this.handleChange}/>
-                                    State
-                                </label>
-                                <label>
-                                    <input type="radio" value="country" checked={this.state.range === 'country'} onChange={this.handleChange}/>
-                                    Country
-                                </label>
+                            <div className="row">
+                                <div class="col-sm-3">
+                                    <label>
+                                        <input type="radio" value="neighborhood" checked={this.state.range === 'neighborhood'} onChange={this.handleChange}/>
+                                        Neighborhood
+                                    </label>
+                                </div>
+                                <div className="col-sm-3">
+                                    <label>
+                                        <input type="radio" value="postal_code" checked={this.state.range === 'postal_code'} onChange={this.handleChange}/>
+                                        Town
+                                    </label>
+                                </div>
+                                <div className="col-sm-3">
+                                    <label>
+                                        <input type="radio" value="locality" checked={this.state.range === 'locality'} onChange={this.handleChange}/>
+                                        City
+                                    </label>
+                                </div>
+                                <div className="col-sm-3">
+                                    <label>
+                                        <input type="radio" value="administrative_area_level_1" checked={this.state.range === "administrative_area_level_1"} onChange={this.handleChange}/>
+                                        State
+                                    </label>
+                                </div>
                             </div>
                         </form>
                     </div>
