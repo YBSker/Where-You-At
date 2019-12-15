@@ -13,7 +13,7 @@ public class AccountRepository {
     private final Connection connection;
 
     /**
-     * Prepares and creates the users table and headers.
+     * Prepares and creates the users table and headers if it does not already exist in connection.
      * Headers:
      * 1) username: TEXT | PRIMARY KEY | UNIQUE | NOT NULL
      * 2) password: TEXT | NOT NULL
@@ -52,9 +52,10 @@ public class AccountRepository {
 
     /**
      * Get the entry in the users table with the specific username.
+     *
      * @param username The username that will be used to select from the users table.
      * @return The Account object representation of the columns for the users entry.
-     * @throws SQLException SQL statement failed to execute.
+     * @throws SQLException             SQL statement failed to execute.
      * @throws AccountNotFoundException Entry with the username not found in users.
      */
     public Account getOne(String username) throws SQLException, AccountNotFoundException {
@@ -75,6 +76,7 @@ public class AccountRepository {
 
     /**
      * Insert a new entry into users with the same data from account member variables.
+     *
      * @param account The Account object to be inserted into the users table.
      * @throws SQLException SQL statement failed to execute.
      */
@@ -91,6 +93,7 @@ public class AccountRepository {
 
     /**
      * Find an entry with the same username specified in ctx.formParam("username").
+     *
      * @param ctx Javalin Context Object.
      * @return If true, the username is not unique. If false, the username is unique.
      * @throws SQLException SQL statement failed to execute.
@@ -104,8 +107,9 @@ public class AccountRepository {
 
     /**
      * Update the details of the user with details stored in the Account object representation of the user into the users table.
+     *
      * @param account The account that needs to be uploaded.
-     * @throws SQLException SQL statement failed to execute.
+     * @throws SQLException             SQL statement failed to execute.
      * @throws AccountNotFoundException Account with the username not found in the users table.
      */
     public void updateDetails(Account account) throws SQLException, AccountNotFoundException {

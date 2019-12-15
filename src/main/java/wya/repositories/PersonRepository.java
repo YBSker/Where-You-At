@@ -14,7 +14,18 @@ public class PersonRepository {
     private final Connection connection;
 
     /**
-     * Constructor for Person Repository.
+     * Constructor for PersonRepository.
+     * Creates the person table if it does not exist in connection and prepares the headers.
+     * Headers:
+     * 1) identifier: INTEGER | PRIMARY KEY | AUTOINCREMENT
+     * 2) fullName: TEXT
+     * 3) lastSeen: TEXT
+     * 4) live: BOOLEAN | DEFAULT true
+     * 5) stats: TEXT
+     * 6) longitude: DECIMAL(9,6)
+     * 7) latitude: DECIMAL(9,6)|
+     * 8) availability: INTEGER | DEFAULT 0
+     * 9) privacy: TEXT
      *
      * @param connection DB connection.
      * @throws SQLException Statement failed to execute.
@@ -27,9 +38,9 @@ public class PersonRepository {
     }
 
     /**
-     * Get all entries in person.
+     * Get all entries in person and puts them into and ArrayList of Person objects.
      *
-     * @return Arraylist of entries in person
+     * @return Arraylist of entries in person as Person Objects.
      * @throws SQLException Statement failed to execute.
      */
     public List<Person> getAll() throws SQLException {
@@ -45,7 +56,7 @@ public class PersonRepository {
     }
 
     /**
-     * Get entry with identifier from person.
+     * Get entry with identifier from person table and into a Person Object.
      *
      * @param identifier The PK to find in person
      * @return Person object containing the fields from the entry with identifier.
@@ -69,7 +80,7 @@ public class PersonRepository {
     }
 
     /**
-     * Create a new personal profile for the user.
+     * Create a new person entry for the current user.
      *
      * @param person Person object that has fullName, lastSeen, live, status, longitude, latitude, availability fields.
      * @return PK identifier of new person entry.
