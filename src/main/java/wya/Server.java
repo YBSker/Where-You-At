@@ -22,9 +22,11 @@ public class Server {
                 .routes(() -> {
                     path("register", () -> post(appController::register));
                     path("changePassword", () -> put(appController::changePassword));
+                    /* This gets a USER. */
                     path("login", () -> post(appController::login));
                     path("updateAccount", () -> {
                         get(appController::getAccount);
+                        /* THis updates a USER.*/
                         put(appController::updateAccount);
                     });
                     path("profile", () -> {
