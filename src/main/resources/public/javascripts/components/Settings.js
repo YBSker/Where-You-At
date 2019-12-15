@@ -22,16 +22,14 @@ class Settings extends React.Component {
             latitude: 0,
             availability: 0,
             privacy: "",
-            /** User props. */
-            username: "",
-            //TODO: hold up is this safe....
-            password: "",
+            // //TODO: hold up is this safe....
             email: "",
-            person_id: 0,
             profilePicture: "",
 
             editName: "",
             editStatus: "",
+            editEmail: "",
+            editPic: "",
 
             selectedAvailBut: null,
 
@@ -78,8 +76,18 @@ class Settings extends React.Component {
         // console.trace("Updated person state data from server");
     }
 
+    /** Fetch and set default user props.
+     *  call everytime before update state of user.
+     * */
+    async getDBUserState() {
+        let user = await (await fetch("/updateAccount", {method: "GET"})).json();
+        /** Set state based on information from "profile". */
+        this.setState({"email": user['email']});
+        this.setState({"profilePicture": user['profilePicture']});
+    }
+
     /* Function for actual for submission. */
-    async submitForm() {
+    async submitProfileForm() {
         const formData = new FormData();
         formData.append("identifier", this.state.identifier);
         formData.append("fullName", this.state.fullName);
@@ -98,6 +106,18 @@ class Settings extends React.Component {
             }.bind(this));
         // console.trace("Submitted updated form data.");
     }
+    async submitUserForm() {
+        const formData = new FormData();
+        formData.append("email", this.state.email);
+        formData.append("profilePicture", this.state.profilePicture);
+         await fetch("updateAccount", {method: "PUT", body: formData})
+            .then(function (response) {
+                if (response.status !== 204) {
+                    this.setState({failedSubmit: true})
+                }
+            }.bind(this));
+        // console.trace("Submitted updated user form data.");
+    }
 
     async handleNameUpdate() {
         await this.getDBPersonState();
@@ -109,7 +129,8 @@ class Settings extends React.Component {
             this.setState({emptySubmit: false});
         }
         this.setState({fullName: this.state.editName});
-        this.submitForm();
+        this.setState({editName: ""});
+        this.submitProfileForm();
         document.getElementById('Edit_Name').value = ''
     }
 
@@ -117,14 +138,14 @@ class Settings extends React.Component {
         await this.getDBPersonState();
         /* Check if there was no submission data. */
         this.setState({availability: num});
-        await this.submitForm();
+        await this.submitProfileForm();
     }
 
     async handlePrivacyUpdate(str) {
         await this.getDBPersonState();
         /* Check if there was no submission data. */
         this.setState({privacy: str});
-        await this.submitForm();
+        await this.submitProfileForm();
     }
 
     async handleStatusUpdate() {
@@ -137,28 +158,42 @@ class Settings extends React.Component {
             this.setState({emptySubmit: false});
         }
         this.setState({status: this.state.editStatus});
-        this.submitForm();
+        this.setState({editStatus: ""});
+        this.submitProfileForm();
         document.getElementById('Edit_Status').value = '';
     }
 
-    //TODO: Get "User" info once route is setup.
-    /** Fetch and set default user props.
-     *  call everytime before update state of user.
-     * */
-    // async getDefaultUserState() {
-    // }
-
-    //TODO: Delete?
-    handleChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        // const name = target.name;
-        //
-        // this.setState({
-        //     [name]: value
-        // });
+    async handleEmailUpdate() {
+        await this.getDBUserState();
+        /* Check if there was no submission data. */
+        if (this.state.editEmail === "") {
+            this.setState({emptySubmit: true});
+            return;
+        } else {
+            this.setState({emptySubmit: false});
+        }
+        this.setState({email: this.state.editEmail});
+        this.setState({editEmail: ""});
+        this.submitUserForm();
+        document.getElementById('Edit_Email').value = '';
     }
 
+    async handleProfPicUpdate() {
+        await this.getDBUserState();
+        /* Check if there was no submission data. */
+        if (this.state.editPic === "") {
+            this.setState({emptySubmit: true});
+            return;
+        } else {
+            this.setState({emptySubmit: false});
+        }
+        this.setState({profilePicture: this.state.editPic});
+        this.setState({editPic: ""});
+        this.submitUserForm();
+        document.getElementById('Edit_Picture').value = '';
+    }
+
+    //TODO: DELETE THIS
     test() {
         console.log(this.state.privacy);
     }
@@ -291,34 +326,51 @@ class Settings extends React.Component {
                     {this.state.failedSubmit ? failedSubmitMessage : null}
                 </div>
 
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Edit your name" onChange={this.handleChange}/>
-                    </Form.Group>
+                <div className={"Edit Email"}>
+                    <Form.Label>Email</Form.Label>
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            placeholder="Edit your Email"
+                            aria-label="Edit your Email"
+                            id="Edit_Email"
+                            // aria-describedby="basic-addon2"
+                            onChange={(e) => {
+                                this.setState({editEmail: e.target.value})
+                            }}
+                        />
+                        <InputGroup.Append>
+                            <Button variant="outline-secondary"
+                                    type="submit"
+                                    onClick={this.handleEmailUpdate.bind(this)}
+                            >Submit</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                    {this.state.emptySubmit ? emptySubmitMessage : null}
+                    {this.state.failedSubmit ? failedSubmitMessage : null}
+                </div>
 
-                    <Form.Group>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="text" placeholder="Edit your password" onChange={this.handleChange}/>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" placeholder="Edit your username" onChange={this.handleChange}/>
-                    </Form.Group>
-
-
-                    <Form.Group>
-                        <Form.Label>Status</Form.Label>
-                        <Form.Control type="text" placeholder="Enter something about yourself"
-                                      onChange={this.handleChange}/>
-                    </Form.Group>
-
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
-
+                <div className={"Edit ProfPic link"}>
+                    <Form.Label>Status</Form.Label>
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            placeholder="Edit your Picture"
+                            aria-label="Edit your Picture"
+                            id="Edit_Picture"
+                            // aria-describedby="basic-addon2"
+                            onChange={(e) => {
+                                this.setState({editPic: e.target.value})
+                            }}
+                        />
+                        <InputGroup.Append>
+                            <Button variant="outline-secondary"
+                                    type="submit"
+                                    onClick={this.handleProfPicUpdate.bind(this)}
+                            >Submit</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                    {this.state.emptySubmit ? emptySubmitMessage : null}
+                    {this.state.failedSubmit ? failedSubmitMessage : null}
+                </div>
 
             </div>
 
