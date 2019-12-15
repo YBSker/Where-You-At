@@ -3,7 +3,6 @@ package wya.controllers;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.javalin.http.Context;
 import io.javalin.http.ForbiddenResponse;
-import io.javalin.http.NotFoundResponse;
 import wya.models.Account;
 import wya.repositories.AccountNotFoundException;
 import wya.repositories.AccountRepository;

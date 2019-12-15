@@ -18,20 +18,69 @@ class GoogleMap extends React.Component {
     }
 
     async getFriendsFromServer() {
+        console.trace("called getFriendsFromServer");
         this.setState({ myFriends: await (await fetch("/friends")).json() });
 
         //add friends markers to the map
-        {this.state.myFriends.map(item => (
-            new window.google.maps.Marker({
-                position: {lat: item.latitude, lng: item.longitude},
+
+        let markers = this.resolveMarkerLabels(this.bucketize(this.state.myFriends));
+
+        for (const marker of markers) {
+            const m = new window.google.maps.Marker({
+                position: {lat: marker.latitude, lng: marker.longitude},
                 map: this.map,
-                label: item.fullName
-            })
-        ))}
+                label: marker.label
+            });
+
+            window.google.maps.event.addDomListener(m, 'click', () => {
+                this.populateSidebar(m.getPosition().lat(), m.getPosition().lng());
+            });
+        }
+    }
+
+    resolveMarkerLabels(markers) {
+        for (const marker of markers) {
+            if (marker.numPeople > 1) {
+                marker.label = marker.numPeople.toString();
+            }
+        }
+        return markers;
+    }
+
+    bucketize(friends) {
+        let markers = [];
+        for (const friend of friends) {
+            let duplicate = false;
+            for (const marker of markers) {
+                if (friend.latitude === marker.latitude && friend.longitude === marker.longitude) {
+                    duplicate = true;
+                    marker.numPeople++;
+                    break;
+                }
+            }
+
+            if (!duplicate) {
+                let marker = {label: friend.fullName,
+                              numPeople: 1,
+                              latitude: friend.latitude,
+                              longitude: friend.longitude};
+                markers.push(marker);
+            }
+        }
+        return markers;
+    }
+
+    populateSidebar(lat, lng) {
+        let clickedFriends = [];
+        for (const friend of this.state.myFriends) {
+            if (friend.latitude === lat && friend.longitude === lng) {
+                clickedFriends.push(friend);
+            }
+        }
+        this.props.updateSidebar(SIDEBAR_STATE.cardList, clickedFriends);
     }
 
     async getLocation() {
-
         //updating current location
         if (navigator && navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
@@ -60,9 +109,7 @@ class GoogleMap extends React.Component {
 
     async componentDidMount() {
         await this.getLocation();
-        var tempDate = new Date();
-        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
-        console.log(date);
+        this.updateTime();
     };
 
 
@@ -113,6 +160,15 @@ class GoogleMap extends React.Component {
             }
         });
 
+    }
+
+    updateTime() {
+        var tempDate = new Date();
+        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
+        console.log(date);
+        const formData = new FormData();
+        // formData.append("time", date);
+        // fetch("/time", {method: "PUT", body: formData})
     }
 
 

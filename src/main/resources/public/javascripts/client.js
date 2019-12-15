@@ -22,10 +22,13 @@ class Application extends React.Component {
         super(props);
         this.state = {
             loggedIn: false,
-            sidebarState: SIDEBAR_STATE.closed
+            signUp: false,
+            sidebarState: SIDEBAR_STATE.closed,
+            friendsToDisplay: []
         };
 
         this.logIn = this.logIn.bind(this);
+        this.signUp = this.signUp.bind(this);
         this.updateSidebar = this.updateSidebar.bind(this);
     }
 
@@ -33,15 +36,30 @@ class Application extends React.Component {
         this.setState({loggedIn: state});
     }
 
-    updateSidebar(state) {
+    signUp(state) {
+        this.setState({signUp: state});
+    }
+
+    updateSidebar(state, friends) {
+        if (friends) {
+            this.setState({friendsToDisplay: friends});
+        }
         this.setState({sidebarState: state});
     }
 
     render() {
-        if (!this.state.loggedIn) {
+        if (!this.state.loggedIn && !this.state.signUp) {
             return (
                 <div>
-                    <LoginPage logIn = {this.logIn}/>
+                    <LoginPage logIn = {this.logIn} signUp={this.signUp}/>
+                </div>
+            );
+        }
+
+        if (this.state.signUp) {
+            return (
+                <div>
+                    <SignUpPage logIn = {this.logIn} signUp={this.signUp}/>
                 </div>
             );
         }
@@ -83,7 +101,7 @@ class Application extends React.Component {
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
                             <div className="side">
-                                <Sidebar/>
+                                <Sidebar friends = {this.state.friendsToDisplay}/>
                             </div>
                         </div>
                     </div>

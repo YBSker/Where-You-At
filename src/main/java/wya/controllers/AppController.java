@@ -123,9 +123,9 @@ public class AppController {
         ctx.status(200);
     }
 
-//    public void editFriends(Context ctx) {    // If we ever implement adding and removing friends
+   public void editFriends(Context ctx) {    // If we ever implement adding and removing friends
 //        //TODO
-//    }
+    }
 
     public void updatePlaces(Context ctx) throws SQLException, PlacesNotFoundException {
         placesController.updateDetails(ctx);
