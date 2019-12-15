@@ -33,6 +33,8 @@ class Settings extends React.Component {
             editName: "",
             editStatus: "",
 
+            selectedAvailBut: null,
+
             failedSubmit: false,
             emptySubmit: false
         };
@@ -96,6 +98,14 @@ class Settings extends React.Component {
         }
         this.setState({fullName: this.state.editName});
         this.submitForm();
+        document.getElementById('Edit_Name').value=''
+    }
+
+    async handleAvailabilityUpdate (num) {
+        await this.getDBPersonState();
+        /* Check if there was no submission data. */
+        this.setState({availability: num});
+        await this.submitForm();
     }
 
     async handleStatusUpdate() {
@@ -109,6 +119,7 @@ class Settings extends React.Component {
         }
         this.setState({status: this.state.editStatus});
         this.submitForm();
+        document.getElementById('Edit_Status').value='';
     }
 
     //TODO: Get "User" info once route is setup.
@@ -141,6 +152,26 @@ class Settings extends React.Component {
 
         const failedSubmitMessage = <h6>Something went wrong with submission...</h6>;
 
+        /** Render different selected avail dropdowns depending on availability state. */
+        const selectedAvailable = <DropdownButton id="availability" title="Availability">
+            <Dropdown.Item active as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
+                disturb </Dropdown.Item>
+            </DropdownButton>;
+        const selectedBusy = <DropdownButton id="availability" title="Availability">
+            <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
+            <Dropdown.Item active as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
+                disturb </Dropdown.Item>
+            </DropdownButton>;
+        const selectedDnD = <DropdownButton id="availability" title="Availability">
+            <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
+            <Dropdown.Item active as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
+                disturb </Dropdown.Item>
+            </DropdownButton>;
+
         // const changeNameButton = <Button variant="primary"
         //     // onClick={this.getDefaultPersonState.bind(this)}
         //                                  onClick={this.test.bind(this)}>Submit</Button>;
@@ -151,11 +182,10 @@ class Settings extends React.Component {
                     <h1> Settings </h1>
                 </header>
 
-                <DropdownButton id="availability" title="Availability">
-                    <Dropdown.Item as="button"> Available </Dropdown.Item>
-                    <Dropdown.Item as="button"> Busy </Dropdown.Item>
-                    <Dropdown.Item as="button"> Do not disturb </Dropdown.Item>
-                </DropdownButton>
+                {this.state.availability === 0 ? selectedAvailable: null}
+                {this.state.availability === 1 ? selectedBusy: null}
+                {this.state.availability === 2 ? selectedDnD: null}
+
 
                 <div className={"Edit Name"}>
                     <Form.Label>Name</Form.Label>
@@ -163,7 +193,7 @@ class Settings extends React.Component {
                         <Form.Control
                             placeholder="Edit your name"
                             aria-label="Edit your name"
-                            id="Edit Name"
+                            id="Edit_Name"
                             // aria-describedby="basic-addon2"
                             onChange={(e) => {
                                 this.setState({editName: e.target.value})
@@ -186,7 +216,7 @@ class Settings extends React.Component {
                         <Form.Control
                             placeholder="Edit your status"
                             aria-label="Edit your status"
-                            id="Edit Status"
+                            id="Edit_Status"
                             // aria-describedby="basic-addon2"
                             onChange={(e) => {
                                 this.setState({editStatus: e.target.value})
