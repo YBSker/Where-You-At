@@ -108,14 +108,15 @@ class GoogleMap extends React.Component {
                 //create map centered at myLocation
                 this.map = new window.google.maps.Map(document.getElementById('map'), {
                     center: myLocation,
-                    zoom: 11
+                    zoom: 11,
+                    disableDefaultUI: true
                 });
 
                 //add user's marker to map at myLocation
                 new window.google.maps.Marker({
                     position: myLocation,
                     map: this.map,
-                    label: "Me"
+                    label: "You"
                 });
 
                 // console.log("me: " +  myLocation.lat);
@@ -231,7 +232,7 @@ class GoogleMap extends React.Component {
 
     render() {
         return (
-            <div style={{ width: screenWidth, height: screenHeight }} id="map" />
+            <div style={{ width: "100%", height: "calc(100% - 32px)" }} id="map" />
         );
     }
 }

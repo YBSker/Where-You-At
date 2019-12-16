@@ -301,7 +301,7 @@ class Settings extends React.Component {
 
 
         return (
-            <div style={{padding: '25px'}}>
+            <div className="side" style={{padding: '25px'}}>
                 <header>
                     <h1> Settings </h1>
                 </header>
