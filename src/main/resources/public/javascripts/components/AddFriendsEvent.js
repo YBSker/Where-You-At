@@ -14,21 +14,21 @@ class AddFriendsEvent extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        let friends = [];
-        fetch("/friends")
-            .then(response => {
-                return response.json();
-            }).then(data => {
-            friends = data.results.map((person) => {
-                return person
-            });
-            console.log(friends);
-            this.setState({
-                myFriends: friends,
-            });
-        });
-    }
+    // componentDidMount() {
+    //     let friends = [];
+    //     fetch("/friends")
+    //         .then(response => {
+    //             return response.json();
+    //         }).then(data => {
+    //         friends = data.results.map((person) => {
+    //             return person
+    //         });
+    //         console.log(friends);
+    //         this.setState({
+    //             myFriends: friends,
+    //         });
+    //     });
+    // }
 
 
     handleChange(event) {
@@ -54,20 +54,16 @@ class AddFriendsEvent extends React.Component {
     render() {
 
         return(
-            <div className="side" style={{padding: '25px'}}>
-                <header>
-                    <h5>Add friends to your event</h5>
-                </header>
+            <div>
+                <DropdownButton title = "Add friends">
+                    {/*{this.state.myFriends.map(person => (*/}
+                    {/*    <Dropdown.Item eventKey = "person.identifier" onSelect={(eventKey, event)=>this.handleSelect(eventKey, event)}> {person.name} </Dropdown.item>*/}
+                    {/*))}*/}
 
-                <DropdownButton>
-                    {this.state.myFriends.map(person => (
-                        <Dropdown.item eventKey = "person.identifier" onSelect={(eventKey, event)=>this.handleSelect(eventKey, event)}> {person.name} </Dropdown.item>
-                    ))}
+                        <Dropdown.Item > Stuff 1 </Dropdown.Item>
+                        <Dropdown.Item > Stuff 2 </Dropdown.Item>
+                        <Dropdown.Item > Stuff 3 </Dropdown.Item>
                 </DropdownButton>
-
-                <div>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
-                </div>
 
             </div>
         )

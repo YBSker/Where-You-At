@@ -1,12 +1,10 @@
 class EventDetails extends React.Component {
 
     constructor(props) {
-
         super(props);
         this.state = {
             myFriends: ["Matt", "Vincent", "Gary"],
         };
-        //this.myFriends = [];
     }
 
 
@@ -18,12 +16,10 @@ class EventDetails extends React.Component {
     }
 
     handleSelect = async(eventID, personID) => {
-
         const formData = new FormData();
         formData.append("personID", personID);
         formData.append("eventID", eventID);
         await fetch("eventAttendance", {method: "POST", body: formData});
-        //alert(person.fullName + " added to event");
     };
 
     render() {
