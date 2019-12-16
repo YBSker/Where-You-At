@@ -109,7 +109,13 @@ class GoogleMap extends React.Component {
                 new window.google.maps.Marker({
                     position: myLocation,
                     map: this.map,
-                    label: "You"
+                    label: "You",
+                    icon: {
+                        scaledSize: new google.maps.Size(54/2, 86/2),
+                        size: new google.maps.Size(54/2, 86/2),
+                        labelOrigin: new google.maps.Point(54/4, 15),
+                        url: "https://imgur.com/zTokiQB.png"
+                    }
                 });
 
                 // console.log("me: " +  myLocation.lat);
@@ -254,7 +260,13 @@ class GoogleMap extends React.Component {
             position: event_pos,
             map: this.state.map,
             label: event.name,
-            customInfo: event
+            customInfo: event,
+            icon: {
+                scaledSize: new google.maps.Size(54/2, 86/2),
+                size: new google.maps.Size(54/2, 86/2),
+                labelOrigin: new google.maps.Point(54/4, 15),
+                url: 'https://imgur.com/QlTYn3K.png'
+            }
         });
 
         window.google.maps.event.addDomListener(m, 'click', () => {

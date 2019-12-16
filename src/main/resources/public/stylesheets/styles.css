@@ -167,6 +167,10 @@ input {
 	font-weight: 600;
 }
 
+.gm-style {
+	font-weight: 600 !important;
+}
+
 .side {
 	position: absolute;
 	right: 0;
@@ -174,6 +178,7 @@ input {
 	height: 100vh;
 	box-shadow: -2px 2px 5px 1px rgba(0, 0, 0, .1);
 	width: 25%;
+	overflow: scroll;
 }
 
 .side-header-text {
@@ -183,6 +188,7 @@ input {
 	font-weight: 700;
 	font-size: 40px;
 	display: inline;
+
 }
 
 .side-header {
@@ -193,6 +199,11 @@ input {
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .4);
 	padding: 0 50px;
 	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	position: fixed;
+	right: 0;
+	left: 75%;
 }
 
 .wyacard {
@@ -206,7 +217,7 @@ input {
 }
 
 .card-list {
-	margin: 20px 0;
+	margin: 95px 0;
 }
 
 .pfp-container > img {
@@ -235,7 +246,7 @@ input {
 }
 
 .last-seen {
-	margin-top: 2.5px;
+	margin-top: 2px;
 }
 
 .last-seen-text {
@@ -261,6 +272,9 @@ input {
 	margin-bottom: 0;
 }
 
+.event-list {
+	margin: 95px 0;
+}
 
 .event-name {
 	box-shadow: 2px 2px 5px 1px rgba(50, 0, 100, .4);

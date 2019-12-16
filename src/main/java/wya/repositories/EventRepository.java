@@ -37,7 +37,11 @@ public class EventRepository {
         statement.close();
     }
 
-
+    /**
+     * Get all the events from the events table into a JSON object.
+     *
+     * @throws SQLException SQL statement failed to execute successfully.
+     */
     public List<Event> getAll() throws SQLException {
         var events = new ArrayList<Event>();
         var statement = connection.createStatement();
@@ -50,6 +54,14 @@ public class EventRepository {
         return events;
     }
 
+    /**
+     * Get an entry from the events table specified by the id.
+     *
+     * @param id The identifier of the events to get from the events table.
+     * @return The Event object representation of the entry in the events table.
+     * @throws SQLException SQL statement failed to execute successfully
+     * @throws EventNotFoundException Event with id not found in table.
+     */
     public Event getOne(int id) throws SQLException, wya.repositories.EventNotFoundException {
         var statement = connection.prepareStatement("SELECT * FROM events WHERE identifier = ?");
         statement.setInt(1, id);
@@ -66,6 +78,20 @@ public class EventRepository {
         }
     }
 
+    /**
+     * Create an event in the event table using the Context.formParams.
+     * Example:
+     * name:event
+     * description:some event
+     * place:Johns Hopkins University
+     * longitude:39.3289957
+     * latitude:-76.6205235
+     * image:someimageurl.com
+     * startTime:2019-11-06T01:29:06+00:00
+     * endTime:2019-11-07T01:29:06+00:00
+     *
+     * @throws SQLException SQL statement failed to execute successfully.
+     */
     public void create(Event event) throws SQLException {
         var statement = connection.prepareStatement("INSERT INTO events (name, description, place, longitude, latitude, image, startTime, endTime) VALUES(?,?,?,?,?,?,?,?)");
         prepareStatement(event, statement);
@@ -73,6 +99,21 @@ public class EventRepository {
         statement.close();
     }
 
+    /**
+     * Edit an event in the event table using the Context.formParams specified by the Context.pathParam.
+     * Example:
+     * name:edit event
+     * description:edited event
+     * place:Johns Hopkins University
+     * longitude:39.3289957
+     * latitude:-76.6205235
+     * image:someimageurl.com
+     * startTime:2019-11-06T01:29:06+00:00
+     * endTime:2019-11-07T01:29:06+00:00
+     *
+     * @throws SQLException           SQL statement failed to execute successfully.
+     * @throws EventNotFoundException Event specified by the pathParam not found in events table.
+     */
     public void updateDetails(Event event) throws SQLException, EventNotFoundException {
         var statement = connection.prepareStatement("UPDATE events SET name = ?, description = ?, place = ?, longitude = ?, latitude = ?, image = ?, startTime = ?, endTime = ? WHERE identifier = ?");
         prepareStatement(event, statement);

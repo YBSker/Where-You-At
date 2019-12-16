@@ -4,9 +4,12 @@ class Sidebar extends React.Component {
     }
 
     render() {
-        const pfp = "https://i.imgur.com/u31EyPE.jpg";
+        const placeholder_pfp = "https://i.imgur.com/u31EyPE.jpg";
         const cardsRender = this.props.friends.map((friend) => {
-            friend.pfp = pfp; //TODO Delete this once pfp's in the database are working
+            if (!friend.profilePicture || friend.profilePicture === "") {
+                friend.profilePicture = placeholder_pfp;
+            }
+
             if (!friend.status || friend.status === "") {
                 friend.status = "User has not updated their status.";
             }
@@ -41,7 +44,7 @@ class Sidebar extends React.Component {
 
             return([
                 <li className="wyacard">
-                    <div className="pfp-container"><img src= {friend.pfp} alt={friend.fullName}/></div>
+                    <div className="pfp-container"><img src= {friend.profilePicture} alt={friend.fullName}/></div>
                     <div className="info">
                         <div className="name"><h2 className="name-text">{friend.fullName}</h2></div>
                         <div className="last-seen"><p className="last-seen-text"><i>{friend.lastSeenPrintout}</i></p></div>

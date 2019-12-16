@@ -4,7 +4,7 @@ public class Person {
     private int identifier;
     private String fullName;
     private String lastSeen;
-    private boolean live;
+    private boolean live = true;
     private String status;
     private float longitude;
     private float latitude;
@@ -110,12 +110,12 @@ public class Person {
         this.availability = availability;
     }
 
-    public void setPrivacy(String privacy) {
-        this.privacy = privacy;
-    }
-
     public String getPrivacy() {
         return privacy;
+    }
+
+    public void setPrivacy(String privacy) {
+        this.privacy = privacy;
     }
 
 }

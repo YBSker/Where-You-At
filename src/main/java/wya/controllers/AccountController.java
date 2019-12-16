@@ -94,6 +94,7 @@ public class AccountController {
         }
         BCrypt.Result result = BCrypt.verifyer().verify(Objects.requireNonNull(ctx.formParam("password", "")).toCharArray(), user.getPassword());
         if (!result.verified) {
+            System.out.println("Invalid password");
             throw new ForbiddenResponse();
         }
         ctx.sessionAttribute("user", user);
