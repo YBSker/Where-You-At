@@ -262,11 +262,11 @@ class GoogleMap extends React.Component {
             this.populateEvent(m.customInfo);
         });
 
-    }
+    };
 
     populateEvent =(eventInfo)=> {
-        this.props.updateSidebar(SIDEBAR_STATE.yourEvents, null, null, eventInfo);
-    }
+        this.props.updateSidebar(SIDEBAR_STATE.eventDetails, null, null, eventInfo);
+    };
 
 
     render() {
