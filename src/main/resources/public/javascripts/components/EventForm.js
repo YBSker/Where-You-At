@@ -169,7 +169,7 @@ class EventForm extends React.Component {
 
                 {this.state.formInvalid ? invalidMessage : null}
 
-                //submit form and go to AddFriendsEvent page
+                {/*//submit form and go to AddFriendsEvent page*/}
                 {this.state.created ? eventCreated : (<Button onClick={this.handleSubmit}>Submit</Button>) }
                 
             </Form>
