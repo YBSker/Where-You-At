@@ -36,16 +36,11 @@ class ChangePassword extends React.Component {
         document.getElementById('input1').value = '';
         document.getElementById('input2').value = '';
         await this.resetErrStates();
-        if (this.state.oldPass === '' || this.state.newPass === '' || this.state.newPassRepeat === '') {
-            this.setState({emptySubmit: true});
+        let err = await this.basicErrCheck();
+        if (err) {
             return;
         }
-        if (this.state.newPass !== this.state.newPassRepeat) {
-            this.setState({passMatch: false});
-            this.resetInputStates();
-            return;
-        }
-        console.log(this.state.oldPass);
+
         await this.submitForm();
         if (this.state.wrongPass) {
             return;
@@ -69,6 +64,19 @@ class ChangePassword extends React.Component {
         this.setState({oldPass: ''});
         this.setState({newPass: ''});
         this.setState({newPassRepeat: ''})
+    }
+
+    basicErrCheck() {
+        if (this.state.oldPass === '' || this.state.newPass === '' || this.state.newPassRepeat === '') {
+            this.setState({emptySubmit: true});
+            return true;
+        }
+        if (this.state.newPass !== this.state.newPassRepeat) {
+            this.setState({passMatch: false});
+            this.resetInputStates();
+            return true;
+        }
+        return false;
     }
 
     render() {
