@@ -1,10 +1,32 @@
 class EventDetails extends React.Component {
-    constructor(props) {
-        super(props);
 
+    constructor(props) {
+
+        super(props);
+        this.state = {
+            myFriends: ["Matt", "Vincent", "Gary"],
+        };
+        //this.myFriends = [];
     }
 
+
+
+    componentDidMount() {
+        fetch("/friends")
+            .then(res => res.json())
+            .then(json => this.setState({ myFriends: json }));
+    }
+
+    handleSelect = async(eventID, personID) => {
+
+        const formData = new FormData();
+        formData.append("personID", personID);
+        formData.append("eventID", eventID);
+        await fetch("eventAttendance", {method: "POST", body: formData});
+    };
+
     render() {
+
         const eventInfo = this.props.eventInfo;
         console.log(eventInfo);
         console.log(eventInfo.name);
@@ -24,8 +46,20 @@ class EventDetails extends React.Component {
                         <p>Description: <b>{eventInfo.description}</b></p>
                         <p>Address: <b>{eventInfo.place}</b></p>
                         <p>Start Time: <b>{eventInfo.startTime}</b></p>
+
+                        <div>
+                            {/*<DropdownButton title = "Add Friends" onSelect={(e) => {alert(e + " added to Event")}}>*/}
+                            <DropdownButton title = "Add Friends" onSelect={(e) => {this.handleSelect(eventInfo.identifier, e)}}>
+
+                                {this.state.myFriends.map(person => (
+                                    <Dropdown.Item as="button" eventKey={person.identifier}> {person.fullName} </Dropdown.Item>
+                                ))}
+                            </DropdownButton>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
         );
     }
