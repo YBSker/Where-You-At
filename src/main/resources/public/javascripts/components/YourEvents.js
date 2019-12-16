@@ -5,10 +5,6 @@ class YourEvents extends React.Component {
     }
 
     render() {
-        const eventInfo = this.props.eventInfo;
-        console.log(eventInfo);
-        console.log(eventInfo.name);
-        const eventName = eventInfo.name;
         return (
             <div className="side">
                 <div className="side-header">
