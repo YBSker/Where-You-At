@@ -147,11 +147,17 @@ class GoogleMap extends React.Component {
         geocoder.geocode({'location': {lat: marker.latitude, lng: marker.longitude}}, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
+                    let flag = false;
                     for (var i in results[0].address_components) {
                         if (marker.privacy === results[0].address_components[i].types[0]) {
                             var address = (results[0].address_components[i].long_name).toString();
                             uplift(address);
+                            flag = true;
+                            break;
                         }
+                    }
+                    if (!flag) {
+                        uplift("Location");
                     }
                 } else {
                     window.alert('reverseGeocoder: No results found');
