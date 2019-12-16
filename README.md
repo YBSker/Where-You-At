@@ -2,7 +2,7 @@
 
 **A web-based social media application for you to locate available friends around you and make events**
 
-[Live Version](http://whereyouat-123.herokuapp.com/)
+[Live Version](https://whereyouatjhu.herokuapp.com/)
 
 [Code Base](https://github.com/jhu-oose/2019-group-GrOOSEp)
 
