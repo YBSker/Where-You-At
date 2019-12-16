@@ -64,7 +64,7 @@ public class AccountController {
      *
      * @param ctx       Javalin Context object with the form params to insert into new user entry.
      * @param person_id PK from person to use as FK in person.
-     * @throws SQLException Statement failed to execute.
+     * @throws SQLException SQL statement failed to execute.
      */
     void register(Context ctx, int person_id) throws SQLException {
         Account account = new Account();
@@ -135,7 +135,7 @@ public class AccountController {
     }
 
     /**
-     * Get the current user of the session.
+     * Private helper function to the current user of the session.
      *
      * @param ctx Javalin Context object
      * @return The Account of the current user.

@@ -12,7 +12,7 @@ public class PersonController {
 
     private final PersonRepository personRepository;
 
-//    private FriendRepository friendRepository;
+    //    private FriendRepository friendRepository;
 //
 //    PersonController(PersonRepository PersonRepository, FriendRepository friendRepository) {
 //        this.personRepository = PersonRepository;
@@ -26,13 +26,17 @@ public class PersonController {
         ctx.json(personRepository.getAll());
     }
 
+    void getOthers(Context ctx) throws SQLException, PersonNotFoundException {
+        ctx.json(personRepository.getAll(currentPerson(ctx).getIdentifier()));
+    }
+
 // For use if we implement adding and removing friends
 //    void getAllFriends(Context ctx) throws SQLException, PersonNotFoundException {
 //        var currperson = currentPerson(ctx);
 //        ctx.json(friendRepository.getAll(currperson.getIdentifier()));
 //    }
 
-    public void getOne(Context ctx) throws SQLException, PersonNotFoundException {
+    void getOne(Context ctx) throws SQLException, PersonNotFoundException {
         var currperson = currentPerson(ctx);
         ctx.json(personRepository.getOne(currperson.getIdentifier()));
     }
@@ -91,5 +95,18 @@ public class PersonController {
         person.setLongitude(ctx.formParam("longitude", float.class, "").get());
         person.setLatitude(ctx.formParam("latitude", float.class, "").get());
         person.setPrivacy(ctx.formParam("privacy"));
+    }
+
+    /**
+     * Gets the privacy of the current user in a JSON object.
+     *
+     * @param ctx Javalin Context Object.
+     * @throws SQLException            SQL statement failed to execute successfully.
+     * @throws PersonNotFoundException Person does not exist.
+     */
+    public void getPrivacy(Context ctx) throws SQLException, PersonNotFoundException {
+        var person = currentPerson(ctx);
+        ctx.json(person.getPrivacy());
+        ctx.status(200);
     }
 }
