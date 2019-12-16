@@ -23,7 +23,7 @@ class SignUpPage extends React.Component {
         formData.append("username", this.state.username);
         formData.append("password", this.state.password);
         formData.append("fullName", this.state.display_name);
-        formData.append("live","True");
+        // formData.append("live", true);
         formData.append("availability", "1");
         formData.append("privacy", this.convertToEnglish(this.state.range));
         formData.append("longitude","-76.634000");

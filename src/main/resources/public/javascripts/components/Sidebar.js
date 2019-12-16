@@ -6,6 +6,7 @@ class Sidebar extends React.Component {
     render() {
         const placeholder_pfp = "https://i.imgur.com/u31EyPE.jpg";
         const cardsRender = this.props.friends.map((friend) => {
+            console.log(friend);
             if (!friend.profilePicture || friend.profilePicture === "") {
                 friend.profilePicture = placeholder_pfp;
             }
