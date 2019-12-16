@@ -126,7 +126,8 @@ public class PersonRepository {
         var statement = connection.prepareStatement("UPDATE person SET fullName=?, lastSeen=?, live=?, status=?, longitude=?, latitude=?, privacy=?, availability=?, profilePicture=? WHERE identifier = ? ");
         prepareStatement(person, statement);
         statement.setInt(8, person.getAvailability());
-        statement.setInt(9, person.getIdentifier());
+        statement.setString(9, person.getProfilePicture());
+        statement.setInt(10, person.getIdentifier());
         try {
             if (statement.executeUpdate() == 0) throw new PersonNotFoundException();
         } finally {
