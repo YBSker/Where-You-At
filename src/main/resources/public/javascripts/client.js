@@ -64,7 +64,7 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainerClosed">
+                        <div className="mainContainer">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar} range={this.state.range}/>
                             </div>
@@ -80,9 +80,7 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
-                            <div className="side">
-                                <EventForm/>
-                            </div>
+                            <EventForm/>
                         </div>
                     </div>
                 );
@@ -95,9 +93,7 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
-                            <div className="side">
-                                <YourEvents/>
-                            </div>
+                            <YourEvents/>
                         </div>
                     </div>
                 );
@@ -110,9 +106,7 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
-                            <div className="side">
-                                <Sidebar friends = {this.state.friendsToDisplay}/>
-                            </div>
+                            <Sidebar friends = {this.state.friendsToDisplay}/>
                         </div>
                     </div>
                 );
@@ -135,7 +129,7 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainerClosed">
+                        <div className="mainContainer">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>

@@ -114,7 +114,7 @@ class GoogleMap extends React.Component {
                 new window.google.maps.Marker({
                     position: myLocation,
                     map: this.map,
-                    label: "Me"
+                    label: "You"
                 });
 
                 this.getFriendsFromServer();
