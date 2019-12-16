@@ -263,33 +263,33 @@ class Settings extends React.Component {
         const selectedPrivNeighborhood = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item active as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
         </DropdownButton>;
         const selectedPrivTown = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
             <Dropdown.Item active as="button"
-                           onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+                           onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
         </DropdownButton>;
         const selectedPrivCity = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
             <Dropdown.Item active as="button"
-                           onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+                           onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
         </DropdownButton>;
         const selectedPrivState = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "town")}> Town </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "city")}> City </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
             <Dropdown.Item active as="button"
-                           onClick={this.handlePrivacyUpdate.bind(this, "state")}> State </Dropdown.Item>
+                           onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
         </DropdownButton>;
 
 
@@ -305,9 +305,9 @@ class Settings extends React.Component {
 
 
                 {this.state.privacy === "neighborhood" ? selectedPrivNeighborhood : null}
-                {this.state.privacy === "town" ? selectedPrivTown : null}
-                {this.state.privacy === "city" ? selectedPrivCity : null}
-                {this.state.privacy === "state" ? selectedPrivState : null}
+                {this.state.privacy === "postal_code" ? selectedPrivTown : null}
+                {this.state.privacy === "locality" ? selectedPrivCity : null}
+                {this.state.privacy === "administrative_area_level_1" ? selectedPrivState : null}
 
 
                 <div className={"Edit Name"}>

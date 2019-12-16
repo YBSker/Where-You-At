@@ -52,16 +52,16 @@ class SignUpPage extends React.Component {
             return null;
         }
         if (range === "neighborhood") {
-            return new_range = "Neighborhood"
+            return new_range = "neighborhood"
         }
         if (range === "postal_code") {
-            return new_range = "Town"
+            return new_range = "postal_code"
         }
         if (range === "locality") {
-            return new_range = "City"
+            return new_range = "locality"
         }
         if (range === "administrative_area_level_1") {
-            return new_range = "State"
+            return new_range = "administrative_area_level_1"
         }
     }
 
