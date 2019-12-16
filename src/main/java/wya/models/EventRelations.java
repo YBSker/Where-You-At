@@ -13,11 +13,11 @@ public class EventRelations {
     ) {
         this.eventID = eventID;
         this.personID = personID;
-        /** We should make this 0 1 or 2.
-         *  0 for not going
-         *  1 for interested
-         *  2 for going
-         **/
+        /* We should make this 0 1 or 2.
+           0 for not going
+           1 for interested
+           2 for going
+         */
 //        this.interest = interest;
     }
 

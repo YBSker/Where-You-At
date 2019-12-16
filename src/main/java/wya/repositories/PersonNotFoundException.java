@@ -1,4 +1,4 @@
 package wya.repositories;
 
-public class PersonNotFoundException extends Exception{
+public class PersonNotFoundException extends Exception {
 }
