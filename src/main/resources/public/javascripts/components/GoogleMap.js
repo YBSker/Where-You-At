@@ -55,7 +55,6 @@ class GoogleMap extends React.Component {
                     longitude: friend.longitude,
                     privacy: friend.privacy
                 };
-                console.log(marker.title)
                 markers.push(marker);
             }
             console.table(markers);

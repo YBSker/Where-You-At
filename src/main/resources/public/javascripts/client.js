@@ -5,6 +5,7 @@ const SIDEBAR_STATE = {
     cardList: 3,
     settings: 4,
     changePass: 5,
+    addFriendsEvent: 6,
 };
 
 class Application extends React.Component {
@@ -140,6 +141,18 @@ class Application extends React.Component {
                                 <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
                             <ChangePassword updateSidebar = {this.updateSidebar}/>
+                        </div>
+                    </div>
+                );
+            case SIDEBAR_STATE.addFriendsEvent:
+                return (
+                    <div>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
+                        <div className="mainContainer">
+                            <div className="mapContainer">
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
+                            </div>
+                            <AddFriendsEvent updateSidebar = {this.updateSidebar}/>
                         </div>
                     </div>
                 );

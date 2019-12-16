@@ -5,7 +5,7 @@ var Button = ReactBootstrap.Button;
 
 
 class EventForm extends React.Component {
-    // myFriends = ['alligator', 'snake', 'lizard'];
+
     constructor(props) {
         super(props);
         this.state = {
@@ -25,18 +25,15 @@ class EventForm extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleMultiple = this.handleMultiple.bind(this);
+        //this.handleMultiple = this.handleMultiple.bind(this);
+        this.goToAddFriendsEvent = this.goToAddFriendsEvent.bind(this);
     }
 
-    // async componentDidMount() {
-    //     await this.getFriendsFromServer()
+    // handleMultiple(event) {
+    //     //this.setState({value: event.option});
+    //     console.log(Array.from(event.target.selectedOptions, (item) => item.value));
+    //     this.setState({value: Array.from(event.target.selectedOptions, (item) => item.value)});
     // }
-
-    handleMultiple(event) {
-        //this.setState({value: event.option});
-        console.log(Array.from(event.target.selectedOptions, (item) => item.value));
-        this.setState({value: Array.from(event.target.selectedOptions, (item) => item.value)});
-    }
 
     handleChange(event) {
         const target = event.target;
@@ -48,9 +45,9 @@ class EventForm extends React.Component {
         });
     }
 
-    // async getFriendsFromServer() {
-    //     this.setState({ myFriends: await (await fetch("/friends")).json() });
-    // }
+    goToAddFriendsEvent() {
+        this.props.updateSidebar(SIDEBAR_STATE.addFriendsEvent);
+    }
 
     getLocation = async () => {
         try {
@@ -83,11 +80,13 @@ class EventForm extends React.Component {
                 formData.append("place", this.state.address);
                 formData.append("longitude", this.state.longitude);
                 formData.append("latitude", this.state.latitude);
-                formData.append("startTime", this.state.time);
+                formData.append("startTime", this.state.datetime);
                 fetch("event/create", {method: "POST", body: formData});
                 this.setState({created: true});
                 this.setState({formInvalid: false});
 
+                //go to add friends event page
+                //this.goToAddFriendsEvent;
             }
             else {
                 this.setState({formInvalid: true});
@@ -156,21 +155,21 @@ class EventForm extends React.Component {
                     </Form.Row>
                 </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>Send Invites</Form.Label>
-                    <Form.Control value={this.state.invites} type="text" placeholder="Enter friends you want to invite" onChange={(e)=>{this.setState({invites: e.target.value})}}/>
-                    <Form.Control as="select" multiple value = {this.state.invites} onChange={this.handleMultiple}>
-                        {this.myFriends.map((person) => (
-                            <option> {person} </option>
-                        ))}
-                        {/*<option value = "1">1</option>*/}
-                        {/*<option value = "2">2</option>*/}
-                    </Form.Control>
+                {/*<Form.Group>*/}
+                {/*    <Form.Label>Send Invites</Form.Label>*/}
+                {/*    <Form.Control value={this.state.invites} type="text" placeholder="Enter friends you want to invite" onChange={(e)=>{this.setState({invites: e.target.value})}}/>*/}
+                {/*    <Form.Control as="select" multiple value = {this.state.invites} onChange={this.handleMultiple}>*/}
+                {/*        {this.myFriends.map((person) => (*/}
+                {/*            <option> {person} </option>*/}
+                {/*        ))}*/}
+                {/*        /!*<option value = "1">1</option>*!/*/}
+                {/*        /!*<option value = "2">2</option>*!/*/}
+                {/*    </Form.Control>*/}
+                {/*</Form.Group>*/}
 
-
-
-                </Form.Group>
                 {this.state.formInvalid ? invalidMessage : null}
+
+                //submit form and go to AddFriendsEvent page
                 {this.state.created ? eventCreated : (<Button onClick={this.handleSubmit}>Submit</Button>) }
                 
             </Form>
