@@ -1782,13 +1782,48 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5c464568-b923-4844-8d37-cd62a5867b99",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/eventAttendance\", method: \"POST\" }, () => {",
+							"    pm.sendRequest(\"http://localhost:7000/event\", (err, response) => {",
+							"        pm.environment.set(\"identifier\", response.json().last().identifier);",
+							"        pm.sendRequest({",
+							"            url: 'http://localhost:7000/eventAttendance/' + pm.environment.get(\"identifier\"),",
+							"            method: 'POST',",
+							"            body: {",
+							"              mode: 'formdata',",
+							"              formdata: [",
+							"                {key: \"eventID\", value: \"1\"},",
+							"                {key: \"personID\", value: \"1\"}",
+							"              ]",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "identifier",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://localhost:7000/eventAttendance/{{Identifier}}",
+					"raw": "http://localhost:7000/eventAttendance/{{identifier}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1796,7 +1831,127 @@
 					"port": "7000",
 					"path": [
 						"eventAttendance",
-						"{{Identifier}}"
+						"{{identifier}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Event IDs for a Person",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b10abc60-308b-4469-bb32-f15c96769ca2",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/eventAttendance\", method: \"POST\" }, () => {",
+							"    pm.sendRequest(\"http://localhost:7000/profile\", (err, response) => {",
+							"        pm.environment.set(\"identifier\", response.json().last().identifier);",
+							"        pm.sendRequest({",
+							"            url: 'http://localhost:7000/eventAttendance/' + pm.environment.get(\"identifier\"),",
+							"            method: 'POST',",
+							"            body: {",
+							"              mode: 'formdata',",
+							"              formdata: [",
+							"                {key: \"eventID\", value: \"1\"},",
+							"                {key: \"personID\", value: \"1\"}",
+							"              ]",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "identifier",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/eventAttendance/{{identifier}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"eventAttendance",
+						"{{identifier}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Person IDs for an Event",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac0188a3-e960-4ec2-867a-3c195bbf9ed2",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8ef58d12-f66a-4650-a227-8f71c16565ae",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/eventAttendance\", method: \"POST\" }, () => {",
+							"    pm.sendRequest(\"http://localhost:7000/event\", (err, response) => {",
+							"        pm.environment.set(\"identifier\", response.json().last().identifier);",
+							"        pm.sendRequest({",
+							"            url: 'http://localhost:7000/eventAttendance/' + pm.environment.get(\"identifier\"),",
+							"            method: 'POST',",
+							"            body: {",
+							"              mode: 'formdata',",
+							"              formdata: [",
+							"                {key: \"eventID\", value: \"1\"},",
+							"                {key: \"personID\", value: \"1\"}",
+							"              ]",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/eventAttendance/{{identifier}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"eventAttendance",
+						"{{identifier}}"
 					]
 				}
 			},
@@ -1818,13 +1973,38 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6a4350e0-a5da-4e6f-bc08-0630278aee50",
+						"exec": [
+							"pm.sendRequest({ url: \"http://localhost:7000/eventAttendance\", method: \"POST\" }, () => {",
+							"    pm.sendRequest(\"http://localhost:7000/event\", (err, response) => {",
+							"        pm.environment.set(\"identifier\", response.json().last().identifier);",
+							"        pm.sendRequest({",
+							"            url: 'http://localhost:7000/eventAttendance/' + pm.environment.get(\"identifier\"),",
+							"            method: 'POST',",
+							"            body: {",
+							"              mode: 'formdata',",
+							"              formdata: [",
+							"                {key: \"eventID\", value: \"1\"},",
+							"                {key: \"personID\", value: \"1\"}",
+							"              ]",
+							"            }",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:7000/eventAttendance/{{Identifier}}",
+					"raw": "http://localhost:7000/eventAttendance/{{identifier}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1832,77 +2012,7 @@
 					"port": "7000",
 					"path": [
 						"eventAttendance",
-						"{{Identifier}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Event IDs for a Person",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "b10abc60-308b-4469-bb32-f15c96769ca2",
-						"exec": [
-							"// pm.test(\"Status code is 200\", () => {",
-							"//     pm.response.to.have.status(200);",
-							"// });",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7000/profile/{{Identifier}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"profile",
-						"{{Identifier}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Person IDs for an Event",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "ac0188a3-e960-4ec2-867a-3c195bbf9ed2",
-						"exec": [
-							"pm.test(\"Status code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7000/eventAttendance/{{Identifier}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"eventAttendance",
-						"{{Identifier}}"
+						"{{identifier}}"
 					]
 				}
 			},
