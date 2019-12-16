@@ -5,6 +5,7 @@ var Button = ReactBootstrap.Button;
 
 
 class EventForm extends React.Component {
+    // myFriends = ['alligator', 'snake', 'lizard'];
     constructor(props) {
         super(props);
         this.state = {
@@ -19,11 +20,22 @@ class EventForm extends React.Component {
             invites: [],
             validated: false,
             created: false,
-            //myFriends: [],
+            myFriends: [],
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleMultiple = this.handleMultiple.bind(this);
+    }
+
+    // async componentDidMount() {
+    //     await this.getFriendsFromServer()
+    // }
+
+    handleMultiple(event) {
+        //this.setState({value: event.option});
+        console.log(Array.from(event.target.selectedOptions, (item) => item.value));
+        this.setState({value: Array.from(event.target.selectedOptions, (item) => item.value)});
     }
 
     handleChange(event) {
@@ -36,6 +48,10 @@ class EventForm extends React.Component {
         });
     }
 
+    // async getFriendsFromServer() {
+    //     this.setState({ myFriends: await (await fetch("/friends")).json() });
+    // }
+
     getLocation = async () => {
         try {
             const address = this.state.address.split(" ").join("+");
@@ -44,6 +60,9 @@ class EventForm extends React.Component {
             const location = body.results[0].geometry.location;
             this.setState({longitude: location.lng.toString()});
             this.setState({latitude: location.lat.toString()});
+
+            //get friends
+            this.setState({ myFriends: await (await fetch("/friends")).json() });
 
         }
         catch (error) {
@@ -118,7 +137,7 @@ class EventForm extends React.Component {
                     <Form.Control value={this.state.description} type="text" placeholder="Write a description" onChange={(e)=>{this.setState({description: e.target.value})}}/>
                 </Form.Group>
 
-                <Form.Group controlId="validationCustom01">
+                <Form.Group controlId="validationCustom03">
                     <Form.Label>Address</Form.Label>
                     <Form.Control required value={this.state.address} type="text" placeholder="3500 N Charles St, Baltimore, MD 21218" onChange={(e)=>{this.setState({address: e.target.value})}}/>
                     {this.state.longitude ? reloadButton : loadButton}
@@ -140,6 +159,15 @@ class EventForm extends React.Component {
                 <Form.Group>
                     <Form.Label>Send Invites</Form.Label>
                     <Form.Control value={this.state.invites} type="text" placeholder="Enter friends you want to invite" onChange={(e)=>{this.setState({invites: e.target.value})}}/>
+                    <Form.Control as="select" multiple value = {this.state.invites} onChange={this.handleMultiple}>
+                        {this.myFriends.map((person) => (
+                            <option> {person} </option>
+                        ))}
+                        {/*<option value = "1">1</option>*/}
+                        {/*<option value = "2">2</option>*/}
+                    </Form.Control>
+
+
 
                 </Form.Group>
                 {this.state.formInvalid ? invalidMessage : null}

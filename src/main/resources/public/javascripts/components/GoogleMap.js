@@ -55,6 +55,7 @@ class GoogleMap extends React.Component {
                     longitude: friend.longitude,
                     privacy: friend.privacy
                 };
+                console.log(marker.title)
                 markers.push(marker);
             }
             console.table(markers);
@@ -158,7 +159,8 @@ class GoogleMap extends React.Component {
 
 
     //reverse geocode: latlng to approx place, then get latlng of approx place
-    reverseGeocode(myLocation) {
+    async reverseGeocode(myLocation) {
+        this.setState({privacy: await (await fetch("/privacy")).json()});
         let geocoder = new window.google.maps.Geocoder;
 
         geocoder.geocode({'location': myLocation}, (results, status) => {
@@ -170,7 +172,7 @@ class GoogleMap extends React.Component {
 
                             //get lat and lng from place
                             //console.log("reverseGeocode: " + address);
-                            this.geocode("reverse: "+ address)
+                            this.geocode(address)
                         }
                     }
                 } else {
@@ -187,7 +189,7 @@ class GoogleMap extends React.Component {
     //gets lat and long given the address
     geocode(address) {
         let geocoder = new window.google.maps.Geocoder;
-        //console.log("Geocode: " + address);
+        console.log("Geocode: " + address);
         geocoder.geocode( { 'address': address}, (results, status) => {
             if (status == 'OK') {
 
@@ -199,8 +201,8 @@ class GoogleMap extends React.Component {
                 //                 });
 
                 const location = results[0].geometry.location;
-                //console.log("geocode: " +  location.lat());
-                //console.log("geocode: " +  location.lng());
+                console.log("geocode: " +  location.lat());
+                console.log("geocode: " +  location.lng());
 
                 //send approx latlng to database
                 const formData = new FormData();
@@ -218,14 +220,15 @@ class GoogleMap extends React.Component {
 
     }
 
-    updateTime() {
+    async updateTime() {
         var tempDate = new Date();
         var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
         //console.log(date);
         const formData = new FormData();
         formData.append("time", date);
-        fetch("time", {method: "PUT", body: formData})
+        await fetch("time", {method: "PUT", body: formData})
     }
+
 
 
     render() {
