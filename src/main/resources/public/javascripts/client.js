@@ -1,9 +1,10 @@
 const SIDEBAR_STATE = {
     closed: 0,
-    event: 1,
-    cardList: 2,
-    settings: 3,
-    changePass: 4,
+    createEvent: 1,
+    yourEvents: 2,
+    cardList: 3,
+    settings: 4,
+    changePass: 5,
 };
 
 const mainContainerStyle = {
@@ -84,7 +85,7 @@ class Application extends React.Component {
                     </div>
                 );
 
-            case SIDEBAR_STATE.event:
+            case SIDEBAR_STATE.createEvent:
                 return (
                     <div>
                         <NavigationBar updateSidebar={this.updateSidebar}/>
@@ -94,6 +95,21 @@ class Application extends React.Component {
                             </div>
                             <div className="side">
                                 <EventForm/>
+                            </div>
+                        </div>
+                    </div>
+                );
+
+            case SIDEBAR_STATE.yourEvents:
+                return (
+                    <div>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
+                        <div className="mainContainer" style={mainContainerStyle}>
+                            <div className="mapContainer">
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
+                            </div>
+                            <div className="side">
+                                <YourEvents/>
                             </div>
                         </div>
                     </div>

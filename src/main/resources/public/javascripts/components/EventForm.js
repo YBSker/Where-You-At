@@ -4,7 +4,6 @@ var Row = ReactBootstrap.Row;
 var Button = ReactBootstrap.Button;
 
 
-
 class EventForm extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +19,7 @@ class EventForm extends React.Component {
             invites: [],
             validated: false,
             created: false,
+            //myFriends: [],
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -49,7 +49,7 @@ class EventForm extends React.Component {
         catch (error) {
             console.log(error);
         }
-    }
+    };
 
     handleSubmit = (event) => {
         this.setState({datetime: this.state.date.concat(' ', this.state.time)});
@@ -76,7 +76,7 @@ class EventForm extends React.Component {
                 if (!this.state.longitude || !this.state.latitude) {this.setState({address: ''})}
             }
         }
-    }
+    };
 
     onNewEvent = () => {
         this.setState({created: false});
@@ -90,7 +90,7 @@ class EventForm extends React.Component {
         this.setState({date: ''});
         this.setState({time: ''});
         this.setState({invites: []});
-    }
+    };
 
     render() {
         const eventCreated = <div><h6>Event Created!</h6><Button variant="primary" onClick={this.onNewEvent}>Make Another Event!</Button></div>
@@ -140,6 +140,7 @@ class EventForm extends React.Component {
                 <Form.Group>
                     <Form.Label>Send Invites</Form.Label>
                     <Form.Control value={this.state.invites} type="text" placeholder="Enter friends you want to invite" onChange={(e)=>{this.setState({invites: e.target.value})}}/>
+
                 </Form.Group>
                 {this.state.formInvalid ? invalidMessage : null}
                 {this.state.created ? eventCreated : (<Button onClick={this.handleSubmit}>Submit</Button>) }
@@ -148,5 +149,4 @@ class EventForm extends React.Component {
             </div>
         );
     }
-
 }
