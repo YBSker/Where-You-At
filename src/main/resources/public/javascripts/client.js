@@ -15,7 +15,8 @@ class Application extends React.Component {
             signUp: false,
             range: "",
             sidebarState: SIDEBAR_STATE.closed,
-            friendsToDisplay: []
+            friendsToDisplay: [],
+            location: ""
         };
 
         this.logIn = this.logIn.bind(this);
@@ -36,10 +37,15 @@ class Application extends React.Component {
         this.setState({range: range_option});
     }
 
-    updateSidebar(state, friends) {
+    updateSidebar(state, friends, location) {
         if (friends) {
             this.setState({friendsToDisplay: friends});
         }
+
+        if (location) {
+            this.setState({location: location});
+        }
+
         this.setState({sidebarState: state});
     }
 
@@ -107,7 +113,7 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
-                            <Sidebar friends = {this.state.friendsToDisplay}/>
+                            <Sidebar friends = {this.state.friendsToDisplay} location = {this.state.location}/>
                         </div>
                     </div>
                 );

@@ -1,8 +1,3 @@
-const screenHeight = 400;
-const screenWidth = 800;
-
-
-
 class GoogleMap extends React.Component {
     constructor(props) {
         super(props);
@@ -14,7 +9,9 @@ class GoogleMap extends React.Component {
             myFriends: [],
             privacy: "neighborhood",
             //privacy options are "neighborhood", "postal_code", "locality" (city), "administrative_area_level_1" (state)
-        }
+        };
+
+        this.populateSidebar = this.populateSidebar.bind(this);
     }
 
     async getFriendsFromServer() {
@@ -25,15 +22,7 @@ class GoogleMap extends React.Component {
         let markers = this.resolveMarkerLabels(this.bucketize(this.state.myFriends));
 
         for (const marker of markers) {
-            const m = new window.google.maps.Marker({
-                position: {lat: marker.latitude, lng: marker.longitude},
-                map: this.map,
-                label: marker.label
-            });
-
-            window.google.maps.event.addDomListener(m, 'click', () => {
-                this.populateSidebar(m.getPosition().lat(), m.getPosition().lng());
-            });
+            this.getNameArea(marker, this.populateSidebar, this.map);
         }
     }
 
@@ -49,7 +38,6 @@ class GoogleMap extends React.Component {
     bucketize(friends) {
         let markers = [];
         for (const friend of friends) {
-            var location = {lat: friend.latitude, lng: friend.longitude};
             let duplicate = false;
             for (const marker of markers) {
                 if (friend.latitude === marker.latitude && friend.longitude === marker.longitude) {
@@ -60,18 +48,19 @@ class GoogleMap extends React.Component {
             }
 
             if (!duplicate) {
-                let marker = {label: friend.fullName,
-                              numPeople: 1,
-                              latitude: friend.latitude,
-                              longitude: friend.longitude,
-                              title: this.getNameArea(location, friend.privacy)
+                let marker = {
+                    label: friend.fullName,
+                    numPeople: 1,
+                    latitude: friend.latitude,
+                    longitude: friend.longitude,
+                    privacy: friend.privacy
                 };
                 markers.push(marker);
             }
+            console.table(markers);
         }
         return markers;
     }
-
 
     //Rounding due to weird floating point errors from GoogleMaps
     roundCoordinate(n) {
@@ -82,7 +71,7 @@ class GoogleMap extends React.Component {
         return Math.abs(latA - latB) < 5 && Math.abs(lngA - lngB) < 5;
     }
 
-    populateSidebar(lat, lng) {
+    populateSidebar(lat, lng, location) {
         const roundedLat = this.roundCoordinate(lat);
         const roundedLng = this.roundCoordinate(lng);
 
@@ -94,10 +83,10 @@ class GoogleMap extends React.Component {
                 clickedFriends.push(friend);
             }
         }
-        this.props.updateSidebar(SIDEBAR_STATE.cardList, clickedFriends);
+        this.props.updateSidebar(SIDEBAR_STATE.cardList, clickedFriends, location);
     }
 
-    async getLocation() {
+    getLocation() {
         //updating current location
         if (navigator && navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((pos) => {
@@ -133,21 +122,29 @@ class GoogleMap extends React.Component {
         console.log(this.props.range);
     };
 
-    getNameArea(myLocation, privacy) {
+    getNameArea(marker, popSidebar, map) {
         let geocoder = new window.google.maps.Geocoder;
 
-        // console.log("privacy " + privacy);
-        geocoder.geocode({'location': myLocation}, (results, status) => {
+        let uplift = function (address) {
+            const m = new window.google.maps.Marker({
+                position: {lat: marker.latitude, lng: marker.longitude},
+                map: map,
+                label: marker.label,
+                title: address
+            });
+
+            window.google.maps.event.addDomListener(m, 'click', () => {
+                popSidebar(m.getPosition().lat(), m.getPosition().lng(), m.getTitle());
+            });
+        };
+
+        geocoder.geocode({'location': {lat: marker.latitude, lng: marker.longitude}}, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
                     for (var i in results[0].address_components) {
-
-                        if (privacy === results[0].address_components[i].types[0]) {
+                        if (marker.privacy === results[0].address_components[i].types[0]) {
                             var address = (results[0].address_components[i].long_name).toString();
-
-                            //get lat and lng from place
-                            //console.log("getNameArea: " + address);
-                            return address;
+                            uplift(address);
                         }
                     }
                 } else {
@@ -163,6 +160,7 @@ class GoogleMap extends React.Component {
     //reverse geocode: latlng to approx place, then get latlng of approx place
     reverseGeocode(myLocation) {
         let geocoder = new window.google.maps.Geocoder;
+
         geocoder.geocode({'location': myLocation}, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {

@@ -1,10 +1,6 @@
 class Sidebar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            location: 'Baltimore',
-            cards: [],
-        };
     }
 
     render() {
@@ -38,7 +34,7 @@ class Sidebar extends React.Component {
         return (
             <div className="side">
                 <div className="side-header">
-                    <h1 className="side-header-text">{this.state.location}</h1>
+                    <h1 className="side-header-text">{this.props.location}</h1>
                 </div>
                 <ul className="card-list">
                     {cardsRender}
