@@ -16,10 +16,11 @@ class PersonTest {
     float longitude = 12.345678f;
     float latitude = 87.654321f;
     String privacy = "state";
+    String profilePicture = "profilePicture";
 
     @BeforeEach
     void setUp() {
-        person = new Person(identifier, fullName, lastSeen, live, status, longitude, latitude, availability, privacy);
+        person = new Person(identifier, fullName, lastSeen, live, status, longitude, latitude, availability, privacy, profilePicture);
     }
 
     @Test
@@ -131,4 +132,10 @@ class PersonTest {
         person.setPrivacy(expected);
         assertEquals(expected, person.getPrivacy());
     }
+//
+//    @Test
+//    void setProfilePicture() {
+//        String expected = "profile";
+//
+//    }
 }
