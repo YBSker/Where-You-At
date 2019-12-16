@@ -24,9 +24,6 @@ class NavigationBar extends React.Component {
                     case "YOUR EVENTS":
                         this.props.updateSidebar(SIDEBAR_STATE.yourEvents);
                         break;
-                    case "NEARBY FRIENDS":
-                        this.props.updateSidebar(SIDEBAR_STATE.cardList);
-                        break;
                     case "SETTINGS":
                         this.props.updateSidebar(SIDEBAR_STATE.settings);
                         break;
@@ -40,9 +37,6 @@ class NavigationBar extends React.Component {
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey="YOUR EVENTS"> Your Events</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="NEARBY FRIENDS">Nearby Friends</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey="SETTINGS">Settings</Nav.Link>
