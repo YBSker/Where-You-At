@@ -6,18 +6,6 @@ const SIDEBAR_STATE = {
     settings: 4,
 };
 
-const mainContainerStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'auto 400px',
-    height: '100vh'
-};
-
-const mainContainerClosedStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'auto',
-    height: '100vh'
-};
-
 class Application extends React.Component {
     constructor(props) {
         super(props);
@@ -76,7 +64,7 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerClosedStyle}>
+                        <div className="mainContainerClosed">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar} range={this.state.range}/>
                             </div>
@@ -88,7 +76,7 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerStyle}>
+                        <div className="mainContainer">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
@@ -103,7 +91,7 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerStyle}>
+                        <div className="mainContainer">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
@@ -118,7 +106,7 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerStyle}>
+                        <div className="mainContainer">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
@@ -133,13 +121,11 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerStyle}>
+                        <div className="mainContainer">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>
-                            <div className="side">
-                                <Settings/>
-                            </div>
+                            <Settings/>
                         </div>
                     </div>
                 );
@@ -149,7 +135,7 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerClosedStyle}>
+                        <div className="mainContainerClosed">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar = {this.updateSidebar}/>
                             </div>

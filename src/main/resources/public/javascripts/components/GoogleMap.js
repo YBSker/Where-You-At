@@ -190,7 +190,7 @@ class GoogleMap extends React.Component {
 
     render() {
         return (
-            <div style={{ width: screenWidth, height: screenHeight }} id="map" />
+            <div style={{ width: "100%", height: "calc(100% - 32px)" }} id="map" />
         );
     }
 }

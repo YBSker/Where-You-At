@@ -53,7 +53,7 @@ class LoginPage extends React.Component {
                     </div>
 
                     <div className="logo">
-                        <h1>Where<br/>You<br/>At</h1>
+                        <h1 className="logo-text">Where<br/>You<br/>At</h1>
                     </div>
 
                     <br />
