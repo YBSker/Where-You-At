@@ -72,6 +72,8 @@ public class Server {
                     path("time", () -> put(appController::updateTime));
                     path("location", () -> put(appController::updateLocation));
                     path("availability", () -> put(appController::updateAvailability));
+                    path("privacy", () -> get(appController::getPrivacy));
+                    path("account", () -> get(appController::getAccount));
                 })
                 .exception(AccountNotFoundException.class, (e, ctx) -> ctx.status(403))
                 .exception(PersonNotFoundException.class, (e, ctx) -> ctx.status(403))
