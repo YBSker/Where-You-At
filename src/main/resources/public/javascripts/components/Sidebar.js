@@ -14,8 +14,29 @@ class Sidebar extends React.Component {
             if (!friend.lastSeen || friend.lastSeen === "") {
                 friend.lastSeenPrintout = "Could not find last seen time.";
             } else {
-                //TODO calculate last seen time from current time - lastSeen time;
-                friend.lastSeenPrintout = "last seen " + /*calc*/ + " ago";
+                let lastSeenDate = new Date(friend.lastSeen);
+                let difference = Date.now() - lastSeenDate.getTime();
+
+                let calc = "";
+
+                if (difference < 1000 && difference >= 0) {
+                    calc = difference.toString() + " ms";
+                } else if (difference / 1000 < 60) {
+                    calc = Math.floor(difference / 1000).toString() + " seconds";
+                } else if (difference / 1000 / 60 < 60) {
+                    calc = Math.floor(difference / 1000 / 60).toString() + " minutes";
+                } else if (difference / 1000 / 60 / 60 < 24) {
+                    calc = Math.floor(difference / 1000 / 60 / 60).toString() + " hours";
+                } else if (difference / 1000 / 60 / 60 < 365) {
+                    calc = Math.floor(difference / 1000 / 60 / 60 / 24).toString() + " days";
+                } else if (difference / 1000 / 60 / 60 / 365 < 100) {
+                    calc = Math.floor(difference / 1000 / 60 / 60 / 24 / 365).toString() + " years";
+                } else {
+                    calc = "NaN ms"
+                }
+
+
+                friend.lastSeenPrintout = "last seen " + calc + " ago";
             }
 
             return([
