@@ -2,6 +2,7 @@
 // import React from "react";
 
 var DropdownButton = ReactBootstrap.DropdownButton;
+var SplitButton = ReactBootstrap.SplitButton;
 var Dropdown = ReactBootstrap.Dropdown;
 var Form = ReactBootstrap.Form;
 var Button = ReactBootstrap.Button;
@@ -238,30 +239,30 @@ class Settings extends React.Component {
         const failedSubmitMessage = <h6>Something went wrong with submission...</h6>;
 
         /** Render different selected AVAILABILITY dropdowns depending on availability state. */
-        const selectedAvailAvailable = <DropdownButton id="availability" title="Availability">
+        const selectedAvailAvailable = <SplitButton id="availability" title="Availability">
             <Dropdown.Item active as="button"
                            onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
                 disturb </Dropdown.Item>
-        </DropdownButton>;
-        const selectedAvailBusy = <DropdownButton id="availability" title="Availability">
+        </SplitButton>;
+        const selectedAvailBusy = <SplitButton id="availability" title="Availability">
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
             <Dropdown.Item active as="button"
                            onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
                 disturb </Dropdown.Item>
-        </DropdownButton>;
-        const selectedAvailDnD = <DropdownButton id="availability" title="Availability">
+        </SplitButton>;
+        const selectedAvailDnD = <SplitButton id="availability" title="Availability">
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 0)}> Available </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handleAvailabilityUpdate.bind(this, 1)}> Busy </Dropdown.Item>
             <Dropdown.Item active as="button" onClick={this.handleAvailabilityUpdate.bind(this, 2)}> Do not
                 disturb </Dropdown.Item>
-        </DropdownButton>;
+        </SplitButton>;
 
 
         /** Render different selected PRIVACY dropdowns depending on privacy state. */
-        const selectedPrivNeighborhood = <DropdownButton id="privacy" title="Privacy Range">
+        const selectedPrivNeighborhood = <SplitButton id="privacy" title="Privacy Range">
             <Dropdown.Item active as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
             <Dropdown.Item as="button"
@@ -269,8 +270,8 @@ class Settings extends React.Component {
             <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
-        </DropdownButton>;
-        const selectedPrivTown = <DropdownButton id="privacy" title="Privacy Range">
+        </SplitButton>;
+        const selectedPrivTown = <SplitButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
             <Dropdown.Item active as="button"
@@ -278,8 +279,8 @@ class Settings extends React.Component {
             <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
-        </DropdownButton>;
-        const selectedPrivCity = <DropdownButton id="privacy" title="Privacy Range">
+        </SplitButton>;
+        const selectedPrivCity = <SplitButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
             <Dropdown.Item as="button"
@@ -288,8 +289,8 @@ class Settings extends React.Component {
                            onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
-        </DropdownButton>;
-        const selectedPrivState = <DropdownButton id="privacy" title="Privacy Range">
+        </SplitButton>;
+        const selectedPrivState = <SplitButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
             <Dropdown.Item as="button"
@@ -297,7 +298,7 @@ class Settings extends React.Component {
             <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
             <Dropdown.Item active as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
-        </DropdownButton>;
+        </SplitButton>;
 
 
         return (
