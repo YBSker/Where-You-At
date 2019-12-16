@@ -106,7 +106,7 @@ public class PersonRepository {
      * @throws SQLException Statement failed to execute.
      */
     public int create(Person person) throws SQLException {
-        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, privacy) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+        var statement = connection.prepareStatement("INSERT INTO person (fullName, lastSeen, live, status, longitude, latitude, privacy, profilePicture) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         prepareStatement(person, statement);
         statement.executeUpdate();
         int id = statement.getGeneratedKeys().getInt(1);
@@ -123,7 +123,7 @@ public class PersonRepository {
      * @throws PersonNotFoundException Person with person_id not found.
      */
     public void updateDetails(Person person) throws SQLException, PersonNotFoundException {
-        var statement = connection.prepareStatement("UPDATE person SET fullName=?, lastSeen=?, live=?, status=?, longitude=?, latitude=?, privacy=?, availability=? WHERE identifier = ? ");
+        var statement = connection.prepareStatement("UPDATE person SET fullName=?, lastSeen=?, live=?, status=?, longitude=?, latitude=?, privacy=?, availability=?, profilePicture=? WHERE identifier = ? ");
         prepareStatement(person, statement);
         statement.setInt(8, person.getAvailability());
         statement.setInt(9, person.getIdentifier());
@@ -213,7 +213,8 @@ public class PersonRepository {
                 result.getFloat("longitude"),
                 result.getFloat("latitude"),
                 result.getInt("availability"),
-                result.getString("privacy")
+                result.getString("privacy"),
+                result.getString("profilePicture")
         );
     }
 
@@ -225,5 +226,6 @@ public class PersonRepository {
         statement.setFloat(5, person.getLongitude());
         statement.setFloat(6, person.getLatitude());
         statement.setString(7, person.getPrivacy());
+        statement.setString(8, person.getProfilePicture());
     }
 }

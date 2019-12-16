@@ -35,7 +35,7 @@ public class Person {
      * @param privacy      The privacy setting chosen by the user from the following set:
      *                     {"neighborhood", "postal_code", "locality" (city), "administrative_area_level_1" (state)}.
      */
-    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability, String privacy) {
+    public Person(int identifier, String fullName, String lastSeen, boolean live, String status, float longitude, float latitude, int availability, String privacy, String profilePicture) {
         this.identifier = identifier;
         this.fullName = fullName;
         this.lastSeen = lastSeen;
@@ -45,6 +45,7 @@ public class Person {
         this.longitude = longitude;
         this.latitude = latitude;
         this.privacy = privacy;
+        this.profilePicture = profilePicture;
     }
 
     public String getProfilePicture() {

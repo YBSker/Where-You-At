@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2cb84adb-1023-4c54-801b-38c003ff575d",
+		"_postman_id": "039e01cc-01ae-4b1c-b257-f7346fd0d0b5",
 		"name": "WYA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -685,7 +685,7 @@
 							"});",
 							"",
 							"pm.test(\"Items have identifier and description\", () => {",
-							"    pm.expect(pm.response.json()).to.have.all.keys(\"identifier\",\"fullName\",\"lastSeen\",\"live\",\"status\",\"longitude\",\"latitude\",\"availability\", \"privacy\");",
+							"    pm.expect(pm.response.json()).to.have.all.keys(\"identifier\",\"fullName\",\"lastSeen\",\"live\",\"status\",\"longitude\",\"latitude\",\"availability\", \"privacy\", \"profilePicture\" );",
 							"});",
 							"",
 							"",
