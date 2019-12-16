@@ -53,7 +53,8 @@ class Settings extends React.Component {
                 return response.json();
             })
             .then(function (jsonData) {
-                that.setState({privacy: jsonData['privacy']})
+                that.setState({privacy: jsonData['privacy']});
+                that.setState({live: jsonData['live']});
             });
     }
 
@@ -211,6 +212,12 @@ class Settings extends React.Component {
         this.setState({picSuccess: 1});
     }
 
+    async changeLive() {
+        await this.getDBPersonState();
+        this.setState({live: !this.state.live});
+        await this.submitProfileForm();
+    }
+
     /* Helper functs. */
 
     resetSuccessHandlers() {
@@ -219,11 +226,6 @@ class Settings extends React.Component {
         this.setState({emailSuccess: 0});
         this.setState({picSuccess: 0});
         this.setState({failedSubmit: false});
-    }
-
-    //TODO: DELETE THIS
-    test() {
-        console.log(this.state.privacy);
     }
 
     goToChangePass() {
@@ -317,6 +319,17 @@ class Settings extends React.Component {
                 {this.state.privacy === "locality" ? selectedPrivCity : null}
                 {this.state.privacy === "administrative_area_level_1" ? selectedPrivState : null}
 
+                <div className={"Live"}>
+                    <Form>
+                        <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            label="Live Status"
+                            checked={this.state.live}
+                            onChange={this.changeLive.bind(this)}
+                        />
+                    </Form>
+                </div>
 
                 <div className={"Edit Name"}>
                     <Form.Label>Name</Form.Label>
