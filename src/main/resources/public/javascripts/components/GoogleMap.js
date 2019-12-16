@@ -50,6 +50,7 @@ class GoogleMap extends React.Component {
     bucketize(friends) {
         let markers = [];
         for (const friend of friends) {
+            var location = {lat: friend.latitude, lng: friend.longitude};
             let duplicate = false;
             for (const marker of markers) {
                 if (friend.latitude === marker.latitude && friend.longitude === marker.longitude) {
@@ -63,7 +64,9 @@ class GoogleMap extends React.Component {
                 let marker = {label: friend.fullName,
                               numPeople: 1,
                               latitude: friend.latitude,
-                              longitude: friend.longitude};
+                              longitude: friend.longitude,
+                              title: this.getNameArea(location, friend.privacy)
+                };
                 markers.push(marker);
             }
         }
@@ -116,6 +119,8 @@ class GoogleMap extends React.Component {
                     label: "Me"
                 });
 
+                // console.log("me: " +  myLocation.lat);
+                // console.log("me: " +  myLocation.lng);
 
                 this.getFriendsFromServer();
                 this.reverseGeocode(myLocation);
@@ -127,6 +132,32 @@ class GoogleMap extends React.Component {
         await this.getLocation();
         console.log(this.props.range);
     };
+
+    getNameArea(myLocation, privacy) {
+        let geocoder = new window.google.maps.Geocoder;
+
+        // console.log("privacy " + privacy);
+        geocoder.geocode({'location': myLocation}, (results, status) => {
+            if (status === 'OK') {
+                if (results[0]) {
+                    for (var i in results[0].address_components) {
+
+                        if (privacy === results[0].address_components[i].types[0]) {
+                            var address = (results[0].address_components[i].long_name).toString();
+
+                            //get lat and lng from place
+                            //console.log("getNameArea: " + address);
+                            return address;
+                        }
+                    }
+                } else {
+                    window.alert('reverseGeocoder: No results found');
+                }
+            } else {
+                window.alert('reverseGeocoder failed due to: ' + status);
+            }
+        });
+    }
 
 
     //reverse geocode: latlng to approx place, then get latlng of approx place
@@ -141,7 +172,7 @@ class GoogleMap extends React.Component {
 
                             //get lat and lng from place
                             //console.log("reverseGeocode: " + address);
-                            this.geocode(address)
+                            this.geocode("reverse: "+ address)
                         }
                     }
                 } else {
@@ -170,8 +201,8 @@ class GoogleMap extends React.Component {
                 //                 });
 
                 const location = results[0].geometry.location;
-                // console.log("geocode: " +  location.lat());
-                // console.log("geocode: " +  location.lng());
+                //console.log("geocode: " +  location.lat());
+                //console.log("geocode: " +  location.lng());
 
                 //send approx latlng to database
                 const formData = new FormData();
@@ -192,7 +223,7 @@ class GoogleMap extends React.Component {
     updateTime() {
         var tempDate = new Date();
         var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
-        console.log(date);
+        //console.log(date);
         const formData = new FormData();
         formData.append("time", date);
         fetch("time", {method: "PUT", body: formData})
