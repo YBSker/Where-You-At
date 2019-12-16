@@ -342,4 +342,14 @@ public class AppController {
         personController.getPrivacy(ctx);
         ctx.status(200);
     }
+
+    /**
+     * Throw this a "personID" and "eventID".
+     * @param ctx
+     * @throws SQLException
+     */
+    public void createForList(Context ctx) throws SQLException {
+        eventRelationsController.createForList(ctx);
+        ctx.status(200);
+    }
 }

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "eda384b1-6d84-40b0-8ebf-0a3e8f5ccedb",
+		"_postman_id": "a82f82d7-97ba-490e-b5b5-32861251dbf2",
 		"name": "WYA copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1832,6 +1832,65 @@
 					"path": [
 						"eventAttendance",
 						"{{identifier}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add an Event given personID and eventID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50691fde-2bf8-47e3-9e29-3fbad990f9ba",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5c464568-b923-4844-8d37-cd62a5867b99",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "personID",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "eventID",
+							"value": "23",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7000/eventAttendance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"eventAttendance"
 					]
 				}
 			},

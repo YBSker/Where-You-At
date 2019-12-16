@@ -63,6 +63,17 @@ public class EventRelationsController {
     }
 
     /**
+     *  frontend needs to throw this a personID and eventID to this for CREATE
+     * @param ctx
+     * @throws SQLException
+     */
+    public void createForList(Context ctx) throws SQLException {
+        var eventRelation = new EventRelations();
+        createToDB(ctx.formParam("personID", Integer.class).get(), ctx.formParam("eventID", Integer.class).get(), eventRelation);
+        eventRelationsRepository.create(eventRelation);
+    }
+
+    /**
      * Use this EVERYTIME YOU DELETE AN EVENT!!!
      * @param eventID id of event being deleted
      * @throws SQLException

@@ -56,6 +56,7 @@ public class Server {
                         path("create", () -> post(appController::createEvent));
                     });
                     path("eventAttendance", () -> {
+                        post(appController::createForList);
                         /* this path will also get person IDs for an event. getting event IDs for a person is in  profile path. */
                         path(":identifier", () -> {
                             put(appController::createRelation);
