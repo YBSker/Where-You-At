@@ -1,9 +1,9 @@
 const SIDEBAR_STATE = {
     closed: 0,
-    createEvent: 1,
-    yourEvents: 2,
-    cardList: 3,
-    settings: 4,
+    event: 1,
+    cardList: 2,
+    settings: 3,
+    changePass: 4,
 };
 
 const mainContainerStyle = {
@@ -58,7 +58,7 @@ class Application extends React.Component {
         if (!this.state.loggedIn && !this.state.signUp) {
             return (
                 <div>
-                    <LoginPage logIn = {this.logIn} signUp={this.signUp}/>
+                    <LoginPage logIn={this.logIn} signUp={this.signUp}/>
                 </div>
             );
         }
@@ -66,7 +66,7 @@ class Application extends React.Component {
         if (this.state.signUp) {
             return (
                 <div>
-                    <SignUpPage logIn = {this.logIn} signUp={this.signUp} setRange={this.setRange}/>
+                    <SignUpPage logIn={this.logIn} signUp={this.signUp} setRange={this.setRange}/>
                 </div>
             );
         }
@@ -75,22 +75,22 @@ class Application extends React.Component {
             case SIDEBAR_STATE.closed:
                 return (
                     <div>
-                        <NavigationBar updateSidebar = {this.updateSidebar}/>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
                         <div className="mainContainer" style={mainContainerClosedStyle}>
                             <div className="mapContainer">
-                                <GoogleMap updateSidebar = {this.updateSidebar} range={this.state.range}/>
+                                <GoogleMap updateSidebar={this.updateSidebar} range={this.state.range}/>
                             </div>
                         </div>
                     </div>
                 );
 
-            case SIDEBAR_STATE.createEvent:
+            case SIDEBAR_STATE.event:
                 return (
                     <div>
-                        <NavigationBar updateSidebar = {this.updateSidebar}/>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
                         <div className="mainContainer" style={mainContainerStyle}>
                             <div className="mapContainer">
-                                <GoogleMap updateSidebar = {this.updateSidebar}/>
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
                             <div className="side">
                                 <EventForm/>
@@ -99,31 +99,16 @@ class Application extends React.Component {
                     </div>
                 );
 
-            case SIDEBAR_STATE.yourEvents:
-                return (
-                    <div>
-                        <NavigationBar updateSidebar = {this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerStyle}>
-                            <div className="mapContainer">
-                                <GoogleMap updateSidebar = {this.updateSidebar}/>
-                            </div>
-                            <div className="side">
-                                <YourEvents/>
-                            </div>
-                        </div>
-                    </div>
-                );
-
             case SIDEBAR_STATE.cardList:
                 return (
                     <div>
-                        <NavigationBar updateSidebar = {this.updateSidebar}/>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
                         <div className="mainContainer" style={mainContainerStyle}>
                             <div className="mapContainer">
-                                <GoogleMap updateSidebar = {this.updateSidebar}/>
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
                             <div className="side">
-                                <Sidebar friends = {this.state.friendsToDisplay}/>
+                                <Sidebar friends={this.state.friendsToDisplay}/>
                             </div>
                         </div>
                     </div>
@@ -132,13 +117,26 @@ class Application extends React.Component {
             case SIDEBAR_STATE.settings:
                 return (
                     <div>
-                        <NavigationBar updateSidebar = {this.updateSidebar}/>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
                         <div className="mainContainer" style={mainContainerStyle}>
                             <div className="mapContainer">
-                                <GoogleMap updateSidebar = {this.updateSidebar}/>
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
+                            </div>
+                            <Settings updateSidebar={this.updateSidebar}/>
+                        </div>
+                    </div>
+                );
+
+            case SIDEBAR_STATE.changePass:
+                return (
+                    <div>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
+                        <div className="mainContainer" style={mainContainerStyle}>
+                            <div className="mapContainer">
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
                             <div className="side">
-                                <Settings/>
+                                <ChangePassword/>
                             </div>
                         </div>
                     </div>
@@ -148,10 +146,10 @@ class Application extends React.Component {
             default:
                 return (
                     <div>
-                        <NavigationBar updateSidebar = {this.updateSidebar}/>
+                        <NavigationBar updateSidebar={this.updateSidebar}/>
                         <div className="mainContainer" style={mainContainerClosedStyle}>
                             <div className="mapContainer">
-                                <GoogleMap updateSidebar = {this.updateSidebar}/>
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
                         </div>
                     </div>
