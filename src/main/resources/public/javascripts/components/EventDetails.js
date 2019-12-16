@@ -20,6 +20,7 @@ class EventDetails extends React.Component {
         formData.append("personID", personID);
         formData.append("eventID", eventID);
         await fetch("eventAttendance", {method: "POST", body: formData});
+
     };
 
     render() {
