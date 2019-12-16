@@ -1,6 +1,9 @@
 /* CSS Reset */
 * { margin:0; padding:0; font-size:100%; line-height:1; }
 
+/* this is very very bad style but bootstrap is hellspawn so */
+* { font-family: futura-pt, sans-serif !important;}
+
 body {
     margin: 0 auto;
     font-family: futura-pt, sans-serif;
