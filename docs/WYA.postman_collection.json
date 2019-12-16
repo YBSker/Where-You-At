@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a82f82d7-97ba-490e-b5b5-32861251dbf2",
-		"name": "WYA copy",
+		"_postman_id": "2cb84adb-1023-4c54-801b-38c003ff575d",
+		"name": "WYA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -36,7 +36,7 @@
 							"                formdata: [",
 							"                {key: \"fullName\", value:\"Leandro\"},",
 							"                {key: \"lastSeen\", value:\"2 hrs ago\"},",
-							"                {key: \"live\", value:\"no\"},",
+							"                {key: \"live\", value:\"true\"},",
 							"                {key: \"status\", value:\"writing the final\"},",
 							"                {key: \"longitude\", value:\"39.3289957\"},",
 							"                {key: \"latitude\", value:\"-76.6205235\"},",
@@ -61,7 +61,7 @@
 							"                formdata: [",
 							"                {key: \"fullName\", value:\"Leandro\"},",
 							"                {key: \"lastSeen\", value:\"2 hrs ago\"},",
-							"                {key: \"live\", value:\"no\"},",
+							"                {key: \"live\", value:\"true\"},",
 							"                {key: \"status\", value:\"writing the final\"},",
 							"                {key: \"longitude\", value:\"39.3289957\"},",
 							"                {key: \"latitude\", value:\"-76.6205235\"},",
@@ -136,6 +136,11 @@
 							"key": "privacy",
 							"value": "neighborhood",
 							"type": "text"
+						},
+						{
+							"key": "live",
+							"value": "true",
+							"type": "text"
 						}
 					]
 				},
@@ -153,7 +158,110 @@
 				},
 				"description": "Registration test\n"
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Register New Account",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "lastSeen",
+									"value": "2019-12-14T02:09:12+00:00\n",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "admin stuff",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "39.3289957",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-76.6205235",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "securepassword",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@test.com",
+									"type": "text"
+								},
+								{
+									"key": "profilePicture",
+									"value": "drive.com/profilepicture",
+									"type": "text"
+								},
+								{
+									"key": "privacy",
+									"value": "neighborhood",
+									"type": "text"
+								},
+								{
+									"key": "live",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2019 16:02:42 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "Login",
@@ -256,7 +364,7 @@
 			},
 			"response": [
 				{
-					"name": "Successful Login",
+					"name": "Login",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -294,7 +402,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Tue, 10 Dec 2019 21:32:50 GMT"
+							"value": "Mon, 16 Dec 2019 16:03:24 GMT"
 						},
 						{
 							"key": "Server",
@@ -306,7 +414,7 @@
 						},
 						{
 							"key": "Set-Cookie",
-							"value": "JSESSIONID=node013f62itoss33szaae7qknhp80.node0; Path=/; HttpOnly"
+							"value": "JSESSIONID=node01v52q2e3v5zkn1gndwfmkw306d0.node0; Path=/; HttpOnly"
 						},
 						{
 							"key": "Expires",
@@ -368,7 +476,7 @@
 						},
 						{
 							"key": "newpassword",
-							"value": "securepassword",
+							"value": "moresecurepassword",
 							"type": "text"
 						}
 					]
@@ -387,7 +495,7 @@
 			},
 			"response": [
 				{
-					"name": "Sucessful Change Account Password",
+					"name": "Change Account Password",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -424,7 +532,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 14 Dec 2019 22:30:41 GMT"
+							"value": "Mon, 16 Dec 2019 16:04:13 GMT"
 						},
 						{
 							"key": "Server",
@@ -510,7 +618,7 @@
 			},
 			"response": [
 				{
-					"name": "Successful ",
+					"name": "Edit Account",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -548,7 +656,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Mon, 02 Dec 2019 23:20:28 GMT"
+							"value": "Mon, 16 Dec 2019 16:04:23 GMT"
 						},
 						{
 							"key": "Server",
@@ -561,71 +669,6 @@
 					],
 					"cookie": [],
 					"body": ""
-				},
-				{
-					"name": "Failed Edit Account Not Logged In",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "email",
-									"value": "newemailadmin@test.com",
-									"type": "text"
-								},
-								{
-									"key": "profilePicture",
-									"value": "drive.com/profilepicture",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:7000/updateAccount/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7000",
-							"path": [
-								"updateAccount",
-								""
-							]
-						}
-					},
-					"status": "Forbidden",
-					"code": 403,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Mon, 02 Dec 2019 22:57:14 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						},
-						{
-							"key": "Set-Cookie",
-							"value": "JSESSIONID=node015jt9v2nupdc3yvxjrcbxfla21.node0; Path=/; HttpOnly"
-						},
-						{
-							"key": "Expires",
-							"value": "Thu, 01 Jan 1970 00:00:00 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "9"
-						}
-					],
-					"cookie": [],
-					"body": "Forbidden"
 				}
 			]
 		},
@@ -669,19 +712,19 @@
 			},
 			"response": [
 				{
-					"name": "Success",
+					"name": "Get profile",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:7000/user",
+							"raw": "http://localhost:7000/profile",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
-								"user"
+								"profile"
 							]
 						}
 					},
@@ -691,7 +734,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Fri, 15 Nov 2019 02:47:52 GMT"
+							"value": "Mon, 16 Dec 2019 16:05:15 GMT"
 						},
 						{
 							"key": "Server",
@@ -702,16 +745,12 @@
 							"value": "application/json"
 						},
 						{
-							"key": "Content-Encoding",
-							"value": "gzip"
-						},
-						{
 							"key": "Content-Length",
-							"value": "230"
+							"value": "197"
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"identifier\": 1,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 2,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 3,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 4,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 5,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 6,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 7,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 8,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 9,\n        \"fullName\": \"Vincent Lee \",\n        \"lastSeen\": \"2 hrs ago\",\n        \"live\": false,\n        \"status\": \"taking the final\",\n        \"longitude\": 39.328995,\n        \"latitude\": -76.62052,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    }\n]"
+					"body": "{\n    \"identifier\": 1,\n    \"fullName\": \"adminn\",\n    \"lastSeen\": \"2019-12-14T02:09:12+00:00\\n\",\n    \"live\": true,\n    \"status\": \"admin stuff\",\n    \"longitude\": 39.328995,\n    \"latitude\": -76.62052,\n    \"availability\": 0,\n    \"privacy\": \"neighborhood\"\n}"
 				}
 			]
 		},
@@ -838,7 +877,7 @@
 			},
 			"response": [
 				{
-					"name": "Update Person",
+					"name": "Edit Profile",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -857,43 +896,45 @@
 								},
 								{
 									"key": "live",
-									"value": "no",
+									"value": "false",
 									"type": "text"
 								},
 								{
 									"key": "status",
-									"value": "taking the final",
+									"value": "failing the final",
 									"type": "text"
 								},
 								{
 									"key": "availability",
-									"value": "1",
-									"type": "text",
-									"disabled": true
+									"value": "2",
+									"type": "text"
 								},
 								{
 									"key": "longitude",
-									"value": "39.3289957",
+									"value": "39.328995",
 									"type": "text"
 								},
 								{
 									"key": "latitude",
-									"value": "-76.6205235",
+									"value": "-76.620523",
+									"type": "text"
+								},
+								{
+									"key": "privacy",
+									"value": "locality",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:7000/account/user/{{personIdentifier}}",
+							"raw": "http://localhost:7000/updateProfile",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
-								"account",
-								"user",
-								"{{personIdentifier}}"
+								"updateProfile"
 							]
 						}
 					},
@@ -903,7 +944,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 17 Nov 2019 19:36:53 GMT"
+							"value": "Mon, 16 Dec 2019 16:06:01 GMT"
 						},
 						{
 							"key": "Server",
@@ -929,6 +970,12 @@
 						"exec": [
 							"pm.test(\"Status code is 204\", function () {",
 							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Time stamp changed\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/profile\", (err, response) => {",
+							"        pm.expect(response.json().lastSeen).to.equal(\"2019-12-14T23:16:26+00:00\");",
+							"    });",
 							"});"
 						],
 						"type": "text/javascript"
@@ -962,7 +1009,7 @@
 			},
 			"response": [
 				{
-					"name": "Successful Update Last Seen",
+					"name": "Update Last Seen",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -994,7 +1041,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 15 Dec 2019 01:02:22 GMT"
+							"value": "Mon, 16 Dec 2019 16:06:14 GMT"
 						},
 						{
 							"key": "Server",
@@ -1020,6 +1067,12 @@
 						"exec": [
 							"pm.test(\"Status code is 204\", function () {",
 							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Availablity is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/profile\", (err, response) => {",
+							"        pm.expect(response.json().availability).to.equal(0);",
+							"    });",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1060,7 +1113,7 @@
 			},
 			"response": [
 				{
-					"name": "Successful Update Availability",
+					"name": "Update Availability",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -1099,7 +1152,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 15 Dec 2019 01:05:48 GMT"
+							"value": "Mon, 16 Dec 2019 16:06:56 GMT"
 						},
 						{
 							"key": "Server",
@@ -1125,6 +1178,13 @@
 						"exec": [
 							"pm.test(\"Status code is 204\", function () {",
 							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Location is edited\", () => {",
+							"    pm.sendRequest(\"http://localhost:7000/profile\", (err, response) => {",
+							"        pm.expect(response.json().longitude).to.equal(38.897957);",
+							"        pm.expect(response.json().latitude).to.equal(-77.036560);",
+							"    });",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1170,7 +1230,7 @@
 			},
 			"response": [
 				{
-					"name": "Successful Update Location",
+					"name": "Update Location",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -1214,7 +1274,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 15 Dec 2019 01:11:47 GMT"
+							"value": "Mon, 16 Dec 2019 16:07:11 GMT"
 						},
 						{
 							"key": "Server",
@@ -1229,49 +1289,6 @@
 					"body": ""
 				}
 			]
-		},
-		{
-			"name": "Show All Events",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "ddcd9b67-f634-4f80-86ce-ea82f1dd7fab",
-						"exec": [
-							"pm.test(\"Status code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test(\"Response JSON is a list\", () => {",
-							"    pm.expect(pm.response.json()).to.be.an(\"array\");",
-							"});",
-							"pm.test(\"Items have all the event keys\", () => {",
-							"    pm.response.json().forEach(item => {",
-							"        pm.expect(item).to.have.all.keys(\"identifier\",\"name\",\"description\",\"place\",\"longitude\",\"latitude\",\"image\",\"startTime\",\"endTime\",\"peopleAvailable\",\"peopleInvited\", \"peopleAccepted\",\"peopleSeen\");",
-							"    });",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7000/event",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7000",
-					"path": [
-						"event"
-					]
-				},
-				"description": "Show all the events that the user has."
-			},
-			"response": []
 		},
 		{
 			"name": "Create an event",
@@ -1364,7 +1381,7 @@
 			},
 			"response": [
 				{
-					"name": "Success",
+					"name": "Create an event",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -1414,14 +1431,15 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:7000/event",
+							"raw": "http://localhost:7000/event/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
-								"event"
+								"event",
+								"create"
 							]
 						}
 					},
@@ -1431,7 +1449,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Fri, 15 Nov 2019 02:50:28 GMT"
+							"value": "Mon, 16 Dec 2019 16:08:40 GMT"
 						},
 						{
 							"key": "Server",
@@ -1448,6 +1466,91 @@
 					],
 					"cookie": [],
 					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Show All Events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64567d02-3eb4-46e0-acde-e068bb3c3ecd",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response JSON is a list\", () => {",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");",
+							"});",
+							"pm.test(\"Items have all the event keys\", () => {",
+							"    pm.response.json().forEach(item => {",
+							"        pm.expect(item).to.have.all.keys(\"identifier\",\"name\",\"description\",\"place\",\"longitude\",\"latitude\",\"image\",\"startTime\",\"endTime\",\"peopleAvailable\",\"peopleInvited\", \"peopleAccepted\", \"peopleSeen\");",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/event",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"event"
+					]
+				},
+				"description": "Show all the events that the user has."
+			},
+			"response": [
+				{
+					"name": "Show All Events",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"event"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2019 17:12:10 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "644"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"identifier\": 1,\n        \"name\": \"event\",\n        \"description\": \"some event\",\n        \"place\": \"Johns Hopkins University\",\n        \"longitude\": 39.328995,\n        \"latitude\": -76.62052,\n        \"image\": \"someimageurl.com\",\n        \"startTime\": \"2019-11-06T01:29:06+00:00\",\n        \"endTime\": \"2019-11-07T01:29:06+00:00\",\n        \"peopleAvailable\": [],\n        \"peopleInvited\": [],\n        \"peopleAccepted\": [],\n        \"peopleSeen\": []\n    },\n    {\n        \"identifier\": 2,\n        \"name\": \"edit event\",\n        \"description\": \"edited event\",\n        \"place\": \"Johns Hopkins University\",\n        \"longitude\": 39.328995,\n        \"latitude\": -76.62052,\n        \"image\": \"someimageurl.com\",\n        \"startTime\": \"2019-11-06T01:29:06+00:00\",\n        \"endTime\": \"2019-11-07T01:29:06+00:00\",\n        \"peopleAvailable\": [],\n        \"peopleInvited\": [],\n        \"peopleAccepted\": [],\n        \"peopleSeen\": []\n    }\n]"
 				}
 			]
 		},
@@ -1575,7 +1678,7 @@
 			},
 			"response": [
 				{
-					"name": "Success",
+					"name": "Edit event",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -1643,7 +1746,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Fri, 15 Nov 2019 02:52:25 GMT"
+							"value": "Mon, 16 Dec 2019 16:09:16 GMT"
 						},
 						{
 							"key": "Server",
@@ -1700,19 +1803,20 @@
 			},
 			"response": [
 				{
-					"name": "Success",
+					"name": "Get All Friends",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:7000/user",
+							"raw": "http://localhost:7000/friends/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "7000",
 							"path": [
-								"user"
+								"friends",
+								""
 							]
 						}
 					},
@@ -1722,7 +1826,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Fri, 15 Nov 2019 02:47:52 GMT"
+							"value": "Mon, 16 Dec 2019 16:09:40 GMT"
 						},
 						{
 							"key": "Server",
@@ -1733,21 +1837,46 @@
 							"value": "application/json"
 						},
 						{
-							"key": "Content-Encoding",
-							"value": "gzip"
-						},
-						{
 							"key": "Content-Length",
-							"value": "230"
+							"value": "2"
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"identifier\": 1,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 2,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 3,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 4,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 5,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 6,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 7,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 8,\n        \"fullName\": \"\",\n        \"lastSeen\": null,\n        \"live\": true,\n        \"status\": null,\n        \"longitude\": 0,\n        \"latitude\": 0,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    },\n    {\n        \"identifier\": 9,\n        \"fullName\": \"Vincent Lee \",\n        \"lastSeen\": \"2 hrs ago\",\n        \"live\": false,\n        \"status\": \"taking the final\",\n        \"longitude\": 39.328995,\n        \"latitude\": -76.62052,\n        \"availability\": {\n            \"identifier\": 0,\n            \"availability\": null,\n            \"indicator\": null,\n            \"time\": null\n        }\n    }\n]"
+					"body": "[]"
 				}
 			]
 		},
 		{
 			"name": "Get all accounts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c3c91ab4-6efc-4745-b8f4-e7d6f0a47547",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaf057da-c083-41dc-ad77-366ccb641149",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Account have all keys\", () => {",
+							"    pm.expect(pm.response.json()).to.have.all.keys( \"username\",  \"password\",  \"email\",  \"person_id\", \"profilePicture\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -1765,7 +1894,50 @@
 				},
 				"description": "Get all the accounts from the database "
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get all accounts",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/account/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"account",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2019 16:09:53 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "185"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"username\": \"admin\",\n    \"password\": \"$2a$12$RefH4PsLAsdbjFCH7mFQleXjMfUsrLCwfyogjPlENy9nfIgRNC3Re\",\n    \"email\": \"newemailadmin@test.com\",\n    \"profilePicture\": \"drive.com/profilepicture\",\n    \"person_id\": 1\n}"
+				}
+			]
 		},
 		{
 			"name": "Add an Event for a Person",
@@ -1835,66 +2007,60 @@
 					]
 				}
 			},
-			"response": []
-		},
-		{
-			"name": "Add an Event given personID and eventID",
-			"event": [
+			"response": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "50691fde-2bf8-47e3-9e29-3fbad990f9ba",
-						"exec": [
-							"pm.test(\"Status code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "5c464568-b923-4844-8d37-cd62a5867b99",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"name": "Add an Event for a Person",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "identifier",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7000/eventAttendance/{{identifier}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"eventAttendance",
+								"{{identifier}}"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
 						{
-							"key": "personID",
-							"value": "1",
-							"type": "text"
+							"key": "Date",
+							"value": "Mon, 16 Dec 2019 16:10:03 GMT"
 						},
 						{
-							"key": "eventID",
-							"value": "23",
-							"type": "text"
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
 						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:7000/eventAttendance",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "7000",
-					"path": [
-						"eventAttendance"
-					]
+					"cookie": [],
+					"body": ""
 				}
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "Get Event IDs for a Person",
@@ -1967,7 +2133,50 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get Event IDs for a Person",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/profile/{{identifier}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"profile",
+								"{{identifier}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2019 16:10:13 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    1\n]"
+				}
+			]
 		},
 		{
 			"name": "Get Person IDs for an Event",
@@ -2027,7 +2236,50 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get Person IDs for an Event",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/eventAttendance/{{identifier}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"eventAttendance",
+								"{{identifier}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2019 16:10:30 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    1\n]"
+				}
+			]
 		},
 		{
 			"name": "Remove an Event for a Person",
@@ -2088,7 +2340,46 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Remove an Event for a Person",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/eventAttendance/{{identifier}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"eventAttendance",
+								"{{identifier}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2019 16:10:51 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Javalin"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
 		}
 	],
 	"protocolProfileBehavior": {}

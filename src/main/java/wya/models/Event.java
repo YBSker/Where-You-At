@@ -10,6 +10,7 @@ public class Event {
     private String image;       //images will be links
     private String startTime;   //according to ISO8601 YYYY-MM-DDTHH:MM:SS.SSSXXX
     private String endTime;     //according to ISO8601 YYYY-MM-DDTHH:MM:SS.SSSXXX
+    //    private Person host;
     private Person[] peopleAvailable;
     private Person[] peopleInvited;
     private Person[] peopleAccepted;
@@ -19,7 +20,7 @@ public class Event {
     }
 
     /**
-     * Event constructor.
+     * Event constructor in MVC.
      *
      * @param identifier      PK in events table.
      * @param name            Title of the event.
@@ -154,4 +155,12 @@ public class Event {
     public void setPeopleSeen(Person[] peopleSeen) {
         this.peopleSeen = peopleSeen;
     }
+
+//    public Person getHost() {
+//        return host;
+//    }
+//
+//    public void setHost(Person creator) {
+//        this.host = creator;
+//    }
 }

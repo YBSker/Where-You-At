@@ -33,7 +33,7 @@ public class PersonRepository {
     public PersonRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT true, status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER DEFAULT 0, privacy TEXT)");
+        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT(TRUE), status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER DEFAULT(0), privacy TEXT)");
         statement.close();
     }
 
@@ -58,6 +58,7 @@ public class PersonRepository {
     /**
      * Get all entries in person table except the user specified by the identifier, and only if they are marked as live=true.
      * Then put them into an ArrayList of Person Objects to be returned.
+     *
      * @return The Arraylist of all person entries in persons that are marked as live excluding the person with the identifier.
      */
     public Object getAll(int identifier) throws SQLException {

@@ -7,6 +7,15 @@ public class Account {
     private String profilePicture;
     private int person_id;
 
+    /**
+     * The Account Constructor in the MVC
+     *
+     * @param username       The username to be associated with the account.
+     * @param password       The password to be associated with the account, should NOT be in plaintext
+     * @param email          The email to be associated with the account.
+     * @param person_id      The person ID associated with the account, acts like a foreign key in a relational database.
+     * @param profilePicture The profile picture associated with the account.
+     */
     public Account(String username, String password, String email, int person_id, String profilePicture) {
         this.username = username;
         this.password = password;

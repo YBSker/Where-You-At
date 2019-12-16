@@ -165,6 +165,6 @@ public class FriendRepository {
                 result.getFloat("latitude"),
                 result.getInt("availability"),
                 result.getString("privacy")
-);
+        );
     }
 }

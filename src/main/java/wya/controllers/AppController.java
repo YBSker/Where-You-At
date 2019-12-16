@@ -11,20 +11,22 @@ import java.util.Objects;
 
 public class AppController {
     final Connection connection = DriverManager.getConnection("jdbc:sqlite:wya.db");
-
-    public AppController() throws SQLException {
-    }
-
     private final EventRepository eventRepository = new EventRepository(connection);
     //    private final FriendRepository friendRepository = new FriendRepository(connection);
     private final PersonRepository personRepository = new PersonRepository(connection);
     private final AccountRepository accountRepository = new AccountRepository(connection);
     private final EventRelationsRepository eventRelationsRepository = new EventRelationsRepository(connection);
-
     private final EventController eventController = new EventController(eventRepository);
     private final PersonController personController = new PersonController(personRepository);
     private final AccountController accountController = new AccountController(accountRepository);
     private final EventRelationsController eventRelationsController = new EventRelationsController(eventRelationsRepository);
+
+    /**
+     * Constructor for App Controller
+     * @throws SQLException SQL statement failed to execute.
+     */
+    public AppController() throws SQLException {
+    }
 
     /**
      * Creates an entry in the user and person tables. This uses Context.formParams to fill in the columns for each entry.
@@ -226,14 +228,14 @@ public class AppController {
      * @throws PersonNotFoundException Person of the current user cannot be found in the person table.
      */
     public void getProfile(Context ctx) throws SQLException, PersonNotFoundException {
-        personController.getOne(ctx);
+        personController.getCurrentPerson(ctx);
         ctx.status(200);
     }
 
     /**
      * @param ctx The Javalin Context Object.
      * @throws SQLException                    Failed to execute the SQL Statement successfully.
-     * @throws EventRelationsNotFoundException
+     * @throws EventRelationsNotFoundException EventRelations identifier not found in table.
      */
     public void getPersonIDForEvent(Context ctx) throws SQLException, EventRelationsNotFoundException {
         eventRelationsController.getPersonIDForEvent(ctx);
@@ -243,7 +245,7 @@ public class AppController {
     /**
      * @param ctx The Javalin Context Object.
      * @throws SQLException                    Failed to execute the SQL Statement successfully.
-     * @throws EventRelationsNotFoundException
+     * @throws EventRelationsNotFoundException EventRelations identifier not found in table.
      */
     public void getEventIDsForPerson(Context ctx) throws SQLException, EventRelationsNotFoundException {
         eventRelationsController.getEventIDsForPerson(ctx);
@@ -345,8 +347,9 @@ public class AppController {
 
     /**
      * Throw this a "personID" and "eventID".
-     * @param ctx
-     * @throws SQLException
+     *
+     * @param ctx Javalin Context Object.
+     * @throws SQLException SQL statement failed to execut successfully.
      */
     public void createForList(Context ctx) throws SQLException {
         eventRelationsController.createForList(ctx);
