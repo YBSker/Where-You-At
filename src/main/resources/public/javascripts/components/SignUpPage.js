@@ -7,7 +7,8 @@ class SignUpPage extends React.Component {
             password: "",
             user_exists: false,
             display_name: "",
-            range: "neighborhood"
+            range: "neighborhood",
+            image: []
         }
     }
 
@@ -46,6 +47,13 @@ class SignUpPage extends React.Component {
         this.props.setRange(e.target.value);
         this.setState({range: e.target.value});
     }
+
+    getRandomImage = async () => {
+        const response = await unsplash.get('/search/photos', {
+            params: { query: term }
+        });
+        this.setState({ images: response.data.results });
+    };
 
     convertToEnglish(range) {
         let new_range = "";

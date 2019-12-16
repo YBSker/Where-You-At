@@ -6,6 +6,7 @@ const SIDEBAR_STATE = {
     settings: 4,
     changePass: 5,
     addFriendsEvent: 6,
+    eventDetails: 7
 };
 
 class Application extends React.Component {
@@ -38,7 +39,7 @@ class Application extends React.Component {
         this.setState({range: range_option});
     }
 
-    updateSidebar(state, friends, location) {
+    updateSidebar(state, friends, location, event) {
         if (friends) {
             this.setState({friendsToDisplay: friends});
         }
@@ -47,6 +48,9 @@ class Application extends React.Component {
             this.setState({location: location});
         }
 
+        if(event) {
+            this.setState({event: event});
+        }
         this.setState({sidebarState: state});
     }
 
@@ -101,7 +105,20 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
-                            <YourEvents updateSidebar = {this.updateSidebar}/>
+                            <YourEvents updateSidebar = {this.updateSidebar} eventsList={this.state.event}/>
+                        </div>
+                    </div>
+                );
+
+            case SIDEBAR_STATE.eventDetails:
+                return (
+                    <div>
+                        <NavigationBar updateSidebar = {this.updateSidebar}/>
+                        <div className="mainContainer">
+                            <div className="mapContainer">
+                                <GoogleMap updateSidebar={this.updateSidebar}/>
+                            </div>
+                            <EventDetails updateSidebar = {this.updateSidebar} eventInfo={this.state.event}/>
                         </div>
                     </div>
                 );

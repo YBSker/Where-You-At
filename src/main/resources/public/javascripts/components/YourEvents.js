@@ -1,24 +1,18 @@
-
-
 class YourEvents extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            events: [],
-        }
+
     }
-
-    async getEventsFromServer() {
-        this.setState({ events: await (await fetch("/events")).json() });
-    }
-
-
 
     render() {
+        const eventInfo = this.props.eventInfo;
+        console.log(eventInfo);
+        console.log(eventInfo.name);
+        const eventName = eventInfo.name;
         return (
             <div className="side">
                 <div className="side-header">
-                    <h1 className="side-header-text">Your Events</h1>
+                    <h1 className="side-header-text">Event Details</h1>
                 </div>
             </div>
         );

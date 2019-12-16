@@ -262,3 +262,30 @@ input {
 }
 
 
+.event-name {
+	box-shadow: 2px 2px 5px 1px rgba(50, 0, 100, .4);
+	margin: 20px 10px 0;
+	height: 50px;
+	border-radius: 25px 25px 0 0;
+	background: white;
+	text-align: center;
+	position: relative;
+	z-index: 6;
+}
+
+.event-name-text {
+	line-height: 50px;
+	text-transform: uppercase;
+}
+
+.event-details {
+	box-shadow: 2px 2px 5px 1px rgba(50, 0, 100, .4);
+	margin: 0 10px;
+	height: 150px;
+	border-radius: 0 0 25px 25px;
+	background: white;
+	padding: 30px;
+	position: relative;
+	z-index: 5;
+}
+
