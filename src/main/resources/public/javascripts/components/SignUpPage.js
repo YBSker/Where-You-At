@@ -37,7 +37,6 @@ class SignUpPage extends React.Component {
                     this.setState({user_exists: false});
                     this.props.logIn(false);
                     this.props.signUp(false);
-                    alert("user successfully created");
                 }
             }.bind(this));
         }
