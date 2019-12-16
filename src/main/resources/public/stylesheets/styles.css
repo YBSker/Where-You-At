@@ -272,6 +272,9 @@ input {
 	margin-bottom: 0;
 }
 
+.event-list {
+	margin: 95px 0;
+}
 
 .event-name {
 	box-shadow: 2px 2px 5px 1px rgba(50, 0, 100, .4);
