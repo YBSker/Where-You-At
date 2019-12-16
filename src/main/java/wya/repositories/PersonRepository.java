@@ -33,7 +33,7 @@ public class PersonRepository {
     public PersonRepository(Connection connection) throws SQLException {
         this.connection = connection;
         var statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT(TRUE), status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER DEFAULT(0), privacy TEXT)");
+        statement.execute("CREATE TABLE IF NOT EXISTS person (identifier INTEGER PRIMARY KEY AUTOINCREMENT, fullName TEXT, lastSeen TEXT, live BOOLEAN DEFAULT(TRUE), status TEXT, longitude DECIMAL(9,6), latitude DECIMAL(9,6), availability INTEGER DEFAULT(0), privacy TEXT, profilePicture TEXT)");
         statement.close();
     }
 

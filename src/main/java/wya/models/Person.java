@@ -10,6 +10,7 @@ public class Person {
     private float latitude;
     private int availability;
     private String privacy;
+    private String profilePicture;
 
 
     public Person() {
@@ -44,6 +45,14 @@ public class Person {
         this.longitude = longitude;
         this.latitude = latitude;
         this.privacy = privacy;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public int getIdentifier() {

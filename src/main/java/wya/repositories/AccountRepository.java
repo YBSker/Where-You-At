@@ -119,8 +119,18 @@ public class AccountRepository {
         statement.setInt(3, account.getPerson_id());
         statement.setString(4, account.getProfilePicture());
         statement.setString(5, account.getUsername());
+
+        var statement2 = connection.prepareStatement("UPDATE person SET profilePicture =? WHERE identifier = ?");
+        statement2.setString(1, account.getProfilePicture());
+        statement2.setInt(2, account.getPerson_id());
+
         try {
             if (statement.executeUpdate() == 0) throw new AccountNotFoundException();
+            if (statement2.executeUpdate() == 0) try {
+                throw new PersonNotFoundException();
+            } catch (PersonNotFoundException e) {
+                e.printStackTrace();
+            }
         } finally {
             statement.close();
         }
