@@ -39,7 +39,7 @@ class GoogleMap extends React.Component {
 
     resolveMarkerLabels(markers) {
         for (const marker of markers) {
-            if (marker.numPeople > 1) {
+            if (marker.numPeople > 0) {
                 marker.label = marker.numPeople.toString();
             }
         }
