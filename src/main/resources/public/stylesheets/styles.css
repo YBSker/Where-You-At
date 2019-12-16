@@ -173,6 +173,7 @@ input {
 	background: rgba(255, 255, 255, 0.75);
 	height: 100vh;
 	box-shadow: -2px 2px 5px 1px rgba(0, 0, 0, .1);
+	width: 25%;
 }
 
 .side-header-text {
@@ -191,6 +192,7 @@ input {
 	background: rgba(255, 255, 255, 0.9);
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .4);
 	padding: 0 50px;
+	overflow: hidden;
 }
 
 .wyacard {
