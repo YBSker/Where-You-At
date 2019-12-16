@@ -59,7 +59,6 @@ class GoogleMap extends React.Component {
                 };
                 markers.push(marker);
             }
-            console.table(markers);
         }
         return markers;
     }
@@ -165,10 +164,10 @@ class GoogleMap extends React.Component {
                         uplift("Location");
                     }
                 } else {
-                    window.alert('reverseGeocoder: No results found');
+                    console.trace('reverseGeocoder: No results found');
                 }
             } else {
-                window.alert('reverseGeocoder failed due to: ' + status);
+                console.trace('reverseGeocoder failed due to: ' + status);
             }
         });
     }
@@ -192,10 +191,10 @@ class GoogleMap extends React.Component {
                         }
                     }
                 } else {
-                    window.alert('reverseGeocoder: No results found');
+                    console.trace('reverseGeocoder: No results found');
                 }
             } else {
-                window.alert('reverseGeocoder failed due to: ' + status);
+                console.trace('reverseGeocoder failed due to: ' + status);
             }
         });
 
@@ -230,7 +229,7 @@ class GoogleMap extends React.Component {
                 this.updateTime();
 
             } else {
-                alert('Geocode was not successful for the following reason: ' + status);
+                console.trace('Geocode was not successful for the following reason: ' + status);
             }
         });
 
