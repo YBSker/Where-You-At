@@ -108,6 +108,7 @@ class Settings extends React.Component {
             }.bind(this));
         // console.trace("Submitted updated form data.");
     }
+
     async submitUserForm() {
         const formData = new FormData();
         formData.append("email", this.state.email);
@@ -263,9 +264,11 @@ class Settings extends React.Component {
         const selectedPrivNeighborhood = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item active as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
         </DropdownButton>;
         const selectedPrivTown = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
@@ -273,20 +276,24 @@ class Settings extends React.Component {
             <Dropdown.Item active as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
         </DropdownButton>;
         const selectedPrivCity = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
             <Dropdown.Item active as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
         </DropdownButton>;
         const selectedPrivState = <DropdownButton id="privacy" title="Privacy Range">
             <Dropdown.Item as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "neighborhood")}> Neighborhood </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
+            <Dropdown.Item as="button"
+                           onClick={this.handlePrivacyUpdate.bind(this, "postal_code")}> Town </Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.handlePrivacyUpdate.bind(this, "locality")}> City </Dropdown.Item>
             <Dropdown.Item active as="button"
                            onClick={this.handlePrivacyUpdate.bind(this, "administrative_area_level_1")}> State </Dropdown.Item>
