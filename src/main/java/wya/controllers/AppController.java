@@ -330,4 +330,16 @@ public class AppController {
         personController.updateAvailability(ctx);
         ctx.status(204);
     }
+
+    /**
+     * Gets the privacy of the current user in a JSON object from the person table.
+     *
+     * @param ctx Javalin Context Object.
+     * @throws SQLException            SQL statement failed to execute successfully.
+     * @throws PersonNotFoundException Person does not exist.
+     */
+    public void getPrivacy(Context ctx) throws SQLException, PersonNotFoundException {
+        personController.getPrivacy(ctx);
+        ctx.status(200);
+    }
 }

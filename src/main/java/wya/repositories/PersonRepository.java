@@ -38,7 +38,7 @@ public class PersonRepository {
     }
 
     /**
-     * Get all entries in person and puts them into and ArrayList of Person objects.
+     * Get all entries in person and puts them into an ArrayList of Person objects.
      *
      * @return Arraylist of entries in person as Person Objects.
      * @throws SQLException Statement failed to execute.
@@ -47,6 +47,23 @@ public class PersonRepository {
         var people = new ArrayList<Person>();
         var statement = connection.createStatement();
         var result = statement.executeQuery("SELECT * FROM person");
+        while (result.next()) {
+            people.add(createPersonFromDB(result));
+        }
+        statement.close();
+        result.close();
+        return people;
+    }
+
+    /**
+     * Get all entries in person table except the current user and puts them into an ArrayList of Person Objects.
+     * @return
+     */
+    public Object getAll(int identifier) throws SQLException {
+        var people = new ArrayList<Person>();
+        var statement = connection.prepareStatement("SELECT * FROM person WHERE NOT identifier=?");
+        statement.setInt(1, identifier);
+        var result = statement.executeQuery();
         while (result.next()) {
             people.add(createPersonFromDB(result));
         }
@@ -120,12 +137,18 @@ public class PersonRepository {
      *
      * @param time       The time string to be stored in the table.
      * @param identifier The identifier of the person to be updated.
-     * @throws SQLException SQL execution problem.
+     * @throws SQLException            SQL execution problem.
+     * @throws PersonNotFoundException Person does not exist.
      */
-    public void updateTime(String time, int identifier) throws SQLException {
-        var statement = connection.prepareStatement("Update person SET lastSeen = ? WHERE identifier = ?");
+    public void updateTime(String time, int identifier) throws SQLException, PersonNotFoundException {
+        var statement = connection.prepareStatement("UPDATE person SET lastSeen = ? WHERE identifier = ?");
         statement.setString(1, time);
         statement.setInt(2, identifier);
+        try {
+            if (statement.executeUpdate() == 0) throw new PersonNotFoundException();
+        } finally {
+            statement.close();
+        }
     }
 
     /**
