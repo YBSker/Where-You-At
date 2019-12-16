@@ -56,12 +56,13 @@ public class PersonRepository {
     }
 
     /**
-     * Get all entries in person table except the current user and puts them into an ArrayList of Person Objects.
-     * @return
+     * Get all entries in person table except the user specified by the identifier, and only if they are marked as live=true.
+     * Then put them into an ArrayList of Person Objects to be returned.
+     * @return The Arraylist of all person entries in persons that are marked as live excluding the person with the identifier.
      */
     public Object getAll(int identifier) throws SQLException {
         var people = new ArrayList<Person>();
-        var statement = connection.prepareStatement("SELECT * FROM person WHERE NOT identifier=?");
+        var statement = connection.prepareStatement("SELECT * FROM person WHERE NOT identifier=? AND live=TRUE");
         statement.setInt(1, identifier);
         var result = statement.executeQuery();
         while (result.next()) {
