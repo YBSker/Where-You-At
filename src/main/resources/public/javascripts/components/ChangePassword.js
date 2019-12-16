@@ -76,7 +76,7 @@ class ChangePassword extends React.Component {
         const emptySubmitMessage = <h6>Please fill ALL fields!</h6>;
         const successfulSubmitMessage = <h6>Password Changed Successfully!</h6>;
         const dbErrMessage = <h6>Something went wrong in the backend...</h6>;
-        const noMatchMessage = <h6>Mistyped new password repeat</h6>;
+        const noMatchMessage = <h6>Passwords do not match</h6>;
         const wrongPassMessage = <h6>Wrong password!</h6>;
 
         return(
@@ -116,7 +116,7 @@ class ChangePassword extends React.Component {
                 </div>
 
                 <div className={"Input New Password Again"}>
-                    <Form.Label>Input new Password Again</Form.Label>
+                    <Form.Label>Retype your new password</Form.Label>
                     <InputGroup className="mb-3">
                         <Form.Control
                             placeholder="Please enter new password again"
