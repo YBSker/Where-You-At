@@ -17,8 +17,8 @@ class YourEvents extends React.Component {
     render() {
         return (
             <div className="side">
-                <div className="side-header" style={sideHeaderStyles}>
-                    <h1 style={h1Styles}>Your Events</h1>
+                <div className="side-header">
+                    <h1 className="side-header-text">Your Events</h1>
                 </div>
             </div>
         );

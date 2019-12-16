@@ -103,7 +103,7 @@ class EventForm extends React.Component {
 
 
         return (
-            <div style={{padding: '25px'}}>
+            <div className="side" style={{padding: '25px'}}>
                 <header>
                 <h2> Create an Event </h2>
                  </header>

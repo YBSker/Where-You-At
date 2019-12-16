@@ -81,7 +81,7 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
-                            <EventForm/>
+                            <EventForm updateSidebar = {this.updateSidebar}/>
                         </div>
                     </div>
                 );
@@ -94,7 +94,7 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
-                            <YourEvents/>
+                            <YourEvents updateSidebar = {this.updateSidebar}/>
                         </div>
                     </div>
                 );
@@ -120,7 +120,7 @@ class Application extends React.Component {
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
-                            <Settings/>
+                            <Settings updateSidebar = {this.updateSidebar}/>
                         </div>
                     </div>
                 );
@@ -129,11 +129,11 @@ class Application extends React.Component {
                 return (
                     <div>
                         <NavigationBar updateSidebar={this.updateSidebar}/>
-                        <div className="mainContainer" style={mainContainerStyle}>
+                        <div className="mainContainer">
                             <div className="mapContainer">
                                 <GoogleMap updateSidebar={this.updateSidebar}/>
                             </div>
-                            <ChangePassword/>
+                            <ChangePassword updateSidebar = {this.updateSidebar}/>
                         </div>
                     </div>
                 );

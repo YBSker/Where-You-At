@@ -88,7 +88,7 @@ class ChangePassword extends React.Component {
         const wrongPassMessage = <h6>Wrong password!</h6>;
 
         return(
-            <div>
+            <div className="side" style={{padding: '25px'}}>
                 <header>
                     <h5>Please enter BOTH your old password AND a new password!</h5>
                 </header>
