@@ -50,42 +50,35 @@ class SignUpPage extends React.Component {
                         <form className="login-form" onSubmit={this.handleSignUp}>
                             <input required type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
                             <input required type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
-                            {this.state.user_exists ? <div>This username already exists, please choose another username</div>: null}
-                            <button type="submit">Sign Up</button>
+                            <div className="login-buttons-single">
+                                <button className="wya-button" type="submit">Sign Up</button>
+                            </div>
                         </form>
-                        <div className="logo">
-                            <h1>Where<br/>You<br/>At</h1>
-                        </div>
-                        <form>
-                            <br />
-                            <p>Please choose your desired privacy range: </p>
-                            <div className="row">
-                                <div class="col-sm-3">
-                                    <label>
-                                        <input type="radio" value="neighborhood" checked={this.state.range === 'neighborhood'} onChange={this.handleChange}/>
-                                        Neighborhood
-                                    </label>
+                        {this.state.user_exists ? <div className="error-message">This username already exists, please choose another username</div>: null}
+                        <form className="privacy-form">
+                            <div className="login-message">Please choose your desired privacy range</div>
+                            <div className="privacy-radios">
+                                <div className="privacy-radio-group">
+                                    <label>Neighborhood</label>
+                                    <input className="wya-radio" type="radio" value="neighborhood" checked={this.state.range === 'neighborhood'} onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-sm-3">
-                                    <label>
-                                        <input type="radio" value="postal_code" checked={this.state.range === 'postal_code'} onChange={this.handleChange}/>
-                                        Town
-                                    </label>
+                                <div className="privacy-radio-group">
+                                    <label>Town</label>
+                                    <input className="wya-radio" type="radio" value="postal_code" checked={this.state.range === 'postal_code'} onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-sm-3">
-                                    <label>
-                                        <input type="radio" value="locality" checked={this.state.range === 'locality'} onChange={this.handleChange}/>
-                                        City
-                                    </label>
+                                <div className="privacy-radio-group">
+                                    <label>City</label>
+                                    <input className="wya-radio" type="radio" value="locality" checked={this.state.range === 'locality'} onChange={this.handleChange}/>
                                 </div>
-                                <div className="col-sm-3">
-                                    <label>
-                                        <input type="radio" value="administrative_area_level_1" checked={this.state.range === "administrative_area_level_1"} onChange={this.handleChange}/>
-                                        State
-                                    </label>
+                                <div className="privacy-radio-group">
+                                    <label>State</label>
+                                    <input className="wya-radio" type="radio" value="administrative_area_level_1" checked={this.state.range === "administrative_area_level_1"} onChange={this.handleChange}/>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div className="logo">
+                        <h1 className="logo-text">Where<br/>You<br/>At</h1>
                     </div>
                 </div>
             </div>

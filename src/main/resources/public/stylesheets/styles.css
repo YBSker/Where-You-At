@@ -27,10 +27,12 @@ input {
 }
 
 .login-wrapper {
-	text-align: center;
 	width: 100%;
 	height: 100vh;
 	padding: 25% 0;
+	display: grid;
+	justify-content: center;
+	align-content: center;
 }
 
 .login-div {
@@ -38,16 +40,53 @@ input {
 }
 
 .login-form {
-    display: inline-block;
-    padding: 5px;
-    vertical-align: top;
+	display: flex;
+	flex-flow: column;
+	padding: 5px;
+	vertical-align: top;
+}
+
+.login-buttons {
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-column-gap: 5%;
+}
+
+.login-buttons-single {
+	display: grid;
+	grid-template-columns: auto;
+}
+
+.wya-button {
+	background: none;
+	outline: none;
+	border: #989898 solid thin;
+	padding: 3px 10%;
+	float: left;
+	text-transform: lowercase;
+	font-size: 15px;
+	color: black;
+}
+
+.wya-button:hover {
+	background: rgba(187, 167, 255, 0.25);
+}
+
+.wya-button:active {
+	background: rgba(187, 167, 255, 0.5);
+}
+
+.login-form > input {
+	margin-bottom: 3px;
 }
 
 .logo {
-    display: inline-block;
-    border-left: medium solid purple;
-    padding: 0 10px ;
-    text-align: left;
+	display: flex;
+	border-left: medium solid purple;
+	padding: 0 10px;
+	text-align: left;
+	flex-flow: column;
+	justify-content: center;
 }
 
 .logo-text {
@@ -59,6 +98,13 @@ input {
 	display: inline;
 }
 
+.login-div {
+	width: 340px;
+	display: grid;
+	grid-template-columns: auto 155px;
+	align-self: flex-end;
+}
+
 .login-side {
     display: inline-block;
     vertical-align: top;
@@ -66,6 +112,43 @@ input {
 
 .login-side > img {
     display: block;
+}
+
+.login-message {
+	padding: 3px;
+	text-align: right;
+}
+
+.error-message {
+	padding: 3px;
+	text-align: right;
+	color: mediumpurple;
+}
+
+.privacy-form {
+	text-align: left;
+}
+
+.privacy-radios {
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-items: end;
+	padding: 3px;
+}
+
+.privacy-radio-group > * {
+	display: inline-block;
+}
+
+.privacy-radio-group > label {
+	padding: 3px;
+	font-weight: 500;
+	text-transform: lowercase;
+}
+
+.wya-radio {
+	margin-top: -1px;
+	vertical-align: middle;
 }
 
 .mainContainer {
