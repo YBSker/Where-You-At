@@ -70,10 +70,25 @@ class GoogleMap extends React.Component {
         return markers;
     }
 
+
+    //Rounding due to weird floating point errors from GoogleMaps
+    roundCoordinate(n) {
+        return Math.floor(n * (10 ** 5));
+    }
+
+    sameCoordinate(latA, lngA, latB, lngB) {
+        return Math.abs(latA - latB) < 5 && Math.abs(lngA - lngB) < 5;
+    }
+
     populateSidebar(lat, lng) {
+        const roundedLat = this.roundCoordinate(lat);
+        const roundedLng = this.roundCoordinate(lng);
+
         let clickedFriends = [];
         for (const friend of this.state.myFriends) {
-            if (friend.latitude === lat && friend.longitude === lng) {
+            const roundedFriendLat = this.roundCoordinate(friend.latitude);
+            const roundedFriendLng = this.roundCoordinate(friend.longitude);
+            if (this.sameCoordinate(roundedLat, roundedLng, roundedFriendLat, roundedFriendLng)) {
                 clickedFriends.push(friend);
             }
         }
