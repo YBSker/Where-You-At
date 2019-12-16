@@ -7,7 +7,9 @@ class GoogleMap extends React.Component {
                 lng: 0
             },
             myFriends: [],
+            allEvents: [],
             privacy: "neighborhood",
+            map: null
             //privacy options are "neighborhood", "postal_code", "locality" (city), "administrative_area_level_1" (state)
         };
 
@@ -96,11 +98,13 @@ class GoogleMap extends React.Component {
                 var myLocation = {lat: pos.coords.latitude, lng: pos.coords.longitude};
 
                 //create map centered at myLocation
-                this.map = new window.google.maps.Map(document.getElementById('map'), {
+                this.state.map = new window.google.maps.Map(document.getElementById('map'), {
                     center: myLocation,
                     zoom: 11,
                     disableDefaultUI: true
                 });
+
+                this.map = this.state.map;
 
                 //add user's marker to map at myLocation
                 new window.google.maps.Marker({
@@ -121,6 +125,7 @@ class GoogleMap extends React.Component {
     async componentDidMount() {
         await this.getLocation();
         console.log(this.props.range);
+        await this.getEventFromServer();
     };
 
     getNameArea(marker, popSidebar, map) {
@@ -229,6 +234,33 @@ class GoogleMap extends React.Component {
         await fetch("time", {method: "PUT", body: formData})
     }
 
+    async getEventFromServer() {
+        this.setState({ allEvents: await (await fetch("/event")).json() });
+
+        this.state.allEvents.map((event)=>{this.displayEvent(event)});
+    }
+
+    displayEvent=(event)=> {
+        let lat = event.latitude;
+        let lng = event.longitude;
+        const event_pos = {lat, lng};
+
+        let m = new window.google.maps.Marker({
+            position: event_pos,
+            map: this.state.map,
+            label: event.name,
+            customInfo: event
+        });
+
+        window.google.maps.event.addDomListener(m, 'click', () => {
+            this.populateEvent(m.customInfo);
+        });
+
+    }
+
+    populateEvent =(eventInfo)=> {
+        this.props.updateSidebar(SIDEBAR_STATE.yourEvents, null, null, eventInfo);
+    }
 
 
     render() {
