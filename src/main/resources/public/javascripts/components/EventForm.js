@@ -26,7 +26,6 @@ class EventForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         //this.handleMultiple = this.handleMultiple.bind(this);
-        this.goToAddFriendsEvent = this.goToAddFriendsEvent.bind(this);
     }
 
     // handleMultiple(event) {
@@ -45,9 +44,6 @@ class EventForm extends React.Component {
         });
     }
 
-    goToAddFriendsEvent() {
-        this.props.updateSidebar(SIDEBAR_STATE.addFriendsEvent);
-    }
 
     getLocation = async () => {
         try {
@@ -84,9 +80,6 @@ class EventForm extends React.Component {
                 fetch("event/create", {method: "POST", body: formData});
                 this.setState({created: true});
                 this.setState({formInvalid: false});
-
-                //go to add friends event page
-                //this.goToAddFriendsEvent;
             }
             else {
                 this.setState({formInvalid: true});
@@ -168,8 +161,6 @@ class EventForm extends React.Component {
                 {/*</Form.Group>*/}
 
                 {this.state.formInvalid ? invalidMessage : null}
-
-                {/*//submit form and go to AddFriendsEvent page*/}
                 {this.state.created ? eventCreated : (<Button onClick={this.handleSubmit}>Submit</Button>) }
                 
             </Form>
