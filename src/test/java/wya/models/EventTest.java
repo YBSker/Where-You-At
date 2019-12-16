@@ -18,7 +18,7 @@ class EventTest {
     String startTime = "startTime";
     String endTime = "endTime";
 
-    Person friend = new Person(0, "name", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code");
+    Person friend = new Person(0, "name", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code", "pfp");
     Person[] people = {friend};
 
     @BeforeEach
@@ -141,7 +141,7 @@ class EventTest {
 
     @Test
     void setPeopleAvailable() {
-        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code");
+        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code","pfp");
         Person[] friends = new Person[]{friend, friend2};
         event.setPeopleAvailable(friends);
         assertEquals(friends, event.getPeopleAvailable());
@@ -154,7 +154,7 @@ class EventTest {
 
     @Test
     void setPeopleInvited() {
-        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code");
+        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code","pfp");
         Person[] friends = new Person[]{friend, friend2};
         event.setPeopleInvited(friends);
         assertArrayEquals(friends, event.getPeopleInvited());
@@ -167,7 +167,7 @@ class EventTest {
 
     @Test
     void setPeopleAccepted() {
-        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code");
+        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code","pfp");
         Person[] friends = new Person[]{friend, friend2};
         event.setPeopleAccepted(friends);
         assertArrayEquals(friends, event.getPeopleAccepted());
@@ -180,7 +180,7 @@ class EventTest {
 
     @Test
     void setPeopleSeen() {
-        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code");
+        Person friend2 = new Person(2, "John Smith", "lastSeen", true, "studying", 12.1235f, 1234123f, 1, "postal code","pfp");
         Person[] friends = new Person[]{friend, friend2};
         event.setPeopleSeen(friends);
         assertArrayEquals(friends, event.getPeopleSeen());
