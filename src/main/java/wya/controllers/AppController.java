@@ -191,9 +191,9 @@ public class AppController {
      * @param ctx The Javalin Context Object.
      * @throws SQLException Failed to execute the SQL Statement successfully.
      */
-    public void viewFriends(Context ctx) throws SQLException {
+    public void viewFriends(Context ctx) throws SQLException, PersonNotFoundException {
 //        personController.getAllFriends(ctx);  // If we ever implement adding and removing friends
-        personController.getAll(ctx);           // For now everyone is your friend
+        personController.getOthers(ctx);           // For now everyone is your friend
         ctx.status(200);
     }
 
