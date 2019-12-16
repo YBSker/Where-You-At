@@ -21,7 +21,7 @@ class SignUpPage extends React.Component {
         const formData = new FormData();
         formData.append("username", this.state.username);
         formData.append("password", this.state.password);
-        formData.append("fullName", this.state.name);
+        formData.append("fullName", this.state.display_name);
         formData.append("live","True");
         formData.append("availability", "1");
         formData.append("privacy", this.convertToEnglish(this.state.range));
@@ -34,8 +34,9 @@ class SignUpPage extends React.Component {
                 } else {
                     console.log("user successfully created");
                     this.setState({user_exists: false});
-                    this.props.logIn(true);
+                    this.props.logIn(false);
                     this.props.signUp(false);
+                    alert("user successfully created");
                 }
             }.bind(this));
         }
