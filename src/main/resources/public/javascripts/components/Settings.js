@@ -6,11 +6,11 @@ var Dropdown = ReactBootstrap.Dropdown;
 var Form = ReactBootstrap.Form;
 var Button = ReactBootstrap.Button;
 var InputGroup = ReactBootstrap.InputGroup;
-var FormControl = ReactBootstrap.FormControl;
 
 class Settings extends React.Component {
     constructor(props) {
         super(props);
+        this.goToChangePass = this.goToChangePass.bind(this);
         this.state = {
             /** Person props. */
             identifier: 0,
@@ -22,7 +22,6 @@ class Settings extends React.Component {
             latitude: 0,
             availability: 0,
             privacy: "",
-            // //TODO: hold up is this safe....
             email: "",
             profilePicture: "",
 
@@ -62,11 +61,6 @@ class Settings extends React.Component {
      * */
     async getDBPersonState() {
         await this.resetSuccessHandlers();
-        /** This block fixes the "Unexpected token I in JSON... error". */
-        // fetch('/profile')
-        //     .then(res => res.text);
-        // .then(text => console.log(text));
-
         let profile = await (await fetch("/profile")).json();
 
         /** Set state based on information from "profile". */
@@ -118,7 +112,7 @@ class Settings extends React.Component {
         const formData = new FormData();
         formData.append("email", this.state.email);
         formData.append("profilePicture", this.state.profilePicture);
-         await fetch("updateAccount", {method: "PUT", body: formData})
+        await fetch("updateAccount", {method: "PUT", body: formData})
             .then(function (response) {
                 if (response.status !== 204) {
                     this.setState({failedSubmit: true})
@@ -228,6 +222,10 @@ class Settings extends React.Component {
     //TODO: DELETE THIS
     test() {
         console.log(this.state.privacy);
+    }
+
+    goToChangePass() {
+        this.props.updateSidebar(SIDEBAR_STATE.changePass);
     }
 
     render() {
@@ -407,6 +405,8 @@ class Settings extends React.Component {
                     {this.state.picSuccess === 2 ? failedSubmitMessage : null}
                     {this.state.picSuccess === 3 ? emptySubmitMessage : null}
                 </div>
+
+                <Button onClick={this.goToChangePass}>Change Password</Button>
 
             </div>
 
