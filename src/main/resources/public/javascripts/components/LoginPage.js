@@ -47,19 +47,16 @@ class LoginPage extends React.Component {
                         <form className="login-form" onSubmit={this.handleLogin}>
                             <input required type="text" placeholder="username" onChange={(event)=>this.setState({username: event.target.value})}/>
                             <input required type="password" placeholder="password" onChange={(event)=>this.setState({password: event.target.value})}/>
-                            {this.state.failed_login ? <div>Wrong username or password, please try again</div>  : null}
-                            <button type="submit">Log in</button>
+                            <div className="login-buttons">
+                                <button className="wya-button" type="submit">Log In</button>
+                                <button className="wya-button" onClick={this.handleClick}>Sign Up</button>
+                            </div>
                         </form>
+                        {this.state.failed_login ? <div className="error-message">Wrong username or password, please try again</div>  : null}
                     </div>
-
                     <div className="logo">
-                        <h1>Where<br/>You<br/>At</h1>
+                        <h1 className="logo-text">Where<br/>You<br/>At</h1>
                     </div>
-
-                    <br />
-                    <br />
-                    <p>If you have not created an account, please do so here!</p>
-                    <button onClick={this.handleClick}>Sign Up</button>
                 </div>
             </div>
         );
