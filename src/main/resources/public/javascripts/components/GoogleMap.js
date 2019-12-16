@@ -101,6 +101,7 @@ class GoogleMap extends React.Component {
                     label: "Me"
                 });
 
+
                 this.getFriendsFromServer();
                 this.reverseGeocode(myLocation);
             })
@@ -109,7 +110,6 @@ class GoogleMap extends React.Component {
 
     async componentDidMount() {
         await this.getLocation();
-        this.updateTime();
         console.log(this.props.range);
     };
 
@@ -125,7 +125,7 @@ class GoogleMap extends React.Component {
                             var address = (results[0].address_components[i].long_name).toString();
 
                             //get lat and lng from place
-                            console.log("reverseGeocode: " + address);
+                            //console.log("reverseGeocode: " + address);
                             this.geocode(address)
                         }
                     }
@@ -146,15 +146,26 @@ class GoogleMap extends React.Component {
         //console.log("Geocode: " + address);
         geocoder.geocode( { 'address': address}, (results, status) => {
             if (status == 'OK') {
-                var marker = new window.google.maps.Marker({
-                    map: this.map,
-                    position: results[0].geometry.location,
-                    label: "approx"
-                });
-                console.log("geocode: " +  results[0].geometry.location);
 
-                //TODO: send approx latlng to database
-                //TODO:
+                // //puts marker at approx location (for debugging)
+                // var marker = new window.google.maps.Marker({
+                //                     map: this.map,
+                //                     position: results[0].geometry.location,
+                //                     label: "approx"
+                //                 });
+
+                const location = results[0].geometry.location;
+                // console.log("geocode: " +  location.lat());
+                // console.log("geocode: " +  location.lng());
+
+                //send approx latlng to database
+                const formData = new FormData();
+                formData.append("latitude", location.lat());
+                formData.append("longitude", location.lng());
+                fetch("location", {method: "PUT", body: formData})
+
+                //send time to database
+                this.updateTime();
 
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
@@ -168,8 +179,8 @@ class GoogleMap extends React.Component {
         var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds();
         console.log(date);
         const formData = new FormData();
-        // formData.append("time", date);
-        // fetch("/time", {method: "PUT", body: formData})
+        formData.append("time", date);
+        fetch("time", {method: "PUT", body: formData})
     }
 
 

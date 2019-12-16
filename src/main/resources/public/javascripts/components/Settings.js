@@ -63,8 +63,8 @@ class Settings extends React.Component {
     async getDBPersonState() {
         await this.resetSuccessHandlers();
         /** This block fixes the "Unexpected token I in JSON... error". */
-        fetch('/profile')
-            .then(res => res.text);
+        // fetch('/profile')
+        //     .then(res => res.text);
         // .then(text => console.log(text));
 
         let profile = await (await fetch("/profile")).json();
