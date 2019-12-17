@@ -14,6 +14,15 @@ What changed in your project since you wrote the initial version of those docume
 
 # Challenges & Victories
 
+The main problem with our group on this project was inertia. We had a relatively strong start, and we were able to get the map up and running quickly, and started interacting with it shortly after.
+
+However, after constant problems with the server and the database and problems with the API, it seemed like nothing was working. Progress and motivation for the project just came to a crawl 
+while we tried to get the bare minimum over the line for every iteration. This caused us all to start working on our own branches and own ideas in the repository, and by the time we all started to get
+a hang of things, we had an entangled mess of confused branches each with half-baked codebases that was a mess to merge together. It wasn't until the very end that we really started to gel as a team 
+and get into a clean ryhthm/workflow, but at that point there was only so much time to get features and fixes in.
+
+Despite this, we did a lot of great work and had a lot of really tough problems that we solved in this project together.
+
 <!--
 In software engineering things rarely go as planned: tools don’t work as we expect, deadlines aren’t met, debugging sessions run longer than we hoped for, and so forth.
 
